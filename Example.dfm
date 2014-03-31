@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 1099
-  Top = 346
+  Left = 566
+  Top = 189
   Width = 770
   Height = 672
   Caption = '팝빌 메시징 SDK Examples'
@@ -51,6 +51,15 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnJoinClick
       end
+      object btnGetBalance: TButton
+        Left = 8
+        Top = 56
+        Width = 121
+        Height = 25
+        Caption = '잔여포인트 확인'
+        TabOrder = 1
+        OnClick = btnGetBalanceClick
+      end
     end
     object GroupBox11: TGroupBox
       Left = 152
@@ -59,31 +68,22 @@ object frmExample: TfrmExample
       Height = 89
       Caption = '포인트 관련'
       TabOrder = 1
-      object btnGetBalance: TButton
+      object btnGetUnitCost_SMS: TButton
         Left = 8
         Top = 24
         Width = 129
         Height = 25
-        Caption = '잔여포인트 확인'
-        TabOrder = 0
-        OnClick = btnGetBalanceClick
-      end
-      object btnGetUnitCost_SMS: TButton
-        Left = 8
-        Top = 56
-        Width = 129
-        Height = 25
         Caption = 'SMS 단가 확인'
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnGetUnitCost_SMSClick
       end
       object btnGetUnitCost_LMS: TButton
         Left = 144
-        Top = 56
+        Top = 24
         Width = 129
         Height = 25
         Caption = 'LMS 단가 확인'
-        TabOrder = 2
+        TabOrder = 1
         OnClick = btnGetUnitCost_LMSClick
       end
     end
@@ -156,6 +156,23 @@ object frmExample: TfrmExample
     Height = 21
     ImeName = 'Microsoft IME 2010'
     TabOrder = 2
+  end
+  object GroupBox1: TGroupBox
+    Left = 8
+    Top = 168
+    Width = 313
+    Height = 401
+    Caption = 'SMS 관련기능'
+    TabOrder = 3
+    object btnSendSMS_Single: TButton
+      Left = 16
+      Top = 24
+      Width = 121
+      Height = 65
+      Caption = '단문 1건 전송'
+      TabOrder = 0
+      OnClick = btnSendSMS_SingleClick
+    end
   end
   object OpenDialog1: TOpenDialog
     Left = 728

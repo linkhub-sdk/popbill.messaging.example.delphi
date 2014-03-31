@@ -19,7 +19,6 @@ type
     GroupBox9: TGroupBox;
     btnJoin: TButton;
     GroupBox11: TGroupBox;
-    btnGetBalance: TButton;
     btnGetUnitCost_SMS: TButton;
     GroupBox12: TGroupBox;
     btnGetPopBillURL: TButton;
@@ -32,6 +31,9 @@ type
     txtUserID: TEdit;
     OpenDialog1: TOpenDialog;
     btnGetUnitCost_LMS: TButton;
+    btnGetBalance: TButton;
+    GroupBox1: TGroupBox;
+    btnSendSMS_Single: TButton;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -39,6 +41,7 @@ type
     procedure btnGetPartnerBalanceClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnGetUnitCost_LMSClick(Sender: TObject);
+    procedure btnSendSMS_SingleClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -189,6 +192,23 @@ begin
         end;
 
         ShowMessage('SMS 전송단가 : '+ FloatToStr(unitcost));
+
+end;
+
+procedure TfrmExample.btnSendSMS_SingleClick(Sender: TObject);
+var
+        receiptNum : String;
+begin
+        try
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','문자메시지 내용입니다.',txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('접수번호: '+ receiptNum);
 
 end;
 

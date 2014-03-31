@@ -32,6 +32,17 @@ uses
         Popbill,
         Linkhub;
 type
+        TMessage = class
+        public
+                sender          : string;
+                receiver        : string;
+                receiverName    : string;
+                content         : string;                      
+                subject         : string;
+        end;
+
+        TMessageList = Array Of TMessage;
+
         EnumMessageType = (SMS,LMS,MMS);
         TMessagingService = class(TPopbillBaseService)
         private
@@ -41,6 +52,9 @@ type
 
                 //회원별 전송 단가 확인.
                 function GetUnitCost(CorpNum : String; MsgType:EnumMessageType) : Single;
+
+                function SendSMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; content : String; UserID : String) : String; overload;
+                function SendSMS(CorpNum : String; Messages : TMessageList; UserID : String) : String; overload;
         end;
 implementation
 constructor TMessagingService.Create(PartnerID : String; SecretKey : String);
@@ -60,4 +74,23 @@ begin
         result := strToFloat(getJSonString( responseJson,'unitCost'));
 
 end;
+
+function TMessagingService.SendSMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; content : String; UserID : String) : String;
+begin
+
+end;
+
+function TMessagingService.SendSMS(CorpNum : String; Messages : TMessageList; UserID : String) : String;
+var
+        requestJson, responseJson : string;
+begin
+
+        requestJson := '[]';
+
+        responseJson := httppost('/SMS',CorpNum,UserID,requestJson);
+
+        result := getJsonString(responseJson,'receiptNum');
+
+end;
+
 end.
