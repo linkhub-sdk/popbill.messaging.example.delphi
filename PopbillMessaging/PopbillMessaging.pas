@@ -1,8 +1,7 @@
 (*
 *=================================================================================
-* Unit for base module for Popbill API SDK. It include base functionality for
-* RESTful web service request and parse json result. It uses Linkhub module
-* to accomplish authentication APIs.
+* Unit for base module for Popbill Messaging API SDK. Main functionality is to
+* send Short Messaging To Cell phones. Also LMS and MMS.
 *
 * This module uses synapse library.( http://www.ararat.cz/synapse/doku.php/ )
 * It's full open source library, free to use include commercial application.
@@ -19,7 +18,7 @@
 *
 * http://www.popbill.com
 * Author : Kim Seongjun (pallet027@gmail.com)
-* Written : 2014-03-22
+* Written : 2014-04-01
 
 * Thanks for your interest. 
 *=================================================================================
@@ -32,29 +31,60 @@ uses
         Popbill,
         Linkhub;
 type
+        EnumMessageType = (SMS,LMS,XMS,MMS);
+
         TMessage = class
         public
                 sender          : string;
                 receiver        : string;
                 receiverName    : string;
-                content         : string;                      
+                content         : string;
                 subject         : string;
         end;
 
         TMessageList = Array Of TMessage;
 
-        EnumMessageType = (SMS,LMS,MMS);
+        TSentMessage = class
+        public
+                state           : Integer;
+                subject         : string;
+                messageType     : EnumMessageType;
+                content         : string;
+                sendNum         : string;
+                receiveNum      : string;
+                receiveName     : string;
+                sendDT          : string;
+                resultDT        : string;
+                sendResult      : string;
+        end;
+
+        TSentMessageList = Array of TSentMessage;
+
         TMessagingService = class(TPopbillBaseService)
         private
-
+                function SendMessage(MessageType : EnumMessageType; CorpNum : String; sender : string; content : string; subject : string; Messages: TMessageList; reserveDT : String; UserID : String) : String;
         public
                 constructor Create(PartnerID : String; SecretKey : String);
 
                 //회원별 전송 단가 확인.
                 function GetUnitCost(CorpNum : String; MsgType:EnumMessageType) : Single;
 
-                function SendSMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; content : String; UserID : String) : String; overload;
-                function SendSMS(CorpNum : String; Messages : TMessageList; UserID : String) : String; overload;
+                //SMS 관련함수.
+                function SendSMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; content : String; reserveDT : String; UserID : String) : String; overload;
+                function SendSMS(CorpNum : String; Messages : TMessageList; reserveDT : String; UserID : String) : String; overload;
+                function SendSMS(CorpNum : String; sender : string; content : string; Messages: TMessageList; reserveDT : String; UserID : String) : String; overload;
+
+                //LMS 관련함수.
+                function SendLMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; subject : String; content : String; reserveDT : String; UserID : String) : String; overload;
+                function SendLMS(CorpNum : String; Messages : TMessageList; reserveDT : String; UserID : String) : String; overload;
+                function SendLMS(CorpNum : String; sender : String; subject : String; content : string; Messages: TMessageList; reserveDT : String; UserID : String) : String; overload;
+
+                //XMS 관련함수.
+                function SendXMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; subject : String; content : String; reserveDT : String; UserID : String) : String; overload;
+                function SendXMS(CorpNum : String; Messages : TMessageList; reserveDT : String; UserID : String) : String; overload;
+                function SendXMS(CorpNum : String; sender : String; subject : String; content : string; Messages: TMessageList; reserveDT : String; UserID : String) : String; overload;
+
+                function GetMessages(CorpNum : String; receiptNum : string; UserID : String) :TSentMessageList;
         end;
 implementation
 constructor TMessagingService.Create(PartnerID : String; SecretKey : String);
@@ -75,22 +105,165 @@ begin
 
 end;
 
-function TMessagingService.SendSMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; content : String; UserID : String) : String;
-begin
-
-end;
-
-function TMessagingService.SendSMS(CorpNum : String; Messages : TMessageList; UserID : String) : String;
+function TMessagingService.SendMessage(MessageType : EnumMessageType; CorpNum : String; sender : string; content : string; subject : string; Messages: TMessageList; reserveDT : String; UserID : String) : String;
 var
         requestJson, responseJson : string;
+        i : Integer;
 begin
 
-        requestJson := '[]';
+        if Length(Messages) = 0 then raise EPopbillException.Create(-99999999,'전송할 메시지가 입력되지 않았습니다.');
 
-        responseJson := httppost('/SMS',CorpNum,UserID,requestJson);
+        requestJson := '{';
+
+        if sender <> ''          then requestJson := requestJson + '"snd":"' + sender + '",';
+        if content <> ''         then requestJson := requestJson + '"content":"' + content + '",';
+        if subject <> ''         then requestJson := requestJson + '"subject":"' + subject + '",';
+        if reserveDT <> ''       then requestJson := requestJson + '"sndDT":"' + reserveDT + '",';
+
+        requestJson := requestJson + '"msgs":[';
+        for i := 0 to Length(Messages) - 1 do begin
+                requestJson := requestJson +
+                        '{"snd":"'+Messages[i].sender+'","rcv":"'+Messages[i].receiver+'","rcvnm":"'+Messages[i].receiverName+'","msg":"'+Messages[i].content+'","sjt":"'+Messages[i].subject+'"}';
+
+                if i < Length(Messages) - 1 then requestJson := requestJson + ',';
+        end;
+        requestJson := requestJson + ']';
+
+        requestJson := requestJson + '}';
+
+        responseJson := httppost('/' + GetEnumName(TypeInfo(EnumMessageType),integer(MessageType)) ,CorpNum,UserID,requestJson);
 
         result := getJsonString(responseJson,'receiptNum');
 
 end;
 
+function TMessagingService.SendSMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; content : String; reserveDT : String; UserID : String) : String;
+var
+        Messages : TMessageList;
+begin
+
+        SetLength(Messages,1);
+
+        Messages[0] := TMessage.Create;
+
+        Messages[0].sender := sender;
+        Messages[0].receiver := receiver;
+        Messages[0].receiverName := receiverName;
+        Messages[0].content := content;
+
+        result := SendSMS(CorpNum,Messages,reserveDT,UserID);
+
+end;
+
+function TMessagingService.SendSMS(CorpNum : String; Messages : TMessageList; reserveDT : String; UserID : String) : String;
+begin
+        result:= SendSMS(CorpNum,'','',Messages,reserveDT,UserID);
+
+end;
+
+function TMessagingService.SendSMS(CorpNum : String; sender : string; content : string; Messages: TMessageList; reserveDT : String; UserID : String) : String;
+begin
+        result := SendMessage(SMS,CorpNum,sender,content,'',Messages,reserveDT,UserID);
+end;
+
+function TMessagingService.SendLMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; subject : String; content : String; reserveDT : String; UserID : String) : String;
+var
+        Messages : TMessageList;
+begin
+
+        SetLength(Messages,1);
+
+        Messages[0] := TMessage.Create;
+
+        Messages[0].sender := sender;
+        Messages[0].receiver := receiver;
+        Messages[0].receiverName := receiverName;
+        Messages[0].content := content;
+        Messages[0].subject := subject;
+
+        result := SendLMS(CorpNum,Messages,reserveDT,UserID);
+
+end;
+
+function TMessagingService.SendLMS(CorpNum : String; Messages : TMessageList; reserveDT : String; UserID : String) : String;
+begin
+        result:= SendLMS(CorpNum,'','','',Messages,reserveDT,UserID);
+
+end;
+
+function TMessagingService.SendLMS(CorpNum : String; sender : string; subject : String; content : string; Messages: TMessageList; reserveDT : String; UserID : String) : String;
+begin
+        result := SendMessage(LMS,CorpNum,sender,content,subject,Messages,reserveDT,UserID);
+end;
+
+function TMessagingService.SendXMS(CorpNum : String; sender : string ; receiver : string; receiverName : String; subject : String; content : String; reserveDT : String; UserID : String) : String;
+var
+        Messages : TMessageList;
+begin
+
+        SetLength(Messages,1);
+
+        Messages[0] := TMessage.Create;
+
+        Messages[0].sender := sender;
+        Messages[0].receiver := receiver;
+        Messages[0].receiverName := receiverName;
+        Messages[0].content := content;
+        Messages[0].subject := subject;
+
+        result := SendLMS(CorpNum,Messages,reserveDT,UserID);
+
+end;
+
+function TMessagingService.SendXMS(CorpNum : String; Messages : TMessageList; reserveDT : String; UserID : String) : String;
+begin
+        result:= SendXMS(CorpNum,'','','',Messages,reserveDT,UserID);
+
+end;
+
+function TMessagingService.SendXMS(CorpNum : String; sender : string; subject : String; content : string; Messages: TMessageList; reserveDT : String; UserID : String) : String;
+begin
+        result := SendMessage(XMS,CorpNum,sender,content,subject,Messages,reserveDT,UserID);
+end;
+
+
+function TMessagingService.GetMessages(CorpNum : String; receiptNum : string; UserID : String) :TSentMessageList;
+var
+        responseJson : String;
+        jSons : ArrayOfString;
+        i : Integer;
+begin
+        if receiptNum = '' then raise EPopbillException.Create(-99999999,'No ReceiptNum');
+
+        responseJson := httpget('/Message/' + receiptNum,CorpNum,UserID);
+
+        try
+                jSons := ParseJsonList(responseJson);
+                SetLength(result,Length(jSons));
+
+                for i := 0 to Length(jSons)-1 do
+                begin
+                        result[i] := TSentMessage.Create;
+
+                        result[i].state := getJSonInteger(jsons[i],'state');
+                        result[i].subject := getJSonString(jsons[i],'subject');
+                        result[i].messageType := EnumMessageTYpe(GetEnumValue(TypeInfo(EnumMessageTYpe),getJSonString(jsons[i],'type')));
+                        result[i].content := getJSonString(jsons[i],'content');
+                        result[i].sendNum := getJSonString(jsons[i],'sendNum');
+                        result[i].receiveNum := getJSonString(jsons[i],'receiveNum');
+                        result[i].receiveName := getJSonString(jsons[i],'receiveName');
+                        result[i].sendDT := getJSonString(jsons[i],'sendDT');
+                        result[i].resultDT := getJSonString(jsons[i],'resultDT');
+                        result[i].sendResult := getJSonString(jsons[i],'sendResult');
+
+
+
+                end;
+
+        except on E:Exception do
+                raise EPopbillException.Create(-99999999,'결과처리 실패.[Malformed Json]');
+        end;
+
+end;
+//End of Unit;
 end.

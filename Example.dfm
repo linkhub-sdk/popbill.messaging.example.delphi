@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 566
-  Top = 189
-  Width = 770
-  Height = 672
+  Left = 669
+  Top = 136
+  Width = 768
+  Height = 609
   Caption = '팝빌 메시징 SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -157,25 +157,148 @@ object frmExample: TfrmExample
     ImeName = 'Microsoft IME 2010'
     TabOrder = 2
   end
-  object GroupBox1: TGroupBox
+  object GroupBox5: TGroupBox
     Left = 8
     Top = 168
-    Width = 313
+    Width = 745
     Height = 401
-    Caption = 'SMS 관련기능'
+    Caption = '팝빌 메시징 관련 기능'
     TabOrder = 3
-    object btnSendSMS_Single: TButton
-      Left = 16
-      Top = 24
-      Width = 121
-      Height = 65
-      Caption = '단문 1건 전송'
-      TabOrder = 0
-      OnClick = btnSendSMS_SingleClick
+    object Label1: TLabel
+      Left = 392
+      Top = 100
+      Width = 60
+      Height = 13
+      Caption = '접수 번호 : '
     end
-  end
-  object OpenDialog1: TOpenDialog
-    Left = 728
-    Top = 8
+    object GroupBox1: TGroupBox
+      Left = 8
+      Top = 24
+      Width = 361
+      Height = 65
+      Caption = 'SMS 관련기능'
+      TabOrder = 0
+      object btnSendSMS_Single: TButton
+        Left = 8
+        Top = 24
+        Width = 81
+        Height = 33
+        Caption = '1건 전송'
+        TabOrder = 0
+        OnClick = btnSendSMS_SingleClick
+      end
+      object btnSendThousand: TButton
+        Left = 224
+        Top = 24
+        Width = 129
+        Height = 33
+        Caption = '개별 1000건 전송'
+        TabOrder = 1
+        OnClick = btnSendThousandClick
+      end
+      object btnSendThousandSame: TButton
+        Left = 96
+        Top = 24
+        Width = 121
+        Height = 33
+        Caption = '동보 1000건 전송'
+        TabOrder = 2
+        OnClick = btnSendThousandSameClick
+      end
+    end
+    object GroupBox2: TGroupBox
+      Left = 376
+      Top = 24
+      Width = 361
+      Height = 65
+      Caption = 'LMS 관련기능'
+      TabOrder = 1
+      object btnSendLMS: TButton
+        Left = 8
+        Top = 24
+        Width = 81
+        Height = 33
+        Caption = '1건 전송'
+        TabOrder = 0
+        OnClick = btnSendLMSClick
+      end
+      object btnSendLMSThousand: TButton
+        Left = 224
+        Top = 24
+        Width = 129
+        Height = 33
+        Caption = '개별 1000건 전송'
+        TabOrder = 1
+      end
+      object btnSendLMSThousand_Same: TButton
+        Left = 96
+        Top = 24
+        Width = 121
+        Height = 33
+        Caption = '동보 1000건 전송'
+        TabOrder = 2
+      end
+    end
+    object GroupBox3: TGroupBox
+      Left = 8
+      Top = 96
+      Width = 361
+      Height = 65
+      Caption = 'XMS 관련기능'
+      TabOrder = 2
+      object Button1: TButton
+        Left = 8
+        Top = 24
+        Width = 81
+        Height = 33
+        Caption = '1건 전송'
+        TabOrder = 0
+      end
+      object Button2: TButton
+        Left = 224
+        Top = 24
+        Width = 129
+        Height = 33
+        Caption = '개별 1000건 전송'
+        TabOrder = 1
+      end
+      object Button3: TButton
+        Left = 96
+        Top = 24
+        Width = 121
+        Height = 33
+        Caption = '동보 1000건 전송'
+        TabOrder = 2
+      end
+    end
+    object txtReceiptNum: TEdit
+      Left = 392
+      Top = 120
+      Width = 233
+      Height = 21
+      ImeName = 'Microsoft IME 2010'
+      TabOrder = 3
+    end
+    object btnGetMessage: TButton
+      Left = 640
+      Top = 118
+      Width = 97
+      Height = 25
+      Caption = '전송상태확인'
+      TabOrder = 4
+      OnClick = btnGetMessageClick
+    end
+    object StringGrid1: TStringGrid
+      Left = 8
+      Top = 168
+      Width = 729
+      Height = 225
+      ColCount = 10
+      DefaultRowHeight = 18
+      FixedCols = 0
+      RowCount = 2
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect]
+      TabOrder = 5
+    end
   end
 end

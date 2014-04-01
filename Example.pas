@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, TypInfo,
-  Popbill, PopbillMessaging, ExtCtrls;
+  Popbill, PopbillMessaging, ExtCtrls, Grids;
 
 const
         //파트너 ID.
@@ -29,11 +29,25 @@ type
     btnGetPartnerBalance: TButton;
     Label4: TLabel;
     txtUserID: TEdit;
-    OpenDialog1: TOpenDialog;
     btnGetUnitCost_LMS: TButton;
     btnGetBalance: TButton;
+    GroupBox5: TGroupBox;
     GroupBox1: TGroupBox;
     btnSendSMS_Single: TButton;
+    btnSendThousand: TButton;
+    btnSendThousandSame: TButton;
+    GroupBox2: TGroupBox;
+    btnSendLMS: TButton;
+    btnSendLMSThousand: TButton;
+    btnSendLMSThousand_Same: TButton;
+    GroupBox3: TGroupBox;
+    Button1: TButton;
+    Button2: TButton;
+    Label1: TLabel;
+    txtReceiptNum: TEdit;
+    btnGetMessage: TButton;
+    StringGrid1: TStringGrid;
+    Button3: TButton;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -42,6 +56,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btnGetUnitCost_LMSClick(Sender: TObject);
     procedure btnSendSMS_SingleClick(Sender: TObject);
+    procedure btnSendThousandClick(Sender: TObject);
+    procedure btnSendThousandSameClick(Sender: TObject);
+    procedure btnSendLMSClick(Sender: TObject);
+    procedure btnGetMessageClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -59,6 +77,21 @@ begin
         //세금계산서 모듈 초기화.
         messagingService := TMessagingService.Create(PartnerID,SecretKey);
         messagingService.IsTest := true;
+
+        //그리드 초기화
+
+
+        stringgrid1.Cells[0,0] := 'state';
+        stringgrid1.Cells[1,0] := 'type';
+        stringgrid1.Cells[2,0] := 'subject';
+        stringgrid1.Cells[3,0] := 'content';
+        stringgrid1.ColWidths[3] := 100;
+        stringgrid1.Cells[4,0] := 'sendnum';
+        stringgrid1.Cells[5,0] := 'receiveNum';
+        stringgrid1.Cells[6,0] := 'receiveName';
+        stringgrid1.Cells[7,0] := 'sendDT';
+        stringgrid1.Cells[8,0] := 'resultDT';
+        stringgrid1.Cells[9,0] := 'sendResult';
 end;
 
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;
@@ -200,7 +233,7 @@ var
         receiptNum : String;
 begin
         try
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','문자메시지 내용입니다.',txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','문자메시지 내용입니다.','',txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -208,8 +241,127 @@ begin
                 end;
         end;
 
+        txtReceiptNum.Text := receiptNum;
+
         ShowMessage('접수번호: '+ receiptNum);
 
+end;
+
+procedure TfrmExample.btnSendThousandClick(Sender: TObject);
+var
+        Messages : TMessageList;
+        receiptNum : String;
+        i : Integer;
+        Tinit,Tpost,Ttotal :TDateTime;
+
+begin
+        SetLength(Messages,1000);
+
+        for i := 0 to 1000 -1 do begin
+            Messages[i] := TMessage.create;
+            Messages[i].sender := '123123123';
+            Messages[i].receiver := '12313433563';
+            Messages[i].content := '내용내용' + IntToStr(i);
+
+        end;
+
+        try
+                Tinit := NOW;
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,Messages,'',txtUserID.Text);
+                Tpost := NOW;
+                TTotal := TPost - Tinit;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
+end;
+
+procedure TfrmExample.btnSendThousandSameClick(Sender: TObject);
+var
+        Messages : TMessageList;
+        receiptNum : String;
+        i : Integer;
+        Tinit,Tpost :TDateTime;
+
+begin
+        SetLength(Messages,1000);
+
+        for i := 0 to 1000 -1 do begin
+            Messages[i] := TMessage.create;
+            Messages[i].receiver := '12313433563';
+        end;
+
+        try
+                Tinit := NOW;
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1234-1234','동보전송내용', Messages,'',txtUserID.Text);
+                Tpost := NOW;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message );
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
+end;
+
+procedure TfrmExample.btnSendLMSClick(Sender: TObject);
+var
+        receiptNum : String;
+begin
+        try
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','제목입니다.','장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.' +
+                '장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.','',txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum);
+
+end;
+
+procedure TfrmExample.btnGetMessageClick(Sender: TObject);
+var
+        Messages : TSentMessageList;
+        i :integer;
+begin
+        try
+                Messages := messagingService.GetMessages(txtCorpNum.Text,txtReceiptNum.Text,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+        
+        stringgrid1.RowCount := Length(Messages) + 1;
+
+        for i:= 0 to Length(Messages) -1 do begin
+               stringgrid1.Cells[0,i+1] := IntToStr(Messages[i].state);
+               stringgrid1.Cells[1,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
+               stringgrid1.Cells[2,i+1] := Messages[i].subject;
+               stringgrid1.Cells[3,i+1] := Messages[i].content;
+               stringgrid1.Cells[4,i+1] := Messages[i].sendNum;
+               stringgrid1.Cells[5,i+1] := Messages[i].receiveNum;
+               stringgrid1.Cells[6,i+1] := Messages[i].receiveName;
+               stringgrid1.Cells[7,i+1] := Messages[i].sendDT;
+               stringgrid1.Cells[8,i+1] := Messages[i].resultDT;
+               stringgrid1.Cells[9,i+1] := Messages[i].sendResult;
+
+        end;
 end;
 
 end.
