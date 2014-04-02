@@ -166,14 +166,21 @@ object frmExample: TfrmExample
     TabOrder = 3
     object Label1: TLabel
       Left = 376
-      Top = 100
+      Top = 124
       Width = 60
       Height = 13
       Caption = '접수 번호 : '
     end
+    object Label2: TLabel
+      Left = 24
+      Top = 24
+      Width = 155
+      Height = 13
+      Caption = '예약시간(yyyyMMddHHmmss) : '
+    end
     object GroupBox1: TGroupBox
       Left = 8
-      Top = 24
+      Top = 48
       Width = 361
       Height = 65
       Caption = 'SMS 관련기능'
@@ -208,7 +215,7 @@ object frmExample: TfrmExample
     end
     object GroupBox2: TGroupBox
       Left = 376
-      Top = 24
+      Top = 48
       Width = 361
       Height = 65
       Caption = 'LMS 관련기능'
@@ -243,7 +250,7 @@ object frmExample: TfrmExample
     end
     object GroupBox3: TGroupBox
       Left = 8
-      Top = 96
+      Top = 120
       Width = 361
       Height = 65
       Caption = 'XMS 관련기능'
@@ -278,7 +285,7 @@ object frmExample: TfrmExample
     end
     object txtReceiptNum: TEdit
       Left = 440
-      Top = 96
+      Top = 120
       Width = 233
       Height = 21
       ImeName = 'Microsoft IME 2010'
@@ -286,7 +293,7 @@ object frmExample: TfrmExample
     end
     object btnGetMessage: TButton
       Left = 448
-      Top = 126
+      Top = 150
       Width = 97
       Height = 25
       Caption = '전송상태확인'
@@ -295,9 +302,9 @@ object frmExample: TfrmExample
     end
     object StringGrid1: TStringGrid
       Left = 8
-      Top = 168
+      Top = 192
       Width = 729
-      Height = 225
+      Height = 201
       ColCount = 11
       DefaultRowHeight = 18
       FixedCols = 0
@@ -307,12 +314,20 @@ object frmExample: TfrmExample
     end
     object btnCancelReserve: TButton
       Left = 560
-      Top = 126
+      Top = 150
       Width = 97
       Height = 25
       Caption = '예약전송취소'
       TabOrder = 6
       OnClick = btnCancelReserveClick
+    end
+    object txtReserveDT: TEdit
+      Left = 184
+      Top = 22
+      Width = 233
+      Height = 21
+      ImeName = 'Microsoft IME 2010'
+      TabOrder = 7
     end
   end
 end

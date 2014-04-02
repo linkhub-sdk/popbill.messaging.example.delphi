@@ -49,6 +49,8 @@ type
     StringGrid1: TStringGrid;
     btnSendXMSThousand_Same: TButton;
     btnCancelReserve: TButton;
+    Label2: TLabel;
+    txtReserveDT: TEdit;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -241,7 +243,7 @@ var
         receiptNum : String;
 begin
         try
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','단문 메시지 내용입니다.','20140402163000',txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','단문 메시지 내용입니다.',txtReserveDT.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -275,7 +277,7 @@ begin
 
         try
                 Tinit := NOW;
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,Messages,'',txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,Messages,txtReserveDT.Text,txtUserID.Text);
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
         except
@@ -307,7 +309,7 @@ begin
 
         try
                 Tinit := NOW;
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1234-1234','동보전송내용', Messages,'',txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1234-1234','동보전송내용', Messages,txtReserveDT.Text,txtUserID.Text);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
@@ -327,7 +329,7 @@ var
 begin
         try
                 receiptNum := messagingService.SendLMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','제목입니다.','장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.' +
-                '장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.','',txtUserID.Text);
+                '장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.장문 문자 문자메시지 내용입니다.',txtReserveDT.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -390,7 +392,7 @@ begin
 
         try
                 Tinit := NOW;
-                receiptNum := messagingService.SendLMS(txtCorpNum.Text,'010-1234-1234','동보전송 제목','동보전송내용', Messages,'',txtUserID.Text);
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text,'010-1234-1234','동보전송 제목','동보전송내용', Messages,txtReserveDT.Text,txtUserID.Text);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
@@ -424,7 +426,7 @@ begin
 
         try
                 Tinit := NOW;
-                receiptNum := messagingService.SendLMS(txtCorpNum.Text,Messages,'',txtUserID.Text);
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text,Messages,txtReserveDT.Text,txtUserID.Text);
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
         except
@@ -444,7 +446,7 @@ var
         receiptNum : String;
 begin
         try
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','메시지 제목','XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로잘립니다.','',txtUserID.Text);
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','메시지 제목','XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로잘립니다.',txtReserveDT.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -476,7 +478,7 @@ begin
 
         try
                 Tinit := NOW;
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text,'010-1234-1234','동보전송제목','동보전송내용', Messages,'',txtUserID.Text);
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text,'010-1234-1234','동보전송제목','동보전송내용', Messages,txtReserveDT.Text,txtUserID.Text);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
@@ -517,7 +519,7 @@ begin
 
         try
                 Tinit := NOW;
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text,Messages,'',txtUserID.Text);
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text,Messages,txtReserveDT.Text,txtUserID.Text);
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
         except
