@@ -41,13 +41,13 @@ type
     btnSendLMSThousand: TButton;
     btnSendLMSThousand_Same: TButton;
     GroupBox3: TGroupBox;
-    Button1: TButton;
-    Button2: TButton;
+    btnSendXMS: TButton;
+    btnSendXMSThousand: TButton;
     Label1: TLabel;
     txtReceiptNum: TEdit;
     btnGetMessage: TButton;
     StringGrid1: TStringGrid;
-    Button3: TButton;
+    btnSendXMSThousand_Same: TButton;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -60,6 +60,11 @@ type
     procedure btnSendThousandSameClick(Sender: TObject);
     procedure btnSendLMSClick(Sender: TObject);
     procedure btnGetMessageClick(Sender: TObject);
+    procedure btnSendLMSThousand_SameClick(Sender: TObject);
+    procedure btnSendLMSThousandClick(Sender: TObject);
+    procedure btnSendXMSClick(Sender: TObject);
+    procedure btnSendXMSThousand_SameClick(Sender: TObject);
+    procedure btnSendXMSThousandClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -233,7 +238,7 @@ var
         receiptNum : String;
 begin
         try
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','문자메시지 내용입니다.','',txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','탭'+#9+'탭문자'+#10+'"메시지, 내용입니다.','',txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -362,6 +367,165 @@ begin
                stringgrid1.Cells[9,i+1] := Messages[i].sendResult;
 
         end;
+end;
+
+procedure TfrmExample.btnSendLMSThousand_SameClick(Sender: TObject);
+var
+        Messages : TMessageList;
+        receiptNum : String;
+        i : Integer;
+        Tinit,Tpost :TDateTime;
+
+begin
+        SetLength(Messages,1000);
+
+        for i := 0 to 1000 -1 do begin
+            Messages[i] := TMessage.create;
+            Messages[i].receiver := '12313433563';
+        end;
+
+        try
+                Tinit := NOW;
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text,'010-1234-1234','동보전송 제목','동보전송내용', Messages,'',txtUserID.Text);
+                Tpost := NOW;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message );
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
+end;
+
+procedure TfrmExample.btnSendLMSThousandClick(Sender: TObject);
+var
+        Messages : TMessageList;
+        receiptNum : String;
+        i : Integer;
+        Tinit,Tpost,Ttotal :TDateTime;
+
+begin
+        SetLength(Messages,1000);
+
+        for i := 0 to 1000 -1 do begin
+            Messages[i] := TMessage.create;
+            Messages[i].sender := '123123123';
+            Messages[i].receiver := '12313433563';
+            Messages[i].content := '장문내용장문내용장문내용. - ' + IntToStr(i);
+            Messages[i].subject := '장문제목';
+        end;
+
+        try
+                Tinit := NOW;
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text,Messages,'',txtUserID.Text);
+                Tpost := NOW;
+                TTotal := TPost - Tinit;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
+end;
+
+procedure TfrmExample.btnSendXMSClick(Sender: TObject);
+var
+        receiptNum : String;
+begin
+        try
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','메시지 제목','XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로잘립니다.','',txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum);
+
+end;
+
+
+procedure TfrmExample.btnSendXMSThousand_SameClick(Sender: TObject);
+var
+        Messages : TMessageList;
+        receiptNum : String;
+        i : Integer;
+        Tinit,Tpost :TDateTime;
+
+begin
+        SetLength(Messages,1000);
+
+        for i := 0 to 1000 -1 do begin
+            Messages[i] := TMessage.create;
+            Messages[i].receiver := '12313433563';
+        end;
+
+        try
+                Tinit := NOW;
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text,'010-1234-1234','동보전송제목','동보전송내용', Messages,'',txtUserID.Text);
+                Tpost := NOW;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message );
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
+end;
+
+procedure TfrmExample.btnSendXMSThousandClick(Sender: TObject);
+var
+        Messages : TMessageList;
+        receiptNum : String;
+        i : Integer;
+        Tinit,Tpost,Ttotal :TDateTime;
+
+begin
+        SetLength(Messages,1000);
+
+        for i := 0 to 500 -1 do begin
+            Messages[i] := TMessage.create;
+            Messages[i].sender := '123123123';
+            Messages[i].receiver := '12313433563';
+            Messages[i].content := '내용내용내용내용내용내용' + IntToStr(i);
+        end;
+
+        for i := 500 to 1000 -1 do begin
+            Messages[i] := TMessage.create;
+            Messages[i].sender := '123123123';
+            Messages[i].receiver := '12313433563';
+            Messages[i].content := 'XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로 잘립니다.' + IntToStr(i);
+            Messages[i].subject := '제목제목';
+        end;
+
+        try
+                Tinit := NOW;
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text,Messages,'',txtUserID.Text);
+                Tpost := NOW;
+                TTotal := TPost - Tinit;
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
 end;
 
 end.

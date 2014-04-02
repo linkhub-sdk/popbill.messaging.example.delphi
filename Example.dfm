@@ -229,6 +229,7 @@ object frmExample: TfrmExample
         Height = 33
         Caption = '개별 1000건 전송'
         TabOrder = 1
+        OnClick = btnSendLMSThousandClick
       end
       object btnSendLMSThousand_Same: TButton
         Left = 96
@@ -237,6 +238,7 @@ object frmExample: TfrmExample
         Height = 33
         Caption = '동보 1000건 전송'
         TabOrder = 2
+        OnClick = btnSendLMSThousand_SameClick
       end
     end
     object GroupBox3: TGroupBox
@@ -246,29 +248,32 @@ object frmExample: TfrmExample
       Height = 65
       Caption = 'XMS 관련기능'
       TabOrder = 2
-      object Button1: TButton
+      object btnSendXMS: TButton
         Left = 8
         Top = 24
         Width = 81
         Height = 33
         Caption = '1건 전송'
         TabOrder = 0
+        OnClick = btnSendXMSClick
       end
-      object Button2: TButton
+      object btnSendXMSThousand: TButton
         Left = 224
         Top = 24
         Width = 129
         Height = 33
         Caption = '개별 1000건 전송'
         TabOrder = 1
+        OnClick = btnSendXMSThousandClick
       end
-      object Button3: TButton
+      object btnSendXMSThousand_Same: TButton
         Left = 96
         Top = 24
         Width = 121
         Height = 33
         Caption = '동보 1000건 전송'
         TabOrder = 2
+        OnClick = btnSendXMSThousand_SameClick
       end
     end
     object txtReceiptNum: TEdit

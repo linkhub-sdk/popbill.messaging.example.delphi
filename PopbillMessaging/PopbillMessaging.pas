@@ -84,6 +84,7 @@ type
                 function SendXMS(CorpNum : String; Messages : TMessageList; reserveDT : String; UserID : String) : String; overload;
                 function SendXMS(CorpNum : String; sender : String; subject : String; content : string; Messages: TMessageList; reserveDT : String; UserID : String) : String; overload;
 
+                //메시지 상세내역 및 전송상태 확인.
                 function GetMessages(CorpNum : String; receiptNum : string; UserID : String) :TSentMessageList;
         end;
 implementation
@@ -115,15 +116,19 @@ begin
 
         requestJson := '{';
 
-        if sender <> ''          then requestJson := requestJson + '"snd":"' + sender + '",';
-        if content <> ''         then requestJson := requestJson + '"content":"' + content + '",';
-        if subject <> ''         then requestJson := requestJson + '"subject":"' + subject + '",';
-        if reserveDT <> ''       then requestJson := requestJson + '"sndDT":"' + reserveDT + '",';
+        if sender <> ''          then requestJson := requestJson + '"snd":"' + EscapeString(sender) + '",';
+        if content <> ''         then requestJson := requestJson + '"content":"' + EscapeString(content) + '",';
+        if subject <> ''         then requestJson := requestJson + '"subject":"' + EscapeString(subject) + '",';
+        if reserveDT <> ''       then requestJson := requestJson + '"sndDT":"' + EscapeString(reserveDT) + '",';
 
         requestJson := requestJson + '"msgs":[';
         for i := 0 to Length(Messages) - 1 do begin
                 requestJson := requestJson +
-                        '{"snd":"'+Messages[i].sender+'","rcv":"'+Messages[i].receiver+'","rcvnm":"'+Messages[i].receiverName+'","msg":"'+Messages[i].content+'","sjt":"'+Messages[i].subject+'"}';
+                        '{"snd":"'+EscapeString(Messages[i].sender)+'",'+
+                        '"rcv":"'+EscapeString(Messages[i].receiver)+'",'+
+                        '"rcvnm":"'+EscapeString(Messages[i].receiverName)+'",'+
+                        '"msg":"'+EscapeString(Messages[i].content)+'",'+
+                        '"sjt":"'+EscapeString(Messages[i].subject)+'"}';
 
                 if i < Length(Messages) - 1 then requestJson := requestJson + ',';
         end;
@@ -211,7 +216,7 @@ begin
         Messages[0].content := content;
         Messages[0].subject := subject;
 
-        result := SendLMS(CorpNum,Messages,reserveDT,UserID);
+        result := SendXMS(CorpNum,Messages,reserveDT,UserID);
 
 end;
 
