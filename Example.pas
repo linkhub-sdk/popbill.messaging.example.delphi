@@ -48,6 +48,7 @@ type
     btnGetMessage: TButton;
     StringGrid1: TStringGrid;
     btnSendXMSThousand_Same: TButton;
+    btnCancelReserve: TButton;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -65,6 +66,7 @@ type
     procedure btnSendXMSClick(Sender: TObject);
     procedure btnSendXMSThousand_SameClick(Sender: TObject);
     procedure btnSendXMSThousandClick(Sender: TObject);
+    procedure btnCancelReserveClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -94,9 +96,10 @@ begin
         stringgrid1.Cells[4,0] := 'sendnum';
         stringgrid1.Cells[5,0] := 'receiveNum';
         stringgrid1.Cells[6,0] := 'receiveName';
-        stringgrid1.Cells[7,0] := 'sendDT';
-        stringgrid1.Cells[8,0] := 'resultDT';
-        stringgrid1.Cells[9,0] := 'sendResult';
+        stringgrid1.Cells[7,0] := 'reserveDT';
+        stringgrid1.Cells[8,0] := 'sendDT';
+        stringgrid1.Cells[9,0] := 'resultDT';
+        stringgrid1.Cells[10,0] := 'sendResult';
 end;
 
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;
@@ -238,7 +241,7 @@ var
         receiptNum : String;
 begin
         try
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','단문 메시지 내용입니다.','',txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','단문 메시지 내용입니다.','20140402163000',txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -362,9 +365,10 @@ begin
                stringgrid1.Cells[4,i+1] := Messages[i].sendNum;
                stringgrid1.Cells[5,i+1] := Messages[i].receiveNum;
                stringgrid1.Cells[6,i+1] := Messages[i].receiveName;
-               stringgrid1.Cells[7,i+1] := Messages[i].sendDT;
-               stringgrid1.Cells[8,i+1] := Messages[i].resultDT;
-               stringgrid1.Cells[9,i+1] := Messages[i].sendResult;
+               stringgrid1.Cells[7,i+1] := Messages[i].reserveDT;
+               stringgrid1.Cells[8,i+1] := Messages[i].sendDT;
+               stringgrid1.Cells[9,i+1] := Messages[i].resultDT;
+               stringgrid1.Cells[10,i+1] := Messages[i].sendResult;
 
         end;
 end;
@@ -526,6 +530,23 @@ begin
         txtReceiptNum.Text := receiptNum;
 
         ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
+end;
+
+procedure TfrmExample.btnCancelReserveClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+
+        try
+                response := messagingService.CancelReserve(txtCorpNum.Text,txtReceiptNum.Text,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+        ShowMessage('처리결과 : ' + IntToStr(response.code) + ' | ' +  response.Message);
+
 end;
 
 end.

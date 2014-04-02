@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 669
-  Top = 136
+  Left = 578
+  Top = 179
   Width = 768
   Height = 609
   Caption = 'ÆËºô ¸Þ½ÃÂ¡ SDK Examples'
@@ -165,7 +165,7 @@ object frmExample: TfrmExample
     Caption = 'ÆËºô ¸Þ½ÃÂ¡ °ü·Ã ±â´É'
     TabOrder = 3
     object Label1: TLabel
-      Left = 392
+      Left = 376
       Top = 100
       Width = 60
       Height = 13
@@ -277,16 +277,16 @@ object frmExample: TfrmExample
       end
     end
     object txtReceiptNum: TEdit
-      Left = 392
-      Top = 120
+      Left = 440
+      Top = 96
       Width = 233
       Height = 21
       ImeName = 'Microsoft IME 2010'
       TabOrder = 3
     end
     object btnGetMessage: TButton
-      Left = 640
-      Top = 118
+      Left = 448
+      Top = 126
       Width = 97
       Height = 25
       Caption = 'Àü¼Û»óÅÂÈ®ÀÎ'
@@ -298,12 +298,21 @@ object frmExample: TfrmExample
       Top = 168
       Width = 729
       Height = 225
-      ColCount = 10
+      ColCount = 11
       DefaultRowHeight = 18
       FixedCols = 0
       RowCount = 2
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect]
       TabOrder = 5
+    end
+    object btnCancelReserve: TButton
+      Left = 560
+      Top = 126
+      Width = 97
+      Height = 25
+      Caption = '¿¹¾àÀü¼ÛÃë¼Ò'
+      TabOrder = 6
+      OnClick = btnCancelReserveClick
     end
   end
 end
