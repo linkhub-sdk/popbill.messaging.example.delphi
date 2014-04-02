@@ -238,7 +238,7 @@ var
         receiptNum : String;
 begin
         try
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','탭'+#9+'탭문자'+#10+'"메시지, 내용입니다.','',txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','단문 메시지 내용입니다.','',txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
