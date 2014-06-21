@@ -51,6 +51,7 @@ type
     btnCancelReserve: TButton;
     Label2: TLabel;
     txtReserveDT: TEdit;
+    btnSMSPopUp: TButton;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -69,6 +70,7 @@ type
     procedure btnSendXMSThousand_SameClick(Sender: TObject);
     procedure btnSendXMSThousandClick(Sender: TObject);
     procedure btnCancelReserveClick(Sender: TObject);
+    procedure btnSMSPopUpClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -120,7 +122,7 @@ begin
                 ShowMessage('URL 코드를 선택하세요.');
                 Exit;
         end;
-        
+
         Delete(TOGO, Pos(' : ',TOGO), Length(TOGO) - Pos(' : ',TOGO) + 1);
 
         try
@@ -551,4 +553,27 @@ begin
 
 end;
 
+procedure TfrmExample.btnSMSPopUpClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+
+        try
+                resultURL := messagingService.getURL(txtCorpNum.Text,txtUserID.Text,'BOX');
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
+
 end.
+procedure TfrmExample.btnPopUpClick(Sender: TObject);
+begin
+
+end;
+
+

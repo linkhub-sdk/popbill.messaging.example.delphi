@@ -329,5 +329,14 @@ object frmExample: TfrmExample
       ImeName = 'Microsoft IME 2010'
       TabOrder = 7
     end
+    object btnSMSPopUp: TButton
+      Left = 600
+      Top = 16
+      Width = 137
+      Height = 33
+      Caption = '전송내역조회 팝업'
+      TabOrder = 8
+      OnClick = btnSMSPopUpClick
+    end
   end
 end
