@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
   Left = 578
   Top = 179
-  Width = 768
-  Height = 609
+  Width = 770
+  Height = 783
   Caption = '팝빌 메시징 SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -86,6 +86,15 @@ object frmExample: TfrmExample
         TabOrder = 1
         OnClick = btnGetUnitCost_LMSClick
       end
+      object btnGetUnitCost_MMS: TButton
+        Left = 8
+        Top = 56
+        Width = 129
+        Height = 25
+        Caption = 'MMS 단가 확인'
+        TabOrder = 2
+        OnClick = btnGetUnitCost_MMSClick
+      end
     end
     object GroupBox12: TGroupBox
       Left = 448
@@ -147,7 +156,7 @@ object frmExample: TfrmExample
     Height = 21
     ImeName = 'Microsoft IME 2010'
     TabOrder = 1
-    Text = '4108600477'
+    Text = '1234567890'
   end
   object txtUserID: TEdit
     Left = 304
@@ -156,17 +165,18 @@ object frmExample: TfrmExample
     Height = 21
     ImeName = 'Microsoft IME 2010'
     TabOrder = 2
+    Text = 'testkorea'
   end
   object GroupBox5: TGroupBox
     Left = 8
     Top = 168
     Width = 745
-    Height = 401
+    Height = 497
     Caption = '팝빌 메시징 관련 기능'
     TabOrder = 3
     object Label1: TLabel
-      Left = 376
-      Top = 124
+      Left = 32
+      Top = 260
       Width = 60
       Height = 13
       Caption = '접수 번호 : '
@@ -284,16 +294,16 @@ object frmExample: TfrmExample
       end
     end
     object txtReceiptNum: TEdit
-      Left = 440
-      Top = 120
+      Left = 96
+      Top = 256
       Width = 233
       Height = 21
       ImeName = 'Microsoft IME 2010'
       TabOrder = 3
     end
     object btnGetMessage: TButton
-      Left = 448
-      Top = 150
+      Left = 344
+      Top = 254
       Width = 97
       Height = 25
       Caption = '전송상태확인'
@@ -302,7 +312,7 @@ object frmExample: TfrmExample
     end
     object StringGrid1: TStringGrid
       Left = 8
-      Top = 192
+      Top = 288
       Width = 729
       Height = 201
       ColCount = 11
@@ -313,8 +323,8 @@ object frmExample: TfrmExample
       TabOrder = 5
     end
     object btnCancelReserve: TButton
-      Left = 560
-      Top = 150
+      Left = 456
+      Top = 254
       Width = 97
       Height = 25
       Caption = '예약전송취소'
@@ -338,5 +348,35 @@ object frmExample: TfrmExample
       TabOrder = 8
       OnClick = btnSMSPopUpClick
     end
+    object GroupBox6: TGroupBox
+      Left = 376
+      Top = 120
+      Width = 361
+      Height = 65
+      Caption = 'MMS 관련기능'
+      TabOrder = 9
+      object btnSendMMS: TButton
+        Left = 8
+        Top = 21
+        Width = 82
+        Height = 34
+        Caption = '1건 전송'
+        TabOrder = 0
+        OnClick = btnSendMMSClick
+      end
+      object btnSendMMSThousand_Same: TButton
+        Left = 97
+        Top = 19
+        Width = 121
+        Height = 35
+        Caption = '동보 1000건 전송'
+        TabOrder = 1
+        OnClick = btnSendMMSThousand_SameClick
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 664
+    Top = 8
   end
 end

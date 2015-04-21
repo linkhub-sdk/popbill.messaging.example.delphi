@@ -9,9 +9,9 @@ uses
 
 const
         //연동아이디.
-        LinkID = 'LINKID';
+        LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = 'VGBaxxHL7T4o4LrwDRcALHo0j8LgAxsLGhKqjuCwlX8=';
+        SecretKey = 'GomsPq7Nlg7PiJvftTEEdXFUxJ0qoou4PLOXaASGW4s=';
 
 type
   TfrmExample = class(TForm)
@@ -52,6 +52,11 @@ type
     Label2: TLabel;
     txtReserveDT: TEdit;
     btnSMSPopUp: TButton;
+    btnGetUnitCost_MMS: TButton;
+    GroupBox6: TGroupBox;
+    btnSendMMS: TButton;
+    OpenDialog1: TOpenDialog;
+    btnSendMMSThousand_Same: TButton;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -71,6 +76,9 @@ type
     procedure btnSendXMSThousandClick(Sender: TObject);
     procedure btnCancelReserveClick(Sender: TObject);
     procedure btnSMSPopUpClick(Sender: TObject);
+    procedure btnGetUnitCost_MMSClick(Sender: TObject);
+    procedure btnSendMMSClick(Sender: TObject);
+    procedure btnSendMMSThousand_SameClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -236,7 +244,7 @@ begin
                 end;
         end;
 
-        ShowMessage('SMS 전송단가 : '+ FloatToStr(unitcost));
+        ShowMessage('LMS 전송단가 : '+ FloatToStr(unitcost));
 
 end;
 
@@ -568,6 +576,83 @@ begin
         end;
 
         ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
+
+procedure TfrmExample.btnGetUnitCost_MMSClick(Sender: TObject);
+var
+        unitcost : Single;
+begin
+        try
+                unitcost := messagingService.GetUnitCost(txtCorpNum.text,MMS);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('MMS 전송단가 : '+ FloatToStr(unitcost));
+end;
+
+procedure TfrmExample.btnSendMMSClick(Sender: TObject);
+var
+        filePath : string;
+        receiptNum : String;
+begin
+        if OpenDialog1.Execute then begin
+              filePath := OpenDialog1.FileName;
+        end else begin
+                Exit;
+        end;
+
+        try
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'070-7510-3710','010-4324-5117','수신자명','메시지 제목', '장문 메시지 내용.',filePath, txtReserveDT.Text,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum);
+end;
+
+procedure TfrmExample.btnSendMMSThousand_SameClick(Sender: TObject);
+var
+        Messages : TMessageList;
+        filePath : string;
+        receiptNum : String;
+        i : Integer;
+begin
+        if OpenDialog1.Execute then begin
+              filePath := OpenDialog1.FileName;
+        end else begin
+                Exit;
+        end;
+
+        SetLength(Messages,1000);
+
+        for i := 0 to 999 do begin
+                Messages[i] := TMessage.create;
+                Messages[i].sender := '07075103710';
+                Messages[i].receiver := '010111222';
+                Messages[i].content :='MMS 전송 메시지 내용' +IntToStr(i)
+        end;
+
+        try
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'010-1234-1234','메시지 제목', '장문 메시지 내용.',Messages, filePath, txtReserveDT.Text,txtUserID.Text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호: '+ receiptNum);
 end;
 
 end.
