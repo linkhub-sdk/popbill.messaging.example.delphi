@@ -2,7 +2,7 @@ object frmExample: TfrmExample
   Left = 578
   Top = 179
   Width = 770
-  Height = 783
+  Height = 689
   Caption = '팝빌 메시징 SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -171,12 +171,12 @@ object frmExample: TfrmExample
     Left = 8
     Top = 168
     Width = 745
-    Height = 497
+    Height = 473
     Caption = '팝빌 메시징 관련 기능'
     TabOrder = 3
     object Label1: TLabel
-      Left = 32
-      Top = 260
+      Left = 29
+      Top = 198
       Width = 60
       Height = 13
       Caption = '접수 번호 : '
@@ -294,16 +294,16 @@ object frmExample: TfrmExample
       end
     end
     object txtReceiptNum: TEdit
-      Left = 96
-      Top = 256
+      Left = 93
+      Top = 194
       Width = 233
       Height = 21
       ImeName = 'Microsoft IME 2010'
       TabOrder = 3
     end
     object btnGetMessage: TButton
-      Left = 344
-      Top = 254
+      Left = 341
+      Top = 192
       Width = 97
       Height = 25
       Caption = '전송상태확인'
@@ -312,9 +312,9 @@ object frmExample: TfrmExample
     end
     object StringGrid1: TStringGrid
       Left = 8
-      Top = 288
+      Top = 224
       Width = 729
-      Height = 201
+      Height = 241
       ColCount = 11
       DefaultRowHeight = 18
       FixedCols = 0
@@ -323,8 +323,8 @@ object frmExample: TfrmExample
       TabOrder = 5
     end
     object btnCancelReserve: TButton
-      Left = 456
-      Top = 254
+      Left = 453
+      Top = 192
       Width = 97
       Height = 25
       Caption = '예약전송취소'
@@ -371,6 +371,15 @@ object frmExample: TfrmExample
         Height = 35
         Caption = '동보 1000건 전송'
         TabOrder = 1
+        OnClick = btnSendMMSThousand_SameClick
+      end
+      object btnSendMMS_Thousand: TButton
+        Left = 225
+        Top = 19
+        Width = 121
+        Height = 35
+        Caption = '개별 1000건 전송'
+        TabOrder = 2
         OnClick = btnSendMMSThousand_SameClick
       end
     end

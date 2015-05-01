@@ -11,7 +11,7 @@ const
         //연동아이디.
         LinkID = 'TESTER';
         // 파트너 통신용 비밀키. 유출 주의.
-        SecretKey = 'GomsPq7Nlg7PiJvftTEEdXFUxJ0qoou4PLOXaASGW4s=';
+        SecretKey = 'SwWxqU+0TErBXy/9TVjIPEnI0VTUMMSQZtJf3Ed8q3I=';
 
 type
   TfrmExample = class(TForm)
@@ -57,6 +57,7 @@ type
     btnSendMMS: TButton;
     OpenDialog1: TOpenDialog;
     btnSendMMSThousand_Same: TButton;
+    btnSendMMS_Thousand: TButton;
     procedure btnGetPopBillURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -636,13 +637,12 @@ begin
 
         for i := 0 to 999 do begin
                 Messages[i] := TMessage.create;
-                Messages[i].sender := '07075103710';
                 Messages[i].receiver := '010111222';
-                Messages[i].content :='MMS 전송 메시지 내용' +IntToStr(i)
+                Messages[i].receiverName :='수신자명';
         end;
 
         try
-                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'010-1234-1234','메시지 제목', '장문 메시지 내용.',Messages, filePath, txtReserveDT.Text,txtUserID.Text);
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'010-1234-1234','포토 메시지 제목', '포토 메시지 내용.',Messages, filePath, txtReserveDT.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
