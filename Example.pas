@@ -254,7 +254,7 @@ var
         receiptNum : String;
 begin
         try
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-1111-2222','수신자','단문 메시지 내용입니다.',txtReserveDT.Text,txtUserID.Text);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text,'010-1111-2222','010-111-222','수신자','단문 메시지 내용입니다.',txtReserveDT.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -270,7 +270,7 @@ end;
 
 procedure TfrmExample.btnSendThousandClick(Sender: TObject);
 var
-        Messages : TMessageList;
+        Messages : TSendMessageList;
         receiptNum : String;
         i : Integer;
         Tinit,Tpost,Ttotal :TDateTime;
@@ -279,7 +279,7 @@ begin
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
-            Messages[i] := TMessage.create;
+            Messages[i] := TSendMessage.create;
             Messages[i].sender := '123123123';
             Messages[i].receiver := '12313433563';
             Messages[i].content := '내용내용' + IntToStr(i);
@@ -305,7 +305,7 @@ end;
 
 procedure TfrmExample.btnSendThousandSameClick(Sender: TObject);
 var
-        Messages : TMessageList;
+        Messages : TSendMessageList;
         receiptNum : String;
         i : Integer;
         Tinit,Tpost :TDateTime;
@@ -314,7 +314,7 @@ begin
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
-            Messages[i] := TMessage.create;
+            Messages[i] := TSendMessage.create;
             Messages[i].receiver := '12313433563';
         end;
 
@@ -388,7 +388,7 @@ end;
 
 procedure TfrmExample.btnSendLMSThousand_SameClick(Sender: TObject);
 var
-        Messages : TMessageList;
+        Messages : TSendMessageList;
         receiptNum : String;
         i : Integer;
         Tinit,Tpost :TDateTime;
@@ -397,7 +397,7 @@ begin
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
-            Messages[i] := TMessage.create;
+            Messages[i] := TSendMessage.create;
             Messages[i].receiver := '12313433563';
         end;
 
@@ -419,7 +419,7 @@ end;
 
 procedure TfrmExample.btnSendLMSThousandClick(Sender: TObject);
 var
-        Messages : TMessageList;
+        Messages : TSendMessageList;
         receiptNum : String;
         i : Integer;
         Tinit,Tpost,Ttotal :TDateTime;
@@ -428,7 +428,7 @@ begin
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
-            Messages[i] := TMessage.create;
+            Messages[i] := TSendMessage.create;
             Messages[i].sender := '123123123';
             Messages[i].receiver := '12313433563';
             Messages[i].content := '장문내용장문내용장문내용. - ' + IntToStr(i);
@@ -474,7 +474,7 @@ end;
 
 procedure TfrmExample.btnSendXMSThousand_SameClick(Sender: TObject);
 var
-        Messages : TMessageList;
+        Messages : TSendMessageList;
         receiptNum : String;
         i : Integer;
         Tinit,Tpost :TDateTime;
@@ -483,7 +483,7 @@ begin
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
-            Messages[i] := TMessage.create;
+            Messages[i] := TSendMessage.create;
             Messages[i].receiver := '12313433563';
         end;
 
@@ -505,7 +505,7 @@ end;
 
 procedure TfrmExample.btnSendXMSThousandClick(Sender: TObject);
 var
-        Messages : TMessageList;
+        Messages : TSendMessageList;
         receiptNum : String;
         i : Integer;
         Tinit,Tpost,Ttotal :TDateTime;
@@ -514,14 +514,14 @@ begin
         SetLength(Messages,1000);
 
         for i := 0 to 500 -1 do begin
-            Messages[i] := TMessage.create;
+            Messages[i] := TSendMessage.create;
             Messages[i].sender := '123123123';
             Messages[i].receiver := '12313433563';
             Messages[i].content := '내용내용내용내용내용내용' + IntToStr(i);
         end;
 
         for i := 500 to 1000 -1 do begin
-            Messages[i] := TMessage.create;
+            Messages[i] := TSendMessage.create;
             Messages[i].sender := '123123123';
             Messages[i].receiver := '12313433563';
             Messages[i].content := 'XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로 잘립니다.' + IntToStr(i);
@@ -607,7 +607,7 @@ begin
         end;
 
         try
-                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'070-7510-3710','010-4324-5117','수신자명','메시지 제목', '장문 메시지 내용.',filePath, txtReserveDT.Text,txtUserID.Text);
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'070-7510-3710','010111222','수신자명','메시지 제목', '장문 메시지 내용.',filePath, txtReserveDT.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -622,7 +622,7 @@ end;
 
 procedure TfrmExample.btnSendMMSThousand_SameClick(Sender: TObject);
 var
-        Messages : TMessageList;
+        Messages : TSendMessageList;
         filePath : string;
         receiptNum : String;
         i : Integer;
@@ -636,13 +636,13 @@ begin
         SetLength(Messages,1000);
 
         for i := 0 to 999 do begin
-                Messages[i] := TMessage.create;
+                Messages[i] := TSendMessage.create;
                 Messages[i].receiver := '010111222';
                 Messages[i].receiverName :='수신자명';
         end;
 
         try
-                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'010-1234-1234','포토 메시지 제목', '포토 메시지 내용.',Messages, filePath, txtReserveDT.Text,txtUserID.Text);
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text,'010-111-222','포토 메시지 제목', '포토 메시지 내용.',Messages, filePath, txtReserveDT.Text,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
