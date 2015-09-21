@@ -66,6 +66,7 @@ type
     btnGetCorpInfo: TButton;
     btnUpdateCorpInfo: TButton;
     btnSearchMessages: TButton;
+    Button1: TButton;
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -146,7 +147,7 @@ var
         resultURL : String;
 begin
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'LOGIN');
+                resultURL := messagingService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CERT');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -897,25 +898,25 @@ var
         i : integer;
 begin
 
-        SDate := '20150917';    // 시작일자
-        EDate := '20150918';    // 종료일자
+        SDate := '20150120';    // 검색기간 시작일자
+        EDate := '20150521';    // 검색기간 종료일자
 
-        // 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소 ex) State=1,2,4
+        //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소 ex) State=1,2,4
         SetLength(State, 4);
         State[0] := '1';
-        State[1] := '4';
+        State[1] := '2';
         State[2] := '3';
 
         // 검색대상 배열, SMS, LMS, MMS ex) Item=SMS,MMS
         SetLength(Item, 3);
-        Item[0] := 'SMS';
-        Item[1] := 'LMS';
+        Item[0] := 'LMS';
+        Item[1] := 'SMS';
         Item[2] := 'MMS';
 
-        ReserveYN := false;   // 예약여부, true면 예약전송만 검색.
-        SenderYN := false;    // 개인조회여부 true면 개인조회, false면 회사조회.
+        ReserveYN := false;   // 예약전송 검색여부, true(예약전송건만 검색), false(전체검색)
+        SenderYN := false;    // 개인조회여부, true(개인조회), false(회사조회).
         Page := 1;            // 페이지 번호, 기본값 1
-        PerPage := 30;        // 페이지당 검색갯수, 기본값 500
+        PerPage := 500;       // 페이지당 검색갯수, 기본값 500
 
         try
                 Messages := messagingService.searchMessages(txtCorpNum.text,SDate,EDate,State,Item,ReserveYN,SenderYN,Page,PerPage,txtUserID.text);
@@ -934,14 +935,16 @@ begin
         tmp := tmp + 'message : '+ Messages.message + #13;
 
         stringgrid1.RowCount := Length(Messages.list) + 1;
-
         for i:= 0 to Length(Messages.list) -1 do begin
                stringgrid1.Cells[0,i+1] := IntToStr(Messages.list[i].state);
                stringgrid1.Cells[1,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages.list[i].messageType));
+               stringgrid1.Cells[2,i+1] := Messages.list[i].subject;
                stringgrid1.Cells[3,i+1] := Messages.list[i].content;
                stringgrid1.Cells[4,i+1] := Messages.list[i].sendNum;
                stringgrid1.Cells[5,i+1] := Messages.list[i].receiveNum;
                stringgrid1.Cells[6,i+1] := Messages.list[i].receiveName;
+               stringgrid1.Cells[7,i+1] := Messages.list[i].reserveDT;
+               stringgrid1.Cells[8,i+1] := Messages.list[i].sendDT;
                stringgrid1.Cells[9,i+1] := Messages.list[i].resultDT;
                stringgrid1.Cells[10,i+1] := Messages.list[i].sendResult;
         end;

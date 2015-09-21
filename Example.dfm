@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 578
-  Top = 179
-  Width = 1105
-  Height = 886
+  Left = 586
+  Top = 84
+  Width = 954
+  Height = 839
   Caption = 'ÆËºô ¸Þ½ÃÂ¡ SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -29,10 +29,10 @@ object frmExample: TfrmExample
     Caption = 'ÆËºô¾ÆÀÌµð : '
   end
   object GroupBox8: TGroupBox
-    Left = 8
+    Left = 16
     Top = 40
     Width = 905
-    Height = 217
+    Height = 169
     Caption = 'ÆËºô ±âº» API'
     TabOrder = 0
     object GroupBox9: TGroupBox
@@ -138,6 +138,15 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetPopBillURL_LOGINClick
       end
+      object Button1: TButton
+        Left = 8
+        Top = 56
+        Width = 121
+        Height = 25
+        Caption = 'Æ÷ÀÎÆ® ÃæÀü URL'
+        TabOrder = 1
+        OnClick = btnGetPopBillURL_LOGINClick
+      end
     end
     object GroupBox4: TGroupBox
       Left = 592
@@ -221,27 +230,27 @@ object frmExample: TfrmExample
   end
   object GroupBox5: TGroupBox
     Left = 16
-    Top = 280
-    Width = 817
-    Height = 537
+    Top = 216
+    Width = 905
+    Height = 561
     Caption = 'ÆËºô ¸Þ½ÃÂ¡ °ü·Ã ±â´É'
     TabOrder = 3
     object Label1: TLabel
-      Left = 37
+      Left = 69
       Top = 230
       Width = 60
       Height = 13
       Caption = 'Á¢¼ö ¹øÈ£ : '
     end
     object Label2: TLabel
-      Left = 40
+      Left = 80
       Top = 24
       Width = 155
       Height = 13
       Caption = '¿¹¾à½Ã°£(yyyyMMddHHmmss) : '
     end
     object GroupBox1: TGroupBox
-      Left = 24
+      Left = 64
       Top = 56
       Width = 377
       Height = 73
@@ -276,7 +285,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox2: TGroupBox
-      Left = 416
+      Left = 456
       Top = 56
       Width = 377
       Height = 73
@@ -311,7 +320,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox3: TGroupBox
-      Left = 24
+      Left = 64
       Top = 136
       Width = 377
       Height = 73
@@ -346,7 +355,7 @@ object frmExample: TfrmExample
       end
     end
     object txtReceiptNum: TEdit
-      Left = 101
+      Left = 133
       Top = 226
       Width = 233
       Height = 21
@@ -354,7 +363,7 @@ object frmExample: TfrmExample
       TabOrder = 3
     end
     object btnGetMessage: TButton
-      Left = 349
+      Left = 381
       Top = 224
       Width = 97
       Height = 25
@@ -363,10 +372,10 @@ object frmExample: TfrmExample
       OnClick = btnGetMessageClick
     end
     object StringGrid1: TStringGrid
-      Left = 32
-      Top = 256
-      Width = 721
-      Height = 249
+      Left = 64
+      Top = 264
+      Width = 761
+      Height = 257
       ColCount = 11
       DefaultRowHeight = 18
       FixedCols = 0
@@ -375,7 +384,7 @@ object frmExample: TfrmExample
       TabOrder = 5
     end
     object btnCancelReserve: TButton
-      Left = 461
+      Left = 493
       Top = 224
       Width = 97
       Height = 25
@@ -384,7 +393,7 @@ object frmExample: TfrmExample
       OnClick = btnCancelReserveClick
     end
     object txtReserveDT: TEdit
-      Left = 200
+      Left = 240
       Top = 22
       Width = 233
       Height = 21
@@ -392,7 +401,7 @@ object frmExample: TfrmExample
       TabOrder = 7
     end
     object btnSMSPopUp: TButton
-      Left = 632
+      Left = 672
       Top = 16
       Width = 137
       Height = 33
@@ -401,7 +410,7 @@ object frmExample: TfrmExample
       OnClick = btnSMSPopUpClick
     end
     object GroupBox6: TGroupBox
-      Left = 416
+      Left = 456
       Top = 136
       Width = 377
       Height = 73
@@ -435,15 +444,15 @@ object frmExample: TfrmExample
         OnClick = btnSendMMSThousand_SameClick
       end
     end
-  end
-  object btnSearchMessages: TButton
-    Left = 864
-    Top = 312
-    Width = 75
-    Height = 25
-    Caption = 'Á¶°Ç°Ë»ö'
-    TabOrder = 4
-    OnClick = btnSearchMessagesClick
+    object btnSearchMessages: TButton
+      Left = 694
+      Top = 224
+      Width = 131
+      Height = 25
+      Caption = 'Àü¼Û³»¿ª »ó¼¼°Ë»ö'
+      TabOrder = 10
+      OnClick = btnSearchMessagesClick
+    end
   end
   object OpenDialog1: TOpenDialog
     Left = 664
