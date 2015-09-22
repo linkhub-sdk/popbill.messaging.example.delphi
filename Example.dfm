@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 586
-  Top = 84
+  Left = 482
+  Top = 122
   Width = 954
   Height = 839
   Caption = '팝빌 메시징 SDK Examples'
@@ -44,7 +44,7 @@ object frmExample: TfrmExample
       TabOrder = 0
       object btnJoin: TButton
         Left = 8
-        Top = 24
+        Top = 88
         Width = 120
         Height = 25
         Caption = '회원 가입'
@@ -62,11 +62,12 @@ object frmExample: TfrmExample
       end
       object btnCheckIsMember: TButton
         Left = 8
-        Top = 88
+        Top = 24
         Width = 120
         Height = 25
         Caption = '가입여부 확인'
         TabOrder = 2
+        OnClick = btnCheckIsMemberClick
       end
     end
     object GroupBox11: TGroupBox
@@ -138,14 +139,14 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetPopBillURL_LOGINClick
       end
-      object Button1: TButton
+      object btnGetPopbillURL_CHRG: TButton
         Left = 8
         Top = 56
         Width = 121
         Height = 25
         Caption = '포인트 충전 URL'
         TabOrder = 1
-        OnClick = btnGetPopBillURL_LOGINClick
+        OnClick = btnGetPopbillURL_CHRGClick
       end
     end
     object GroupBox4: TGroupBox
@@ -365,8 +366,8 @@ object frmExample: TfrmExample
     object btnGetMessage: TButton
       Left = 381
       Top = 224
-      Width = 97
-      Height = 25
+      Width = 100
+      Height = 33
       Caption = '전송상태확인'
       TabOrder = 4
       OnClick = btnGetMessageClick
@@ -386,8 +387,8 @@ object frmExample: TfrmExample
     object btnCancelReserve: TButton
       Left = 493
       Top = 224
-      Width = 97
-      Height = 25
+      Width = 100
+      Height = 33
       Caption = '예약전송취소'
       TabOrder = 6
       OnClick = btnCancelReserveClick
@@ -401,7 +402,7 @@ object frmExample: TfrmExample
       TabOrder = 7
     end
     object btnSMSPopUp: TButton
-      Left = 672
+      Left = 536
       Top = 16
       Width = 137
       Height = 33
@@ -437,7 +438,7 @@ object frmExample: TfrmExample
       object btnSendMMS_Thousand: TButton
         Left = 233
         Top = 19
-        Width = 121
+        Width = 128
         Height = 35
         Caption = '개별 1000건 전송'
         TabOrder = 2
@@ -445,10 +446,10 @@ object frmExample: TfrmExample
       end
     end
     object btnSearchMessages: TButton
-      Left = 694
-      Top = 224
-      Width = 131
-      Height = 25
+      Left = 686
+      Top = 16
+      Width = 139
+      Height = 33
       Caption = '전송내역 상세검색'
       TabOrder = 10
       OnClick = btnSearchMessagesClick

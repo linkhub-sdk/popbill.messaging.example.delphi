@@ -66,7 +66,7 @@ type
     btnGetCorpInfo: TButton;
     btnUpdateCorpInfo: TButton;
     btnSearchMessages: TButton;
-    Button1: TButton;
+    btnGetPopbillURL_CHRG: TButton;
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -96,6 +96,8 @@ type
     procedure btnGetCorpInfoClick(Sender: TObject);
     procedure btnUpdateCorpInfoClick(Sender: TObject);
     procedure btnSearchMessagesClick(Sender: TObject);
+    procedure btnCheckIsMemberClick(Sender: TObject);
+    procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -147,7 +149,7 @@ var
         resultURL : String;
 begin
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CERT');
+                resultURL := messagingService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'LOGIN');
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -287,11 +289,11 @@ var
         adsYN : Boolean;
 begin
         try
-                sendNum := '010-111-222';             //발신번호
-                receiver := '010-222-333';            //수신번호
-                receiverName := '수신자명';           //수신자명
-                contents := '단문 메시지 내용입니다'; //메시지 내용이 90byte를 초과하는 경우 초과된 내용은 전송되지 않음.
-                adsYN := false;                       //광고문자 전송여부
+                sendNum := '070-7510-3710';             //발신번호
+                receiver := '010-111-222';             //수신번호
+                receiverName := '수신자명';            //수신자명
+                contents := '안녕하세요. ';  //메시지 내용이 90byte를 초과하는 경우 메시지 내용이 조정되어 전송됨.
+                adsYN := false;                        //광고문자 전송여부
                  
                 receiptNum := messagingService.SendSMS(txtCorpNum.Text,sendNum,receiver,receiverName,contents,txtReserveDT.Text,adsYN,txtUserID.Text);
         except
@@ -315,6 +317,7 @@ var
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
 begin
+        //수신 정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
@@ -354,6 +357,7 @@ var
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
 begin
+        //수신 정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
@@ -363,9 +367,9 @@ begin
 
         try
                 Tinit := NOW;
-                sendNum := '010-111-222';       // 동보전송 발신번호
+                sendNum := '070-7510-3710';       // 동보전송 발신번호
                 contents := '동보전송 내용';    // 동보전송 메시지 내용
-                adsYN := true;                  // 광고문자 전송여부
+                adsYN := false;                  // 광고문자 전송여부
                 
                 receiptNum := messagingService.SendSMS(txtCorpNum.Text,sendNum,contents,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
                 Tpost := NOW;
@@ -392,12 +396,12 @@ var
         adsYN : Boolean;
 begin
         try
-                sendNum := '010-111-222';                // 발신번호
+                sendNum := '070-7510-3710';                // 발신번호
                 receiver := '010-222-333';               // 수신번호
                 receiverName := '수신자명';              // 수신자명
                 subject := '메시지 제목';                // 메시지 제목
                 contents := '장문 문자 문자메시지 내용입니다';     // 메시지 내용
-                adsYN := true;                           // 광고문자 전송여부
+                adsYN := false;                           // 광고문자 전송여부
                 
                 receiptNum := messagingService.SendLMS(txtCorpNum.Text,sendNum,receiver,receiverName,subject,contents,txtReserveDT.Text,adsYN,txtUserID.Text);
         except
@@ -455,6 +459,7 @@ var
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
 begin
+        //수신 정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
@@ -464,7 +469,7 @@ begin
 
         try
                 Tinit := NOW;
-                sendNum := '010-111-222';               // 동보전송 발신번호
+                sendNum := '070-7510-3710';               // 동보전송 발신번호
                 subject := '동보전송 제목';             // 메시지 제목
                 contents := '동보전송 메시지 내용';     // 메시지 내용
                 adsYN := true;                          // 광고문자 전송여부
@@ -491,6 +496,7 @@ var
         adsYN : Boolean;
 
 begin
+        // 수신정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
@@ -525,12 +531,12 @@ var
         adsYN : Boolean;
 begin
         try
-                sendNum := '010-1111-2222';     // 발신번호
+                sendNum := '070-7510-3710';     // 발신번호
                 receiver := '010-222-333';      // 수신번호
                 receiverName := '수신자명';     // 수신자명
                 subject := '메시지 제목';       // 메시지 제목
                 contents := 'XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로잘립니다.';
-                adsYN := true;  // 광고문자 전송여부
+                adsYN := false;  // 광고문자 전송여부
                 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text,sendNum,receiver,receiverName,subject,contents,txtReserveDT.Text,adsYN,txtUserID.Text);
         except
@@ -556,6 +562,7 @@ var
         adsYN : Boolean;
 
 begin
+        //수신 정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
@@ -565,10 +572,10 @@ begin
 
         try
                 Tinit := NOW;
-                sendNum  := '010-111-222';              //발신번호
+                sendNum  := '070-7510-3710';              //발신번호
                 subject := '동보 메시지 제목';          //메시지 제목
                 contents := '동보 전송 내용';
-                adsYN := true;                          // 광고문자 전송여부 
+                adsYN := false;                          // 광고문자 전송여부 
 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text,sendNum,subject,contents,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
                 Tpost := NOW;
@@ -592,6 +599,7 @@ var
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
 begin
+        //수신 정보 배열 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 500 -1 do begin
@@ -611,7 +619,7 @@ begin
 
         try
                 Tinit := NOW;
-                adsYN := true;          // 광고문자 전송여부 
+                adsYN := false;          // 광고문자 전송여부 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
@@ -675,12 +683,12 @@ begin
         end;
 
         try
-                sendNum := '010-111-222';       //발신번호
-                receiver := '010-222-333';      //수신번호
+                sendNum := '070-7510-3710';       //발신번호
+                receiver := '010-111-222';      //수신번호
                 receiverName := '수신자명';
                 subject := '포토 메시지 제목';
                 contents := '포토 메시지 내용'; 
-                adsYN := true;                  //광고문자 전송여부
+                adsYN := false;                  //광고문자 전송여부
 
                 receiptNum := messagingService.SendMMS(txtCorpNum.Text,sendNum,receiver,receiverName,subject,contents,filePath, txtReserveDT.Text,adsYN,txtUserID.Text);
         except
@@ -708,6 +716,7 @@ begin
                 Exit;
         end;
 
+        //수신정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 999 do begin
@@ -717,10 +726,10 @@ begin
         end;
 
         try
-                sendNum := '010-111-222';                  //동보전송 발신번호
+                sendNum := '070-7510-3710';                  //동보전송 발신번호
                 subject := '포토 동보전송 메시지 제목';
                 contents := '포토 메시지 내용';
-                adsYN := true;                             //광고문자 전송여부
+                adsYN := false;                             //광고문자 전송여부
                 
                 receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, subject, contents, Messages, filePath, txtReserveDT.Text, adsYN, txtUserID.Text);
         except
@@ -871,8 +880,8 @@ begin
         corpInfo := TCorpInfo.Create;
 
         corpInfo.ceoname := '대표자명';         //대표자명
-        corpInfo.corpName := '링크허브_SMS';    // 회사명
-        corpInfo.bizType := '업태';             // 업태
+        corpInfo.corpName := '팝빌';    // 회사명
+        corpInfo.bizType := '업태_수정';             // 업태
         corpInfo.bizClass := '업종';            // 업종
         corpInfo.addr := '서울특별시 강남구 영동대로 517';  // 주소
         
@@ -950,6 +959,39 @@ begin
         end;
 
         ShowMessage(tmp);
+end;
+
+procedure TfrmExample.btnCheckIsMemberClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+        try
+                response := messagingService.CheckIsMember(txtCorpNum.text,LinkID);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+
+end;
+
+procedure TfrmExample.btnGetPopbillURL_CHRGClick(Sender: TObject);
+var
+        resultURL : String;
+begin
+        try
+                resultURL := messagingService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CHRG');
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
 
 end.
