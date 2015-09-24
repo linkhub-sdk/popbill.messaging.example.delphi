@@ -280,7 +280,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 121
         Height = 33
-        Caption = '동보 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 2
         OnClick = btnSendThousandSameClick
       end
@@ -315,7 +315,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 121
         Height = 33
-        Caption = '동보 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 2
         OnClick = btnSendLMSThousand_SameClick
       end
@@ -350,7 +350,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 121
         Height = 33
-        Caption = '동보 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 2
         OnClick = btnSendXMSThousand_SameClick
       end
@@ -431,7 +431,7 @@ object frmExample: TfrmExample
         Top = 19
         Width = 121
         Height = 35
-        Caption = '동보 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 1
         OnClick = btnSendMMSThousand_SameClick
       end
@@ -450,7 +450,7 @@ object frmExample: TfrmExample
       Top = 16
       Width = 139
       Height = 33
-      Caption = '전송내역 상세검색'
+      Caption = '전송내역 기간검색'
       TabOrder = 10
       OnClick = btnSearchMessagesClick
     end

@@ -367,8 +367,8 @@ begin
 
         try
                 Tinit := NOW;
-                sendNum := '070-7510-3710';       // 동보전송 발신번호
-                contents := '동보전송 내용';    // 동보전송 메시지 내용
+                sendNum := '070-7510-3710';       // 대량전송 발신번호
+                contents := '대량전송 내용';     // 대량전송 메시지 내용
                 adsYN := false;                  // 광고문자 전송여부
                 
                 receiptNum := messagingService.SendSMS(txtCorpNum.Text,sendNum,contents,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
@@ -469,9 +469,9 @@ begin
 
         try
                 Tinit := NOW;
-                sendNum := '070-7510-3710';               // 동보전송 발신번호
-                subject := '동보전송 제목';             // 메시지 제목
-                contents := '동보전송 메시지 내용';     // 메시지 내용
+                sendNum := '070-7510-3710';             // 대량전송 발신번호
+                subject := '대량전송 제목';             // 메시지 제목
+                contents := '대량전송 메시지 내용';     // 메시지 내용
                 adsYN := true;                          // 광고문자 전송여부
                 receiptNum := messagingService.SendLMS(txtCorpNum.Text,sendNum,subject,contents, Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
                 Tpost := NOW;
@@ -496,7 +496,7 @@ var
         adsYN : Boolean;
 
 begin
-        // 수신정보 배열, 최대 1000건
+        // 전송정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 1000 -1 do begin
@@ -573,8 +573,8 @@ begin
         try
                 Tinit := NOW;
                 sendNum  := '070-7510-3710';              //발신번호
-                subject := '동보 메시지 제목';          //메시지 제목
-                contents := '동보 전송 내용';
+                subject := '대량 메시지 제목';           //메시지 제목
+                contents := '대량 전송 내용';
                 adsYN := false;                          // 광고문자 전송여부 
 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text,sendNum,subject,contents,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
@@ -599,14 +599,14 @@ var
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
 begin
-        //수신 정보 배열 최대 1000건
+        //전송정보 배열 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 500 -1 do begin
             Messages[i] := TSendMessage.create;
             Messages[i].sender := '123123123';                  // 발신번호
             Messages[i].receiver := '12313433563';              // 수신번호
-            Messages[i].content := '내용내용내용내용내용내용' + IntToStr(i);    // 메시지 내용
+            Messages[i].content := '문자내용 길이에 대한 자동인식 전송 ' + IntToStr(i);    // 메시지 내용
         end;
 
         for i := 500 to 1000 -1 do begin
@@ -684,7 +684,7 @@ begin
 
         try
                 sendNum := '070-7510-3710';       //발신번호
-                receiver := '010-111-222';      //수신번호
+                receiver := '010-111-222';        //수신번호
                 receiverName := '수신자명';
                 subject := '포토 메시지 제목';
                 contents := '포토 메시지 내용'; 
@@ -716,7 +716,7 @@ begin
                 Exit;
         end;
 
-        //수신정보 배열, 최대 1000건
+        //전송정보 배열, 최대 1000건
         SetLength(Messages,1000);
 
         for i := 0 to 999 do begin
@@ -726,8 +726,8 @@ begin
         end;
 
         try
-                sendNum := '070-7510-3710';                  //동보전송 발신번호
-                subject := '포토 동보전송 메시지 제목';
+                sendNum := '070-7510-3710';                  //대량전송 발신번호
+                subject := '포토 대량전송 메시지 제목';
                 contents := '포토 메시지 내용';
                 adsYN := false;                             //광고문자 전송여부
                 
