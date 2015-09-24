@@ -925,7 +925,7 @@ begin
         ReserveYN := false;   // 예약전송 검색여부, true(예약전송건만 검색), false(전체검색)
         SenderYN := false;    // 개인조회여부, true(개인조회), false(회사조회).
         Page := 1;            // 페이지 번호, 기본값 1
-        PerPage := 500;       // 페이지당 검색갯수, 기본값 500
+        PerPage := 1001;       // 페이지당 검색갯수, 기본값 500
 
         try
                 Messages := messagingService.searchMessages(txtCorpNum.text,SDate,EDate,State,Item,ReserveYN,SenderYN,Page,PerPage,txtUserID.text);
