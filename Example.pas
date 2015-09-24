@@ -928,7 +928,7 @@ begin
         PerPage := 1001;       // 페이지당 검색갯수, 기본값 500
 
         try
-                Messages := messagingService.searchMessages(txtCorpNum.text,SDate,EDate,State,Item,ReserveYN,SenderYN,Page,PerPage,txtUserID.text);
+                Messages := messagingService.search(txtCorpNum.text,SDate,EDate,State,Item,ReserveYN,SenderYN,Page,PerPage,txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
