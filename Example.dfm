@@ -237,7 +237,7 @@ object frmExample: TfrmExample
     Caption = 'ÆËºô ¸Þ½ÃÂ¡ °ü·Ã ±â´É'
     TabOrder = 3
     object Label1: TLabel
-      Left = 69
+      Left = 37
       Top = 230
       Width = 60
       Height = 13
@@ -251,7 +251,7 @@ object frmExample: TfrmExample
       Caption = '¿¹¾à½Ã°£(yyyyMMddHHmmss) : '
     end
     object GroupBox1: TGroupBox
-      Left = 64
+      Left = 48
       Top = 56
       Width = 377
       Height = 73
@@ -321,7 +321,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox3: TGroupBox
-      Left = 64
+      Left = 48
       Top = 136
       Width = 377
       Height = 73
@@ -356,7 +356,7 @@ object frmExample: TfrmExample
       end
     end
     object txtReceiptNum: TEdit
-      Left = 133
+      Left = 101
       Top = 226
       Width = 233
       Height = 21
@@ -364,7 +364,7 @@ object frmExample: TfrmExample
       TabOrder = 3
     end
     object btnGetMessage: TButton
-      Left = 381
+      Left = 349
       Top = 224
       Width = 100
       Height = 33
@@ -373,11 +373,11 @@ object frmExample: TfrmExample
       OnClick = btnGetMessageClick
     end
     object StringGrid1: TStringGrid
-      Left = 64
+      Left = 40
       Top = 264
-      Width = 761
+      Width = 825
       Height = 257
-      ColCount = 11
+      ColCount = 12
       DefaultRowHeight = 18
       FixedCols = 0
       RowCount = 2
@@ -385,7 +385,7 @@ object frmExample: TfrmExample
       TabOrder = 5
     end
     object btnCancelReserve: TButton
-      Left = 493
+      Left = 461
       Top = 224
       Width = 100
       Height = 33

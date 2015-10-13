@@ -131,6 +131,7 @@ begin
         stringgrid1.Cells[8,0] := 'sendDT';
         stringgrid1.Cells[9,0] := 'resultDT';
         stringgrid1.Cells[10,0] := 'sendResult';
+        stringgrid1.Cells[11,0] := 'tranNet';        
 end;
 
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;
@@ -290,7 +291,7 @@ var
 begin
         try
                 sendNum := '070-7510-3710';             //발신번호
-                receiver := '010-111-222';             //수신번호
+                receiver := '010-1111-2222';             //수신번호
                 receiverName := '수신자명';            //수신자명
                 contents := '안녕하세요. ';  //메시지 내용이 90byte를 초과하는 경우 메시지 내용이 조정되어 전송됨.
                 adsYN := false;                        //광고문자 전송여부
@@ -445,6 +446,7 @@ begin
                stringgrid1.Cells[8,i+1] := Messages[i].sendDT;
                stringgrid1.Cells[9,i+1] := Messages[i].resultDT;
                stringgrid1.Cells[10,i+1] := Messages[i].sendResult;
+               stringgrid1.Cells[11,i+1] := Messages[i].tranNet;
         end;
 end;
 
@@ -907,8 +909,8 @@ var
         i : integer;
 begin
 
-        SDate := '20150120';    // 검색기간 시작일자
-        EDate := '20150521';    // 검색기간 종료일자
+        SDate := '20151001';    // 검색기간 시작일자
+        EDate := '20151013';    // 검색기간 종료일자
 
         //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소 ex) State=1,2,4
         SetLength(State, 4);
@@ -956,6 +958,7 @@ begin
                stringgrid1.Cells[8,i+1] := Messages.list[i].sendDT;
                stringgrid1.Cells[9,i+1] := Messages.list[i].resultDT;
                stringgrid1.Cells[10,i+1] := Messages.list[i].sendResult;
+               stringgrid1.Cells[11,i+1] := Messages.list[i].tranNet;               
         end;
 
         ShowMessage(tmp);
