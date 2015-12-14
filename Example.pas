@@ -119,7 +119,7 @@ begin
         messagingService.IsTest := true;
 
         //Exception 처리 설정값, 기본값(true)
-        messagingService.IsThrowException := false;
+        messagingService.IsThrowException := true;
 
         //그리드 초기화
         stringgrid1.Cells[0,0] := 'state';
