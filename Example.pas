@@ -118,6 +118,9 @@ begin
         //연동환경 설정값, 테스트용(true), 상업용(false)
         messagingService.IsTest := true;
 
+        //Exception 처리 설정값, 기본값(true)
+        messagingService.IsThrowException := false;
+
         //그리드 초기화
         stringgrid1.Cells[0,0] := 'state';
         stringgrid1.Cells[1,0] := 'type';

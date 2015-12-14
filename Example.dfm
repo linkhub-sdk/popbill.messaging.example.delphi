@@ -17,14 +17,14 @@ object frmExample: TfrmExample
   object Label3: TLabel
     Left = 16
     Top = 12
-    Width = 69
+    Width = 129
     Height = 13
-    Caption = '사업자번호 : '
+    Caption = '팝빌회원 사업자번호 : '
   end
   object Label4: TLabel
-    Left = 232
+    Left = 288
     Top = 12
-    Width = 69
+    Width = 74
     Height = 13
     Caption = '팝빌아이디 : '
   end
@@ -212,7 +212,7 @@ object frmExample: TfrmExample
     end
   end
   object txtCorpNum: TEdit
-    Left = 88
+    Left = 144
     Top = 8
     Width = 137
     Height = 21
@@ -221,7 +221,7 @@ object frmExample: TfrmExample
     Text = '1234567890'
   end
   object txtUserID: TEdit
-    Left = 304
+    Left = 360
     Top = 8
     Width = 137
     Height = 21
@@ -239,14 +239,14 @@ object frmExample: TfrmExample
     object Label1: TLabel
       Left = 37
       Top = 230
-      Width = 60
+      Width = 64
       Height = 13
       Caption = '접수 번호 : '
     end
     object Label2: TLabel
       Left = 80
       Top = 24
-      Width = 155
+      Width = 159
       Height = 13
       Caption = '예약시간(yyyyMMddHHmmss) : '
     end
