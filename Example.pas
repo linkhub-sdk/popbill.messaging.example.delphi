@@ -912,8 +912,8 @@ var
         i : integer;
 begin
 
-        SDate := '20151001';    // 검색기간 시작일자
-        EDate := '20151013';    // 검색기간 종료일자
+        SDate := '20151101';    // 검색기간 시작일자
+        EDate := '20151215';    // 검색기간 종료일자
 
         //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소 ex) State=1,2,4
         SetLength(State, 4);
@@ -927,10 +927,10 @@ begin
         Item[1] := 'SMS';
         Item[2] := 'MMS';
 
-        ReserveYN := false;   // 예약전송 검색여부, true(예약전송건만 검색), false(전체검색)
+        ReserveYN := false;   // 예약전송 검색여부, true(예약전송건 검색), false(즉시전송건 검색)
         SenderYN := false;    // 개인조회여부, true(개인조회), false(회사조회).
         Page := 1;            // 페이지 번호, 기본값 1
-        PerPage := 1001;       // 페이지당 검색갯수, 기본값 500
+        PerPage := 30;       // 페이지당 검색갯수, 기본값 500
 
         try
                 Messages := messagingService.search(txtCorpNum.text,SDate,EDate,State,Item,ReserveYN,SenderYN,Page,PerPage,txtUserID.text);
