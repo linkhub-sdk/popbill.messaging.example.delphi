@@ -906,6 +906,7 @@ procedure TfrmExample.btnSearchMessagesClick(Sender: TObject);
 var
         SDate, EDate, tmp: String;
         Page, PerPage : Integer;
+        Order : String;
         State, Item : Array Of String;
         ReserveYN, SenderYN : boolean;
         Messages : TSearchList;
@@ -931,9 +932,10 @@ begin
         SenderYN := false;    // 개인조회여부, true(개인조회), false(회사조회).
         Page := 1;            // 페이지 번호, 기본값 1
         PerPage := 30;       // 페이지당 검색갯수, 기본값 500
+        Order := 'D';        // 'D' : 내림차순 , 'A' : 오름차순
 
         try
-                Messages := messagingService.search(txtCorpNum.text,SDate,EDate,State,Item,ReserveYN,SenderYN,Page,PerPage,txtUserID.text);
+                Messages := messagingService.search(txtCorpNum.text,SDate,EDate,State,Item,ReserveYN,SenderYN,Page,PerPage,Order,txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
