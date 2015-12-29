@@ -131,10 +131,11 @@ begin
         stringgrid1.Cells[5,0] := 'receiveNum';
         stringgrid1.Cells[6,0] := 'receiveName';
         stringgrid1.Cells[7,0] := 'reserveDT';
-        stringgrid1.Cells[8,0] := 'sendDT';
-        stringgrid1.Cells[9,0] := 'resultDT';
-        stringgrid1.Cells[10,0] := 'sendResult';
-        stringgrid1.Cells[11,0] := 'tranNet';        
+        stringgrid1.Cells[8,0] := 'receiptDT';
+        stringgrid1.Cells[9,0] := 'sendDT';
+        stringgrid1.Cells[10,0] := 'resultDT';
+        stringgrid1.Cells[11,0] := 'sendResult';
+        stringgrid1.Cells[12,0] := 'tranNet';
 end;
 
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;
@@ -446,10 +447,11 @@ begin
                stringgrid1.Cells[5,i+1] := Messages[i].receiveNum;
                stringgrid1.Cells[6,i+1] := Messages[i].receiveName;
                stringgrid1.Cells[7,i+1] := Messages[i].reserveDT;
-               stringgrid1.Cells[8,i+1] := Messages[i].sendDT;
-               stringgrid1.Cells[9,i+1] := Messages[i].resultDT;
-               stringgrid1.Cells[10,i+1] := Messages[i].sendResult;
-               stringgrid1.Cells[11,i+1] := Messages[i].tranNet;
+               stringgrid1.Cells[8,i+1] := Messages[i].receiptDT;
+               stringgrid1.Cells[9,i+1] := Messages[i].sendDT;
+               stringgrid1.Cells[10,i+1] := Messages[i].resultDT;
+               stringgrid1.Cells[11,i+1] := Messages[i].sendResult;
+               stringgrid1.Cells[12,i+1] := Messages[i].tranNet;
         end;
 end;
 
@@ -960,10 +962,11 @@ begin
                stringgrid1.Cells[5,i+1] := Messages.list[i].receiveNum;
                stringgrid1.Cells[6,i+1] := Messages.list[i].receiveName;
                stringgrid1.Cells[7,i+1] := Messages.list[i].reserveDT;
-               stringgrid1.Cells[8,i+1] := Messages.list[i].sendDT;
-               stringgrid1.Cells[9,i+1] := Messages.list[i].resultDT;
-               stringgrid1.Cells[10,i+1] := Messages.list[i].sendResult;
-               stringgrid1.Cells[11,i+1] := Messages.list[i].tranNet;               
+               stringgrid1.Cells[8,i+1] := Messages.list[i].receiptDT;
+               stringgrid1.Cells[9,i+1] := Messages.list[i].sendDT;
+               stringgrid1.Cells[10,i+1] := Messages.list[i].resultDT;
+               stringgrid1.Cells[11,i+1] := Messages.list[i].sendResult;
+               stringgrid1.Cells[12,i+1] := Messages.list[i].tranNet;
         end;
 
         ShowMessage(tmp);

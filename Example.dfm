@@ -377,7 +377,7 @@ object frmExample: TfrmExample
       Top = 264
       Width = 825
       Height = 257
-      ColCount = 12
+      ColCount = 13
       DefaultRowHeight = 18
       FixedCols = 0
       RowCount = 2
