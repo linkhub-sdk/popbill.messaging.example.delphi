@@ -67,6 +67,8 @@ type
     btnUpdateCorpInfo: TButton;
     btnSearchMessages: TButton;
     btnGetPopbillURL_CHRG: TButton;
+    btnGetAutoDenyList: TButton;
+    GroupBox10: TGroupBox;
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
@@ -98,6 +100,7 @@ type
     procedure btnSearchMessagesClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
     procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
+    procedure btnGetAutoDenyListClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -1004,6 +1007,34 @@ begin
 
         ShowMessage('ResultURL is ' + #13 + resultURL);
 end;
+
+procedure TfrmExample.btnGetAutoDenyListClick(Sender: TObject);
+var
+        AutoDenyList : TAutoDenyList;
+        tmp : String;
+        i : Integer;
+begin
+        try
+             AutoDenyList := messagingService.getAutoDenyList(txtCorpNum.Text);
+
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' + le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := '수신거부번호 (number) | 등록일시 (regDT)' + #13;
+        
+        for i := 0 to Length(AutoDenyList) -1 do
+        begin
+                tmp:= tmp + AutoDenyList[i].number + '  |  '
+                        + AutoDenyList[i].regDT + #13;
+        end;
+        
+        ShowMessage(tmp);
+end;
+
 
 end.
 

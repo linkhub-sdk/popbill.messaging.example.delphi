@@ -244,41 +244,49 @@ object frmExample: TfrmExample
       Caption = '접수 번호 : '
     end
     object Label2: TLabel
-      Left = 80
+      Left = 32
       Top = 24
       Width = 155
       Height = 13
       Caption = '예약시간(yyyyMMddHHmmss) : '
     end
-    object GroupBox1: TGroupBox
-      Left = 48
+    object GroupBox10: TGroupBox
+      Left = 728
       Top = 56
-      Width = 377
+      Width = 153
+      Height = 153
+      Caption = '부가기능'
+      TabOrder = 12
+    end
+    object GroupBox1: TGroupBox
+      Left = 32
+      Top = 56
+      Width = 329
       Height = 73
       Caption = 'SMS 관련기능'
       TabOrder = 0
       object btnSendSMS_Single: TButton
-        Left = 16
+        Left = 8
         Top = 24
-        Width = 81
+        Width = 73
         Height = 33
         Caption = '1건 전송'
         TabOrder = 0
         OnClick = btnSendSMS_SingleClick
       end
       object btnSendThousand: TButton
-        Left = 232
+        Left = 200
         Top = 24
-        Width = 129
+        Width = 113
         Height = 33
         Caption = '개별 1000건 전송'
         TabOrder = 1
         OnClick = btnSendThousandClick
       end
       object btnSendThousandSame: TButton
-        Left = 104
+        Left = 88
         Top = 24
-        Width = 121
+        Width = 105
         Height = 33
         Caption = '대량 1000건 전송'
         TabOrder = 2
@@ -286,34 +294,34 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox2: TGroupBox
-      Left = 456
+      Left = 376
       Top = 56
-      Width = 377
+      Width = 337
       Height = 73
       Caption = 'LMS 관련기능'
       TabOrder = 1
       object btnSendLMS: TButton
-        Left = 16
+        Left = 8
         Top = 24
-        Width = 81
+        Width = 73
         Height = 33
         Caption = '1건 전송'
         TabOrder = 0
         OnClick = btnSendLMSClick
       end
       object btnSendLMSThousand: TButton
-        Left = 232
+        Left = 208
         Top = 24
-        Width = 129
+        Width = 113
         Height = 33
         Caption = '개별 1000건 전송'
         TabOrder = 1
         OnClick = btnSendLMSThousandClick
       end
       object btnSendLMSThousand_Same: TButton
-        Left = 104
+        Left = 88
         Top = 24
-        Width = 121
+        Width = 113
         Height = 33
         Caption = '대량 1000건 전송'
         TabOrder = 2
@@ -321,34 +329,34 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox3: TGroupBox
-      Left = 48
+      Left = 32
       Top = 136
-      Width = 377
+      Width = 329
       Height = 73
       Caption = 'XMS 관련기능'
       TabOrder = 2
       object btnSendXMS: TButton
-        Left = 16
+        Left = 8
         Top = 24
-        Width = 81
+        Width = 73
         Height = 33
         Caption = '1건 전송'
         TabOrder = 0
         OnClick = btnSendXMSClick
       end
       object btnSendXMSThousand: TButton
-        Left = 232
+        Left = 200
         Top = 24
-        Width = 129
+        Width = 113
         Height = 33
         Caption = '개별 1000건 전송'
         TabOrder = 1
         OnClick = btnSendXMSThousandClick
       end
       object btnSendXMSThousand_Same: TButton
-        Left = 104
+        Left = 88
         Top = 24
-        Width = 121
+        Width = 105
         Height = 33
         Caption = '대량 1000건 전송'
         TabOrder = 2
@@ -365,7 +373,7 @@ object frmExample: TfrmExample
     end
     object btnGetMessage: TButton
       Left = 349
-      Top = 224
+      Top = 216
       Width = 100
       Height = 33
       Caption = '전송상태확인'
@@ -373,10 +381,10 @@ object frmExample: TfrmExample
       OnClick = btnGetMessageClick
     end
     object StringGrid1: TStringGrid
-      Left = 40
-      Top = 264
-      Width = 825
-      Height = 257
+      Left = 32
+      Top = 256
+      Width = 849
+      Height = 289
       ColCount = 13
       DefaultRowHeight = 18
       FixedCols = 0
@@ -386,7 +394,7 @@ object frmExample: TfrmExample
     end
     object btnCancelReserve: TButton
       Left = 461
-      Top = 224
+      Top = 216
       Width = 100
       Height = 33
       Caption = '예약전송취소'
@@ -394,7 +402,7 @@ object frmExample: TfrmExample
       OnClick = btnCancelReserveClick
     end
     object txtReserveDT: TEdit
-      Left = 240
+      Left = 192
       Top = 22
       Width = 233
       Height = 21
@@ -402,8 +410,8 @@ object frmExample: TfrmExample
       TabOrder = 7
     end
     object btnSMSPopUp: TButton
-      Left = 536
-      Top = 16
+      Left = 736
+      Top = 80
       Width = 137
       Height = 33
       Caption = '전송내역조회 팝업'
@@ -411,34 +419,34 @@ object frmExample: TfrmExample
       OnClick = btnSMSPopUpClick
     end
     object GroupBox6: TGroupBox
-      Left = 456
+      Left = 376
       Top = 136
-      Width = 377
+      Width = 337
       Height = 73
       Caption = 'MMS 관련기능'
       TabOrder = 9
       object btnSendMMS: TButton
-        Left = 16
+        Left = 8
         Top = 21
-        Width = 82
+        Width = 73
         Height = 34
         Caption = '1건 전송'
         TabOrder = 0
         OnClick = btnSendMMSClick
       end
       object btnSendMMSThousand_Same: TButton
-        Left = 105
+        Left = 89
         Top = 19
-        Width = 121
+        Width = 112
         Height = 35
         Caption = '대량 1000건 전송'
         TabOrder = 1
         OnClick = btnSendMMSThousand_SameClick
       end
       object btnSendMMS_Thousand: TButton
-        Left = 233
+        Left = 209
         Top = 19
-        Width = 128
+        Width = 112
         Height = 35
         Caption = '개별 1000건 전송'
         TabOrder = 2
@@ -446,13 +454,22 @@ object frmExample: TfrmExample
       end
     end
     object btnSearchMessages: TButton
-      Left = 686
-      Top = 16
-      Width = 139
+      Left = 736
+      Top = 120
+      Width = 137
       Height = 33
       Caption = '전송내역 목록조회'
       TabOrder = 10
       OnClick = btnSearchMessagesClick
+    end
+    object btnGetAutoDenyList: TButton
+      Left = 736
+      Top = 160
+      Width = 137
+      Height = 33
+      Caption = '080수신거부목록 조회'
+      TabOrder = 11
+      OnClick = btnGetAutoDenyListClick
     end
   end
   object OpenDialog1: TOpenDialog
