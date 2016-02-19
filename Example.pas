@@ -978,7 +978,7 @@ begin
                stringgrid1.Cells[11,i+1] := Messages.list[i].sendResult;
                stringgrid1.Cells[12,i+1] := Messages.list[i].tranNet;
         end;
-
+        Messages.Free;
         ShowMessage(tmp);
 end;
 
@@ -1038,7 +1038,7 @@ begin
                 tmp:= tmp + AutoDenyList[i].number + '  |  '
                         + AutoDenyList[i].regDT + #13;
         end;
-        
+
         ShowMessage(tmp);
 end;
 
