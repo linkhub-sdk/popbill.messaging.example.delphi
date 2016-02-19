@@ -69,12 +69,13 @@ type
     btnGetPopbillURL_CHRG: TButton;
     btnGetAutoDenyList: TButton;
     GroupBox10: TGroupBox;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
     procedure btnGetUnitCost_SMSClick(Sender: TObject);
     procedure btnGetPartnerBalanceClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnGetUnitCost_LMSClick(Sender: TObject);
     procedure btnSendSMS_SingleClick(Sender: TObject);
     procedure btnSendThousandClick(Sender: TObject);
@@ -139,6 +140,12 @@ begin
         stringgrid1.Cells[10,0] := 'resultDT';
         stringgrid1.Cells[11,0] := 'sendResult';
         stringgrid1.Cells[12,0] := 'tranNet';
+end;
+
+procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
+begin
+	messagingService.free;
+	Action := caFree;
 end;
 
 function IfThen(condition :bool; trueVal :String ; falseVal : String) : string;
