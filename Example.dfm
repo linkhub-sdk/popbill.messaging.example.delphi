@@ -122,6 +122,15 @@ object frmExample: TfrmExample
         TabOrder = 4
         OnClick = btnGetPartnerBalanceClick
       end
+      object btnGetChargeInfo: TButton
+        Left = 152
+        Top = 88
+        Width = 129
+        Height = 25
+        Caption = '과금정보 확인'
+        TabOrder = 5
+        OnClick = btnGetChargeInfoClick
+      end
     end
     object GroupBox12: TGroupBox
       Left = 448

@@ -69,6 +69,7 @@ type
     btnGetPopbillURL_CHRG: TButton;
     btnGetAutoDenyList: TButton;
     GroupBox10: TGroupBox;
+    btnGetChargeInfo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
@@ -102,6 +103,7 @@ type
     procedure btnCheckIsMemberClick(Sender: TObject);
     procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
     procedure btnGetAutoDenyListClick(Sender: TObject);
+    procedure btnGetChargeInfoClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -1042,6 +1044,30 @@ begin
         ShowMessage(tmp);
 end;
 
+
+procedure TfrmExample.btnGetChargeInfoClick(Sender: TObject);
+var
+        chargeInfo : TMessageChargeInfo;
+        tmp : String;
+begin
+
+        try
+                chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text,SMS);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+
+        ShowMessage(tmp);
+
+
+end;
 
 end.
 
