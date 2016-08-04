@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 482
+  Left = 161
   Top = 122
-  Width = 954
-  Height = 839
+  Width = 1134
+  Height = 844
   Caption = '팝빌 메시징 SDK Examples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -241,7 +241,7 @@ object frmExample: TfrmExample
   object GroupBox5: TGroupBox
     Left = 16
     Top = 216
-    Width = 905
+    Width = 1089
     Height = 561
     Caption = '팝빌 메시징 관련 기능'
     TabOrder = 3
@@ -262,7 +262,7 @@ object frmExample: TfrmExample
     object GroupBox10: TGroupBox
       Left = 728
       Top = 56
-      Width = 153
+      Width = 156
       Height = 153
       Caption = '부가기능'
       TabOrder = 12
@@ -392,14 +392,29 @@ object frmExample: TfrmExample
     object StringGrid1: TStringGrid
       Left = 32
       Top = 256
-      Width = 849
+      Width = 1033
       Height = 289
-      ColCount = 13
+      ColCount = 14
       DefaultRowHeight = 18
       FixedCols = 0
       RowCount = 2
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect]
       TabOrder = 5
+      ColWidths = (
+        64
+        64
+        73
+        75
+        88
+        82
+        75
+        76
+        64
+        64
+        64
+        64
+        83
+        78)
     end
     object btnCancelReserve: TButton
       Left = 461
@@ -421,7 +436,7 @@ object frmExample: TfrmExample
     object btnSMSPopUp: TButton
       Left = 736
       Top = 80
-      Width = 137
+      Width = 140
       Height = 33
       Caption = '전송내역조회 팝업'
       TabOrder = 8
@@ -465,7 +480,7 @@ object frmExample: TfrmExample
     object btnSearchMessages: TButton
       Left = 736
       Top = 120
-      Width = 137
+      Width = 140
       Height = 33
       Caption = '전송내역 목록조회'
       TabOrder = 10
@@ -474,7 +489,7 @@ object frmExample: TfrmExample
     object btnGetAutoDenyList: TButton
       Left = 736
       Top = 160
-      Width = 137
+      Width = 140
       Height = 33
       Caption = '080수신거부목록 조회'
       TabOrder = 11
