@@ -360,7 +360,7 @@ begin
                 sendName := '발신자명';
 
                 // 수신번호
-                receiver := '010-4324-5117';
+                receiver := '010-111-222';
 
                 // 수신자명
                 receiverName := '수신자명';
@@ -403,7 +403,7 @@ begin
             Messages[i] := TSendMessage.create;
 
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-            Messages[i].sender := '010-4324-5117';
+            Messages[i].sender := '010-111-222';
 
             // 발신자명
             Messages[i].senderName := '발신자명' + InttoStr(i);
@@ -680,7 +680,7 @@ begin
             Messages[i] := TSendMessage.create;
 
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-            Messages[i].sender := '010-4324-5117';
+            Messages[i].sender := '010-111-222';
 
             // 발신자명
             Messages[i].senderName := '발신자명' +IntToStr(i);
@@ -832,7 +832,7 @@ begin
             Messages[i] := TSendMessage.create;
             
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-            Messages[i].sender := '010-4324-5117';
+            Messages[i].sender := '010-111-222';
             
             // 발신자명
             Messages[i].senderName := '발신자명' + IntToStr(i);
@@ -848,7 +848,7 @@ begin
             Messages[i] := TSendMessage.create;
 
             // 발신번호
-            Messages[i].sender := '010-4324-5117';
+            Messages[i].sender := '010-111-222';
             
             // 발신번호
             Messages[i].senderName := '발신자명' + IntToStr(i);
@@ -1145,7 +1145,7 @@ begin
         contactInfo.tel := '070-7510-3710';
         
         // 휴대폰번호
-        contactInfo.hp := '010-4324-1111';
+        contactInfo.hp := '010-111-222';
 
         // 이메일 주소
         contactInfo.email := 'test@test.com';
