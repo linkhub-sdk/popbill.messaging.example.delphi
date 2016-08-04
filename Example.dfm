@@ -1,7 +1,7 @@
 object frmExample: TfrmExample
   Left = 161
   Top = 122
-  Width = 1134
+  Width = 1153
   Height = 844
   Caption = 'ÆËºô ¸Þ½ÃÂ¡ SDK Examples'
   Color = clBtnFace
@@ -241,7 +241,7 @@ object frmExample: TfrmExample
   object GroupBox5: TGroupBox
     Left = 16
     Top = 216
-    Width = 1089
+    Width = 1105
     Height = 561
     Caption = 'ÆËºô ¸Þ½ÃÂ¡ °ü·Ã ±â´É'
     TabOrder = 3
@@ -392,7 +392,7 @@ object frmExample: TfrmExample
     object StringGrid1: TStringGrid
       Left = 32
       Top = 256
-      Width = 1033
+      Width = 1049
       Height = 289
       ColCount = 14
       DefaultRowHeight = 18
@@ -414,7 +414,7 @@ object frmExample: TfrmExample
         64
         64
         83
-        78)
+        81)
     end
     object btnCancelReserve: TButton
       Left = 461
