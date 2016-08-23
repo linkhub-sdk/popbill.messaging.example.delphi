@@ -465,8 +465,8 @@ begin
         // 대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
         sendNum := '070-7510-3710';
 
-        // 발신지먕
-        sendName := '발신자명';
+        // 대량전송 발신자명
+        sendName := '발신자명_SMS';
 
         // 대량전송 메시지 내용, 90byte 초과된 내용은 삭제되어 전송됨.
         contents := '대량전송 내용';
@@ -750,7 +750,7 @@ begin
         adsYN := false;
         
         try
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text,sendNum,sendName,receiver,receiverName,subject,contents,txtReserveDT.Text,adsYN,txtUserID.Text);
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum, sendName, receiver,receiverName,subject,contents,txtReserveDT.Text,adsYN,txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
@@ -802,7 +802,7 @@ begin
         try
                 Tinit := NOW;
 
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text,sendNum,sendName,subject,contents,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text,sendNum, sendName, subject,contents,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
                 
                 Tpost := NOW;
         except
@@ -979,7 +979,7 @@ end;
 procedure TfrmExample.btnSendMMSThousand_SameClick(Sender: TObject);
 var
         Messages : TSendMessageList;
-        filePath, receiptNum, sendNum, sendName, subject, contents : string;
+        filePath, receiptNum, sendNum, subject, contents : string;
         i : Integer;
         adsYN : Boolean;
 begin
@@ -994,15 +994,14 @@ begin
 
         for i := 0 to 99 do begin
                 Messages[i] := TSendMessage.create;
+                Messages[i].sender := '07075103710';       //발신번호
+                Messages[i].senderName := '발신자명';      //발신자명
                 Messages[i].receiver := '010111222';       //수신번호
                 Messages[i].receiverName :='수신자명';     //수신자명
         end;
 
         //대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
         sendNum := '070-7510-3710';
-
-        // 발신자명, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendName := '발신자명';
 
         // 메시지 제목
         subject := '포토 대량전송 메시지 제목';
@@ -1016,7 +1015,7 @@ begin
         adsYN := false;
 
         try
-                receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, sendName, subject,
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, subject,
                                                 contents, Messages, filePath, txtReserveDT.Text, adsYN, txtUserID.Text);
         except
                 on le : EPopbillException do begin
