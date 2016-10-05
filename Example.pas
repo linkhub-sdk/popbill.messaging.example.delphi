@@ -74,7 +74,9 @@ type
     btnGetPopbillURL_CHRG: TButton;
     btnGetAutoDenyList: TButton;
     GroupBox10: TGroupBox;
-    btnGetChargeInfo: TButton;
+    btnGetChargeInfo_SMS: TButton;
+    btnGetChargeInfo_LMS: TButton;
+    btnGetChargeInfo_MMS: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
@@ -108,7 +110,9 @@ type
     procedure btnCheckIsMemberClick(Sender: TObject);
     procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
     procedure btnGetAutoDenyListClick(Sender: TObject);
-    procedure btnGetChargeInfoClick(Sender: TObject);
+    procedure btnGetChargeInfo_SMSClick(Sender: TObject);
+    procedure btnGetChargeInfo_LMSClick(Sender: TObject);
+    procedure btnGetChargeInfo_MMSClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -126,7 +130,7 @@ begin
         //문자 api 모듈 초기화.
         messagingService := TMessagingService.Create(LinkID,SecretKey);
         
-        //연동환경 설정값, 테스트용(true), 상업용(false)
+        //연동환경 설정값, 개발용(true), 상업용(false)
         messagingService.IsTest := true;
 
         //Exception 처리 설정값, 기본값(true)
@@ -171,13 +175,13 @@ procedure TfrmExample.btnGetPopBillURL_LOGINClick(Sender: TObject);
 var
         resultURL : String;
 begin
-        // 연동회원의 팝빌 로그인 URL을 반환합니다.
+        // 반환된 URL은 보안정책으로 인해 30초의 유효시간이 존재합니다.
           
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'LOGIN');
+                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'LOGIN');
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -192,60 +196,64 @@ var
         response : TResponse;
         joinInfo : TJoinForm;
 begin
-        // 파트너의 연동회원으로 신규가입을 신청합니다.
         
+        {**********************************************************************}
+        {    파트너의 연동회원으로 회원가입을 요청합니다.                      }
+        {    아이디 중복확인은 btnCheckIDClick 프로시져를 참조하시기 바랍니다. }
+        {**********************************************************************}
+
         // 링크아이디
         joinInfo.LinkID := LinkID;
 
-        // 사업자번호 '-' 제외.
-        joinInfo.CorpNum := '1231212312';
+        // 사업자번호 '-' 제외, 10자리
+        joinInfo.CorpNum := '4364364364';
 
-        // 대표자 성명
+        // 대표자성명, 최대 30자
         joinInfo.CEOName := '대표자성명';
 
-        // 상호
-        joinInfo.CorpName := '상호';
-        
-        // 주소 
+        // 상호명, 최대 70자
+        joinInfo.CorpName := '링크허브';
+
+        // 주소, 최대 300자
         joinInfo.Addr := '주소';
 
-        // 업태 
+        // 업태, 최대 40자
         joinInfo.BizType := '업태';
 
-        // 종목
-        joinInfo.BizClass := '업종';
+        // 종목, 최대 40자
+        joinInfo.BizClass := '종목';
 
-        // 아이디, 6자 이상 20자 미만.
+        // 아이디, 6자이상 20자 미만
         joinInfo.ID     := 'userid';
 
-        // 비밀번호, 6자 이상 20자 미만.
+        // 비밀번호, 6자이상 20자 미만
         joinInfo.PWD    := 'pwd_must_be_long_enough';
 
-        // 담당자 성명
+        // 담당자명, 최대 30자
         joinInfo.ContactName := '담당자명';
 
-        // 담당자 연락처 
-        joinInfo.ContactTEL :='02-999-9999';
+        // 담당자 연락처, 최대 20자
+        joinInfo.ContactTEL :='070-4304-2991';
 
-        // 담당자 휴대폰 번호 
-        joinInfo.ContactHP := '010-1234-5678';
+        // 담당자 휴대폰번호, 최대 20자
+        joinInfo.ContactHP := '010-000-1111';
 
-        // 담당자 팩스번호 
-        joinInfo.ContactFAX := '02-999-9998';
+        // 담당자 팩스번호, 최대 20자
+        joinInfo.ContactFAX := '02-6442-9700';
 
-        // 담당자 이메일 주소
-        joinInfo.ContactEmail := 'test@test.com';
+        // 담당자 메일, 최대 70자
+        joinInfo.ContactEmail := 'code@linkhub.co.kr';
 
         try
                 response := messagingService.JoinMember(joinInfo);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);      
 
 end;
 
@@ -253,13 +261,12 @@ procedure TfrmExample.btnGetBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
-        // 연동 과금시, 연동회원의 잔여포인트를 확인합니다.
-        
+       
         try
                 balance := messagingService.GetBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -275,10 +282,10 @@ begin
         // SMS(단문)의 전송단가를 확인합니다.
         
         try
-                unitcost := messagingService.GetUnitCost(txtCorpNum.text,SMS);
+                unitcost := messagingService.GetUnitCost(txtCorpNum.text, SMS);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -293,10 +300,10 @@ begin
         // LMS(장문)의 전송단가를 확인합니다.
         
         try
-                unitcost := messagingService.GetUnitCost(txtCorpNum.text,LMS);
+                unitcost := messagingService.GetUnitCost(txtCorpNum.text, LMS);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -309,13 +316,12 @@ procedure TfrmExample.btnGetUnitCost_MMSClick(Sender: TObject);
 var
         unitcost : Single;
 begin
-        // MMS(포토)의 전송단가를 확인합니다.
-        
+
         try
-                unitcost := messagingService.GetUnitCost(txtCorpNum.text,MMS);
+                unitcost := messagingService.GetUnitCost(txtCorpNum.text, MMS);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -327,13 +333,12 @@ procedure TfrmExample.btnGetPartnerBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
-        // 파트너 과금시, 잔여 파트너 포인트를 확인합니다.
-        
+
         try
                 balance := messagingService.GetPartnerBalance(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -354,7 +359,7 @@ var
 begin
         try
                 // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-                sendNum := '070-7510-3710';
+                sendNum := '070-4304-2991';
 
                 // 발신자명
                 sendName := '발신자명';
@@ -377,14 +382,14 @@ begin
                                                         receiverName, contents, txtReserveDT.Text, adsYN, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum);
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
 
 end;
 
@@ -397,9 +402,9 @@ var
         adsYN : Boolean;
 begin
         //수신 정보 배열, 최대 1000건
-        SetLength(Messages,100);
+        SetLength(Messages, 5);
 
-        for i := 0 to 100 -1 do begin
+        for i := 0 to Length(Messages) - 1 do begin
             Messages[i] := TSendMessage.create;
 
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
@@ -430,14 +435,14 @@ begin
                 TTotal := TPost - Tinit;
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
 end;
 
 procedure TfrmExample.btnSendThousandSameClick(Sender: TObject);
@@ -452,9 +457,9 @@ var
         adsYN : Boolean;
 begin
         //수신 정보 배열, 최대 1000건
-        SetLength(Messages,100);
+        SetLength(Messages, 5);
 
-        for i := 0 to 100 -1 do begin
+        for i := 0 to Length(Messages) -1 do begin
             Messages[i] := TSendMessage.create;
 
             // 수신번호
@@ -463,7 +468,7 @@ begin
 
 
         // 대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-7510-3710';
+        sendNum := '070-4304-2991';
 
         // 대량전송 발신자명
         sendName := '발신자명_SMS';
@@ -484,14 +489,14 @@ begin
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message );
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
 end;
 
 procedure TfrmExample.btnSendLMSClick(Sender: TObject);
@@ -507,7 +512,7 @@ var
 begin
 
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-7510-3710';
+        sendNum := '070-4304-2991';
 
         // 발신자명
         sendName := '발신자명';
@@ -534,14 +539,14 @@ begin
                                                         subject, contents, txtReserveDT.Text, adsYN, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum);
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
 
 end;
 
@@ -550,13 +555,17 @@ var
         Messages : TSentMessageList;
         i :integer;
 begin
-        // 문자전송요청시 발급받은 접수번호(receiptNum)으로 문자전송상태를 확인합니다
-        
+        {**********************************************************************}
+        { 문자전송요청시 발급받은 접수번호(receiptNum)로 전송상태를 확인합니다 }
+        { 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] >               }
+        { 3.3.1. GetMessages (전송내역 확인)을 참조하시기 바랍니다.            }
+        {**********************************************************************}
+                
         try
-                Messages := messagingService.GetMessages(txtCorpNum.Text,txtReceiptNum.Text,txtUserID.Text);
+                Messages := messagingService.GetMessages(txtCorpNum.Text, txtReceiptNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -613,7 +622,7 @@ var
         Messages : TSendMessageList;
         receiptNum : String;
         sendNum : String;
-        sendName : String;
+        senderName : String;
         subject : String;
         contents : String;
         i : Integer;
@@ -621,18 +630,18 @@ var
         adsYN : Boolean;
 begin
         //수신 정보 배열, 최대 1000건
-        SetLength(Messages,100);
+        SetLength(Messages,5);
 
-        for i := 0 to 100 -1 do begin
+        for i := 0 to Length(Messages) -1 do begin
             Messages[i] := TSendMessage.create;
             Messages[i].receiver := '010-111-222';      // 수신번호
         end;
         
         // 대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-7510-3710';
+        sendNum := '070-4304-2991';
 
         // 발신자명
-        sendName := '발신자명';
+        senderName := '발신자명';
         
         // 메시지 제목
         subject := '대량전송 제목';
@@ -648,20 +657,20 @@ begin
         try
                 Tinit := NOW;
                 
-                receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum, sendName, subject, contents,
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum, senderName, subject, contents,
                                                         Messages, txtReserveDT.Text, adsYN, txtUserID.Text);
                 
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message );
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
 end;
 
 procedure TfrmExample.btnSendLMSThousandClick(Sender: TObject);
@@ -674,13 +683,13 @@ var
 
 begin
         // 전송정보 배열, 최대 1000건
-        SetLength(Messages,100);
+        SetLength(Messages,5);
 
-        for i := 0 to 100 -1 do begin
+        for i := 0 to Length(Messages) -1 do begin
             Messages[i] := TSendMessage.create;
-
+                                      
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-            Messages[i].sender := '010-111-222';
+            Messages[i].sender := '070-4304-2991';
 
             // 발신자명
             Messages[i].senderName := '발신자명' +IntToStr(i);
@@ -691,8 +700,8 @@ begin
             // 장문메시지 제목
             Messages[i].subject := '장문제목';
 
-            // 장문메시지 내용, 2000byte 초과시
-            Messages[i].content := '장문내용장문내용장문내용. - ' + IntToStr(i);        
+            // 장문메시지 내용, 2000byte 초과된 내용은 삭제되어 전송됨
+            Messages[i].content := '장문 문자 메시지의 내용을 기재합니다. - ' + IntToStr(i);        
         end;
 
 
@@ -704,19 +713,20 @@ begin
         try
                 Tinit := NOW;
 
-                receiptNum := messagingService.SendLMS(txtCorpNum.Text,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text, Messages,
+                                                txtReserveDT.Text, adsYN, txtUserID.Text);
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
 end;
 
 procedure TfrmExample.btnSendXMSClick(Sender: TObject);
@@ -726,7 +736,7 @@ var
 begin
 
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-7510-3710';
+        sendNum := '070-4304-2991';
 
         // 발신자명
         sendName := '발신자명';
@@ -742,7 +752,7 @@ begin
 
         // 90Byte를 기준으로 단문(SMS)/장문(LMS) 자동 인식되어 전송됩니다.
         // 메시지 내용, 2000byte를 초과하는 내용은 삭제되어 전송됩니다.
-        contents := 'XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로잘립니다.';
+        contents := 'XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 2000byte 초과한 내용은 삭제되어 전송됩니다.';
 
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
@@ -750,17 +760,19 @@ begin
         adsYN := false;
         
         try
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum, sendName, receiver,receiverName,subject,contents,txtReserveDT.Text,adsYN,txtUserID.Text);
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum,
+                                sendName, receiver, receiverName, subject, contents,
+                                txtReserveDT.Text, adsYN, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum);
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
 
 end;
 
@@ -775,15 +787,16 @@ var
 
 begin
         //수신 정보 배열, 최대 1000건
-        SetLength(Messages,100);
+        SetLength(Messages, 5);
 
-        for i := 0 to 100 -1 do begin
+        for i := 0 to Length(Messages) - 1 do begin
             Messages[i] := TSendMessage.create;
+            // 수신번호
             Messages[i].receiver := '010-111-222';
         end;
         
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum  := '070-7510-3710';
+        sendNum  := '070-4304-2991';
         
         // 발신자명
         sendName := '발신자명';
@@ -802,19 +815,20 @@ begin
         try
                 Tinit := NOW;
 
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text,sendNum, sendName, subject,contents,Messages,txtReserveDT.Text,adsYN,txtUserID.Text);
-                
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum,
+                                                sendName, subject, contents, Messages,
+                                                txtReserveDT.Text, adsYN, txtUserID.Text);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message );
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
 end;
 
 procedure TfrmExample.btnSendXMSThousandClick(Sender: TObject);
@@ -832,7 +846,7 @@ begin
             Messages[i] := TSendMessage.create;
             
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-            Messages[i].sender := '010-111-222';
+            Messages[i].sender := '070-4304-2991';
             
             // 발신자명
             Messages[i].senderName := '발신자명' + IntToStr(i);
@@ -871,37 +885,37 @@ begin
         try
                 Tinit := NOW;
 
-                receiptNum := messagingService.SendXMS(txtCorpNum.Text, Messages, txtReserveDT.Text, adsYN, txtUserID.Text);
+                receiptNum := messagingService.SendXMS(txtCorpNum.Text, Messages,
+                                        txtReserveDT.Text, adsYN, txtUserID.Text);
 
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TTotal));
 end;
 
 procedure TfrmExample.btnCancelReserveClick(Sender: TObject);
 var
         response : TResponse;
 begin
-        // 예약문자 전송을 취소합니다.
-
         try
-                response := messagingService.CancelReserve(txtCorpNum.Text,txtReceiptNum.Text,txtUserID.Text);
+                response := messagingService.CancelReserve(txtCorpNum.Text, txtReceiptNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
-        ShowMessage('처리결과 : ' + IntToStr(response.code) + ' | ' +  response.Message);
+        
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
 
@@ -910,12 +924,13 @@ var
   resultURL : String;
 begin
         // 전송내역 조회 URL을 반환합니다.
+        // 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
 
         try
-                resultURL := messagingService.getURL(txtCorpNum.Text,txtUserID.Text,'BOX');
+                resultURL := messagingService.getURL(txtCorpNum.Text, txtUserID.Text, 'BOX');
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -937,7 +952,7 @@ begin
         end;
 
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-7510-3710';
+        sendNum := '070-4304-2991';
 
         // 발신자명
         sendName := '발신자명';
@@ -960,20 +975,19 @@ begin
         adsYN := false;
 
         try
-
                 receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, sendName, receiver,
-                                receiverName, subject, contents, filePath, txtReserveDT.Text, adsYN, txtUserID.Text);
-
+                                        receiverName, subject, contents, filePath,
+                                        txtReserveDT.Text, adsYN, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum);
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
 end;
 
 procedure TfrmExample.btnSendMMSThousand_SameClick(Sender: TObject);
@@ -990,18 +1004,18 @@ begin
         end;
 
         //전송정보 배열, 최대 1000건
-        SetLength(Messages,100);
+        SetLength(Messages, 5);
 
-        for i := 0 to 99 do begin
+        for i := 0 to Length(Messages) -1 do begin
                 Messages[i] := TSendMessage.create;
-                Messages[i].sender := '07075103710';       //발신번호
+                Messages[i].sender := '07043042991';       //발신번호
                 Messages[i].senderName := '발신자명';      //발신자명
                 Messages[i].receiver := '010111222';       //수신번호
                 Messages[i].receiverName :='수신자명';     //수신자명
         end;
 
         //대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-7510-3710';
+        sendNum := '070-4304-2991';
 
         // 메시지 제목
         subject := '포토 대량전송 메시지 제목';
@@ -1016,35 +1030,35 @@ begin
 
         try
                 receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, subject,
-                                                contents, Messages, filePath, txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                contents, Messages, filePath,
+                                                txtReserveDT.Text, adsYN, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
         txtReceiptNum.Text := receiptNum;
 
-        ShowMessage('접수번호: '+ receiptNum);
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
 end;
 
 procedure TfrmExample.btnCheckIDClick(Sender: TObject);
 var
         response : TResponse;
 begin
-        // 팝빌회원 아이디의 중복을 체크합니다.
-        
+      
         try
                 response := messagingService.CheckID(txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
 procedure TfrmExample.btnRegistContactClick(Sender: TObject);
@@ -1052,7 +1066,6 @@ var
         response : TResponse;
         joinInfo : TJoinContact;
 begin
-        // 담당자를 추가합니다. 
 
         // [필수] 아이디 (6자 이상 20자 미만)
         joinInfo.id := 'test_201509173';
@@ -1064,7 +1077,7 @@ begin
         joinInfo.personName := '담당자성명';
 
         // [필수] 연락처
-        joinInfo.tel := '070-7510-3710';
+        joinInfo.tel := '070-4304-2991';
 
         // 휴대폰번호
         joinInfo.hp := '010-1111-2222';
@@ -1079,18 +1092,18 @@ begin
         joinInfo.searchAllAllowYN := false;
 
         // 관리자 권한여부
-        joinInfo.mgrYN     := false;
+        joinInfo.mgrYN := false;
 
         try
-                response := messagingService.RegistContact(txtCorpNum.text,joinInfo,txtUserID.text);
+                response := messagingService.RegistContact(txtCorpNum.text, joinInfo, txtUserID.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
 procedure TfrmExample.btnListContactClick(Sender: TObject);
@@ -1099,13 +1112,11 @@ var
         tmp : string;
         i : Integer;
 begin
-        // 팝빌 연동회원의 담당자 목록을 확인합니다.
-
         try
-                InfoList := messagingService.ListContact(txtCorpNum.text,txtUserID.text);
+                InfoList := messagingService.ListContact(txtCorpNum.text, txtUserID.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -1132,19 +1143,17 @@ var
         contactInfo : TContactInfo;
         response : TResponse;
 begin
-        // 담당자의 정보를 수정합니다.
-
-        
+       
         contactInfo := TContactInfo.Create;
 
         // 담당자명
         contactInfo.personName := '테스트 담당자';
 
         // 연락처
-        contactInfo.tel := '070-7510-3710';
-        
+        contactInfo.tel := '070-4304-2991';
+
         // 휴대폰번호
-        contactInfo.hp := '010-111-222';
+        contactInfo.hp := '010-000-111';
 
         // 이메일 주소
         contactInfo.email := 'test@test.com';
@@ -1152,22 +1161,22 @@ begin
         // 팩스번호
         contactInfo.fax := '02-6442-9799';
 
-        // 회사조회 권한여부
+        // 조회권한, true(회사조회), false(개인조회)
         contactInfo.searchAllAllowYN := true;
 
-        // 관리자 권한 여부
+        // 관리자권한 설정여부
         contactInfo.mgrYN := false;
-
+        
         try
-                response := messagingService.UpdateContact(txtCorpNum.text,contactInfo,txtUserID.Text);
+                response := messagingService.UpdateContact(txtCorpNum.text, contactInfo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
 
@@ -1176,13 +1185,12 @@ var
         corpInfo : TCorpInfo;
         tmp : string;
 begin
-        // 팝빌 연동회원의 회사정보를 확인합니다.
-        
+       
         try
                 corpInfo := messagingService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -1202,35 +1210,34 @@ var
         corpInfo : TCorpInfo;
         response : TResponse;
 begin
-        // 연동회원의 회사정보를 수정합니다.
 
         corpInfo := TCorpInfo.Create;
 
-        //대표자명
+        // 대표자명, 최대 30자
         corpInfo.ceoname := '대표자명';
-        
-        // 회사명
-        corpInfo.corpName := '팝빌';
-        
-        // 업태
-        corpInfo.bizType := '업태_수정';
-        
-        // 종목
+
+        // 상호, 최대 70자
+        corpInfo.corpName := '상호';
+
+        // 업태, 최대 40자
+        corpInfo.bizType := '업태';
+
+        // 종목, 최대 40자
         corpInfo.bizClass := '종목';
-        
-        // 주소
+
+        // 주소, 최대 300자
         corpInfo.addr := '서울특별시 강남구 영동대로 517';
         
         try
-                response := messagingService.UpdateCorpInfo(txtCorpNum.text,corpInfo,txtUserID.Text);
+                response := messagingService.UpdateCorpInfo(txtCorpNum.text, corpInfo, txtUserID.Text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
 procedure TfrmExample.btnSearchMessagesClick(Sender: TObject);
@@ -1243,13 +1250,18 @@ var
         Messages : TSearchList;
         i : integer;
 begin
-        // 검색조건에 따라 문자전송 내역을 조회합니다.
+        {***********************************************************************}
+        { 검색조건에 따라 문자전송 내역을 조회합니다.                           }
+        { 응답항목에 관한 사항은 "[문자 API 연동매뉴얼] > Search (전송내역      }
+        { 목록 조회)를 참조하시기 바랍니다.                                     }
+        {***********************************************************************}
+
 
         // 검색기간 시작일자, 날짜형식 yyyyMMdd
-        SDate := '20160701';
-        
+        SDate := '20160901';
+
         // 검색기간 종료일자, 날짜형식 yyyyMMdd
-        EDate := '20160901';
+        EDate := '20161031';
 
         //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소 ex) State=1,2,4
         SetLength(State, 4);
@@ -1259,8 +1271,8 @@ begin
 
         // 검색대상 배열, SMS, LMS, MMS ex) Item=SMS,MMS
         SetLength(Item, 3);
-        Item[0] := 'LMS';
-        Item[1] := 'SMS';
+        Item[0] := 'SMS';
+        Item[1] := 'LMS';
         Item[2] := 'MMS';
 
         // 예약전송 검색여부, true(예약전송건 검색), false(즉시전송건 검색)
@@ -1284,17 +1296,17 @@ begin
                                                         Order, txtUserID.text);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        tmp := 'code : '+IntToStr(Messages.code) + #13;
-        tmp := tmp + 'total : '+ IntToStr(Messages.total) + #13;
-        tmp := tmp + 'perPage : '+ IntToStr(Messages.perPage) + #13;
-        tmp := tmp + 'pageNum : '+ IntToStr(Messages.pageNum) + #13;
-        tmp := tmp + 'pageCount : '+ IntToStr(Messages.pageCount) + #13;
-        tmp := tmp + 'message : '+ Messages.message + #13;
+        tmp := 'code (응답코드) : '+IntToStr(Messages.code) + #13;
+        tmp := tmp + 'total (총 검색결과 건수) : '+ IntToStr(Messages.total) + #13;
+        tmp := tmp + 'perPage (페이지당 검색개수) : '+ IntToStr(Messages.perPage) + #13;
+        tmp := tmp + 'pageNum (페이지 번호) : '+ IntToStr(Messages.pageNum) + #13;
+        tmp := tmp + 'pageCount (페이지 개수) : '+ IntToStr(Messages.pageCount) + #13;
+        tmp := tmp + 'message (응답메시지) : '+ Messages.message + #13;
 
         stringgrid1.RowCount := Length(Messages.list) + 1;
         for i:= 0 to Length(Messages.list) -1 do begin
@@ -1321,18 +1333,16 @@ procedure TfrmExample.btnCheckIsMemberClick(Sender: TObject);
 var
         response : TResponse;
 begin
-        // 해당사업자가 파트너의 연동회원으로 가입되어 있는지 여부를 확인합니다.
-
         try
-                response := messagingService.CheckIsMember(txtCorpNum.text,LinkID);
+                response := messagingService.CheckIsMember(txtCorpNum.text, LinkID);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
 
-        ShowMessage(IntToStr(response.code) + ' | ' +  response.Message);
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
 
@@ -1340,13 +1350,13 @@ procedure TfrmExample.btnGetPopbillURL_CHRGClick(Sender: TObject);
 var
         resultURL : String;
 begin
-        // 연동회원의 포인트를 결제하는 URL을 반환합니다.
+        // 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
         
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text,txtUserID.Text,'CHRG');
+                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -1369,7 +1379,7 @@ begin
 
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' + le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -1386,18 +1396,16 @@ begin
 end;
 
 
-procedure TfrmExample.btnGetChargeInfoClick(Sender: TObject);
+procedure TfrmExample.btnGetChargeInfo_SMSClick(Sender: TObject);
 var
         chargeInfo : TMessageChargeInfo;
         tmp : String;
 begin
-        // 서비스의 과금정보를 확인합니다.
-        
         try
-                chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text,SMS);
+                chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text, SMS);
         except
                 on le : EPopbillException do begin
-                        ShowMessage(IntToStr(le.code) + ' | ' +  le.Message);
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
@@ -1407,8 +1415,48 @@ begin
         tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
 
         ShowMessage(tmp);
+end;
 
+procedure TfrmExample.btnGetChargeInfo_LMSClick(Sender: TObject);
+var
+        chargeInfo : TMessageChargeInfo;
+        tmp : String;
+begin
+        try
+                chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text, LMS);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
 
+        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+
+        ShowMessage(tmp);
+end;
+
+procedure TfrmExample.btnGetChargeInfo_MMSClick(Sender: TObject);
+var
+        chargeInfo : TMessageChargeInfo;
+        tmp : String;
+begin
+        try
+                chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text, MMS);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+
+        ShowMessage(tmp);
 end;
 
 end.

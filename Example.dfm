@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 161
-  Top = 122
+  Left = 249
+  Top = 129
   Width = 1153
   Height = 844
   Caption = '팝빌 메시징 SDK Examples'
@@ -16,27 +16,27 @@ object frmExample: TfrmExample
   TextHeight = 13
   object Label3: TLabel
     Left = 16
-    Top = 12
+    Top = 20
     Width = 120
     Height = 13
     Caption = '팝빌회원 사업자번호 : '
   end
   object Label4: TLabel
     Left = 288
-    Top = 12
+    Top = 20
     Width = 69
     Height = 13
     Caption = '팝빌아이디 : '
   end
   object GroupBox8: TGroupBox
     Left = 16
-    Top = 40
-    Width = 905
+    Top = 48
+    Width = 1105
     Height = 169
     Caption = '팝빌 기본 API'
     TabOrder = 0
     object GroupBox9: TGroupBox
-      Left = 8
+      Left = 16
       Top = 24
       Width = 137
       Height = 129
@@ -71,14 +71,14 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox11: TGroupBox
-      Left = 152
+      Left = 168
       Top = 24
-      Width = 289
+      Width = 441
       Height = 129
       Caption = '포인트 관련'
       TabOrder = 1
       object btnGetUnitCost_SMS: TButton
-        Left = 8
+        Left = 152
         Top = 24
         Width = 129
         Height = 25
@@ -87,7 +87,7 @@ object frmExample: TfrmExample
         OnClick = btnGetUnitCost_SMSClick
       end
       object btnGetUnitCost_LMS: TButton
-        Left = 8
+        Left = 152
         Top = 56
         Width = 129
         Height = 25
@@ -96,7 +96,7 @@ object frmExample: TfrmExample
         OnClick = btnGetUnitCost_LMSClick
       end
       object btnGetUnitCost_MMS: TButton
-        Left = 8
+        Left = 152
         Top = 88
         Width = 129
         Height = 25
@@ -105,7 +105,7 @@ object frmExample: TfrmExample
         OnClick = btnGetUnitCost_MMSClick
       end
       object btnGetBalance: TButton
-        Left = 152
+        Left = 296
         Top = 24
         Width = 129
         Height = 25
@@ -114,7 +114,7 @@ object frmExample: TfrmExample
         OnClick = btnGetBalanceClick
       end
       object btnGetPartnerBalance: TButton
-        Left = 152
+        Left = 296
         Top = 56
         Width = 129
         Height = 25
@@ -122,18 +122,36 @@ object frmExample: TfrmExample
         TabOrder = 4
         OnClick = btnGetPartnerBalanceClick
       end
-      object btnGetChargeInfo: TButton
-        Left = 152
+      object btnGetChargeInfo_SMS: TButton
+        Left = 8
+        Top = 24
+        Width = 129
+        Height = 25
+        Caption = 'SMS 과금정보 확인'
+        TabOrder = 5
+        OnClick = btnGetChargeInfo_SMSClick
+      end
+      object btnGetChargeInfo_LMS: TButton
+        Left = 8
+        Top = 56
+        Width = 129
+        Height = 25
+        Caption = 'LMS 과금정보 확인'
+        TabOrder = 6
+        OnClick = btnGetChargeInfo_LMSClick
+      end
+      object btnGetChargeInfo_MMS: TButton
+        Left = 8
         Top = 88
         Width = 129
         Height = 25
-        Caption = '과금정보 확인'
-        TabOrder = 5
-        OnClick = btnGetChargeInfoClick
+        Caption = 'MMS 과금정보 확인'
+        TabOrder = 7
+        OnClick = btnGetChargeInfo_MMSClick
       end
     end
     object GroupBox12: TGroupBox
-      Left = 448
+      Left = 624
       Top = 24
       Width = 137
       Height = 129
@@ -159,7 +177,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox4: TGroupBox
-      Left = 592
+      Left = 776
       Top = 24
       Width = 145
       Height = 129
@@ -194,7 +212,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox7: TGroupBox
-      Left = 744
+      Left = 936
       Top = 24
       Width = 145
       Height = 129
@@ -222,7 +240,7 @@ object frmExample: TfrmExample
   end
   object txtCorpNum: TEdit
     Left = 144
-    Top = 8
+    Top = 16
     Width = 137
     Height = 21
     ImeName = 'Microsoft IME 2010'
@@ -231,7 +249,7 @@ object frmExample: TfrmExample
   end
   object txtUserID: TEdit
     Left = 360
-    Top = 8
+    Top = 16
     Width = 137
     Height = 21
     ImeName = 'Microsoft IME 2010'
@@ -240,7 +258,7 @@ object frmExample: TfrmExample
   end
   object GroupBox5: TGroupBox
     Left = 16
-    Top = 216
+    Top = 224
     Width = 1105
     Height = 561
     Caption = '팝빌 메시징 관련 기능'
@@ -262,7 +280,7 @@ object frmExample: TfrmExample
     object GroupBox10: TGroupBox
       Left = 728
       Top = 56
-      Width = 156
+      Width = 172
       Height = 153
       Caption = '부가기능'
       TabOrder = 12
@@ -434,7 +452,7 @@ object frmExample: TfrmExample
       TabOrder = 7
     end
     object btnSMSPopUp: TButton
-      Left = 736
+      Left = 744
       Top = 80
       Width = 140
       Height = 33
@@ -478,7 +496,7 @@ object frmExample: TfrmExample
       end
     end
     object btnSearchMessages: TButton
-      Left = 736
+      Left = 744
       Top = 120
       Width = 140
       Height = 33
@@ -487,7 +505,7 @@ object frmExample: TfrmExample
       OnClick = btnSearchMessagesClick
     end
     object btnGetAutoDenyList: TButton
-      Left = 736
+      Left = 744
       Top = 160
       Width = 140
       Height = 33
@@ -498,6 +516,6 @@ object frmExample: TfrmExample
   end
   object OpenDialog1: TOpenDialog
     Left = 664
-    Top = 8
+    Top = 16
   end
 end
