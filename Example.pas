@@ -1,18 +1,34 @@
+{******************************************************************************}
+{ 팝빌 문자 API Delphi SDK Example                                             }
+{                                                                              }
+{ - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/1059                  }
+{ - 업데이트 일자 : 2016-10-06                                                 }
+{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991 (정요한 대리)             }
+{ - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
+{                                                                              }
+{ <테스트 연동개발 준비사항>                                                   }
+{ (1) 32, 35번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를          }
+{    링크허브 가입시 메일로 발급받은 인증정보로 수정                           }
+{ (2) 팝빌 개발용 사이트(test.popbill.com)에 연동회원으로 가입                 }
+{                                                                              }
+{******************************************************************************}
+
 unit Example;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, TypInfo,
-  Popbill, PopbillMessaging, ExtCtrls, Grids;
+  StdCtrls, TypInfo, Popbill, PopbillMessaging, ExtCtrls, Grids;
 
 const
+        {**********************************************************************}
+        { - 인증정보(링크아이디, 비밀키)는 파트너의 연동회원을 식별하는        }
+        {   인증에 사용되므로 유출되지 않도록 주의하시기 바랍니다              }
+        { - 상업용 전환이후에도 인증정보는 변경되지 않습니다.                  }
+        {**********************************************************************}
 
-        // 링크허브 파트너 가입시 메일로 발급받은 인증정보(링크아이디, 비밀키) 입력하시기 바랍니다.
-        // [참고] 팝빌 서비스 API 이용절차 안내 - http://blog.linkhub.co.kr/105/
-        
-        // 링크아이디 
+        // 링크아이디
         LinkID = 'TESTER';
 
         // 비밀키, 유출에 주의 
@@ -175,8 +191,11 @@ procedure TfrmExample.btnGetPopBillURL_LOGINClick(Sender: TObject);
 var
         resultURL : String;
 begin
-        // 반환된 URL은 보안정책으로 인해 30초의 유효시간이 존재합니다.
-          
+        {**********************************************************************}
+        {    팝빌(www.popbill.com)에 로그인된 팝업 URL을 반환합니다.           }
+        {    URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.      }
+        {**********************************************************************}
+
         try
                 resultURL := messagingService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'LOGIN');
         except
@@ -195,8 +214,7 @@ procedure TfrmExample.btnJoinClick(Sender: TObject);
 var
         response : TResponse;
         joinInfo : TJoinForm;
-begin
-        
+begin      
         {**********************************************************************}
         {    파트너의 연동회원으로 회원가입을 요청합니다.                      }
         {    아이디 중복확인은 btnCheckIDClick 프로시져를 참조하시기 바랍니다. }
@@ -261,7 +279,12 @@ procedure TfrmExample.btnGetBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
-       
+        {**********************************************************************}
+        { 연동회원의 잔여포인트를 확인합니다.                                  }
+        { - 과금방식이 연동과금이 아닌 파트너과금인 경우 파트너 잔여포인트     }
+        {   확인(GetPartnerBalance API) 기능 이용하시기 바랍니다               }
+        {**********************************************************************}
+        
         try
                 balance := messagingService.GetBalance(txtCorpNum.text);
         except
@@ -279,7 +302,9 @@ procedure TfrmExample.btnGetUnitCost_SMSClick(Sender: TObject);
 var
         unitcost : Single;
 begin
-        // SMS(단문)의 전송단가를 확인합니다.
+        {**********************************************************************}
+        { 단문(SMS) 전송단가를 확인합니다.                                     }
+        {**********************************************************************}
         
         try
                 unitcost := messagingService.GetUnitCost(txtCorpNum.text, SMS);
@@ -297,7 +322,9 @@ procedure TfrmExample.btnGetUnitCost_LMSClick(Sender: TObject);
 var
         unitcost : Single;
 begin
-        // LMS(장문)의 전송단가를 확인합니다.
+        {**********************************************************************}
+        { 장문(LMS) 전송단가를 확인합니다.                                     }
+        {**********************************************************************}
         
         try
                 unitcost := messagingService.GetUnitCost(txtCorpNum.text, LMS);
@@ -316,6 +343,9 @@ procedure TfrmExample.btnGetUnitCost_MMSClick(Sender: TObject);
 var
         unitcost : Single;
 begin
+        {**********************************************************************}
+        { 포토(MMS) 전송단가를 확인합니다.                                     }
+        {**********************************************************************}
 
         try
                 unitcost := messagingService.GetUnitCost(txtCorpNum.text, MMS);
@@ -333,7 +363,12 @@ procedure TfrmExample.btnGetPartnerBalanceClick(Sender: TObject);
 var
         balance : Double;
 begin
-
+        {**********************************************************************}
+        { 파트너의 잔여포인트를 확인합니다. 과금방식이 파트너과금이 아닌       }
+        { 연동과금인 경우 연동회원 잔여포인트 확인(GetBalance API)를           }
+        { 이용하시기 바랍니다                                                  }
+        {**********************************************************************}
+        
         try
                 balance := messagingService.GetPartnerBalance(txtCorpNum.text);
         except
@@ -357,6 +392,11 @@ var
         contents : String;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 단문(SMS) 메시지 전송을 요청합니다.                                  }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         try
                 // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
                 sendNum := '070-4304-2991';
@@ -401,6 +441,11 @@ var
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 단문(SMS) 메시지 전송을 요청합니다.                                  }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         //수신 정보 배열, 최대 1000건
         SetLength(Messages, 5);
 
@@ -456,6 +501,11 @@ var
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 단문(SMS) 메시지 전송을 요청합니다.                                  }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         //수신 정보 배열, 최대 1000건
         SetLength(Messages, 5);
 
@@ -510,6 +560,10 @@ var
         contents : String;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 장문(LMS) 메시지 전송을 요청합니다.                                  }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
 
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
         sendNum := '070-4304-2991';
@@ -557,8 +611,8 @@ var
 begin
         {**********************************************************************}
         { 문자전송요청시 발급받은 접수번호(receiptNum)로 전송상태를 확인합니다 }
-        { 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] >               }
-        { 3.3.1. GetMessages (전송내역 확인)을 참조하시기 바랍니다.            }
+        { - 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] >             }
+        {   3.3.1. GetMessages (전송내역 확인)을 참조하시기 바랍니다.          }
         {**********************************************************************}
                 
         try
@@ -629,6 +683,11 @@ var
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 장문(LMS) 메시지 전송을 요청합니다.                                  }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         //수신 정보 배열, 최대 1000건
         SetLength(Messages,5);
 
@@ -682,6 +741,11 @@ var
         adsYN : Boolean;
 
 begin
+        {**********************************************************************}
+        { 장문(LMS) 메시지 전송을 요청합니다.                                  }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         // 전송정보 배열, 최대 1000건
         SetLength(Messages,5);
 
@@ -734,6 +798,11 @@ var
         receiptNum, sendNum, sendName, receiver, receiverName, subject, contents: String;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 단문/장문 자동인식 메시지 전송을 요청합니다.                         }
+        { - 메시지 길이(90byte)를 기준으로 단문/장문이 자동인식되어 전송됩니다.}
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
 
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
         sendNum := '070-4304-2991';
@@ -784,8 +853,13 @@ var
         i : Integer;
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
-
 begin
+        {**********************************************************************}
+        { 단문/장문 자동인식 메시지 전송을 요청합니다.                         }
+        { - 메시지 길이(90byte)를 기준으로 단문/장문이 자동인식되어 전송됩니다.}
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         //수신 정보 배열, 최대 1000건
         SetLength(Messages, 5);
 
@@ -839,6 +913,12 @@ var
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 단문/장문 자동인식 메시지 전송을 요청합니다.                         }
+        { - 메시지 길이(90byte)를 기준으로 단문/장문이 자동인식되어 전송됩니다.}
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         //전송정보 배열 최대 1000건
         SetLength(Messages,100);
 
@@ -906,6 +986,11 @@ procedure TfrmExample.btnCancelReserveClick(Sender: TObject);
 var
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 예약문자 전송을 취소합니다.                                          }
+        { - 예약전송 취소는 예약시간 10분전까지만 가능합니다.                  }
+        {**********************************************************************}
+        
         try
                 response := messagingService.CancelReserve(txtCorpNum.Text, txtReceiptNum.Text, txtUserID.Text);
         except
@@ -914,7 +999,7 @@ begin
                         Exit;
                 end;
         end;
-        
+
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 
 end;
@@ -923,8 +1008,10 @@ procedure TfrmExample.btnSMSPopUpClick(Sender: TObject);
 var
   resultURL : String;
 begin
-        // 전송내역 조회 URL을 반환합니다.
-        // 반환된 URL은 보안정책에 따라 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        { 문자 전송내역 팝업 URL 반환합니다.                                   }
+        {  URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.        }
+        {**********************************************************************}
 
         try
                 resultURL := messagingService.getURL(txtCorpNum.Text, txtUserID.Text, 'BOX');
@@ -945,6 +1032,12 @@ var
         filePath, receiptNum, sendNum, sendName, receiver, receiverName, subject, contents : string;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 포토(MMS) 메시지 전송을 요청합니다.                                  }
+        { - 이미지 파일의 크기는 최대 300KByte이며, 파일포맷은 JPEG 입니다.    }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+
         if OpenDialog1.Execute then begin
               filePath := OpenDialog1.FileName;
         end else begin
@@ -997,6 +1090,12 @@ var
         i : Integer;
         adsYN : Boolean;
 begin
+        {**********************************************************************}
+        { 포토(MMS) 메시지 전송을 요청합니다.                                  }
+        { - 이미지 파일의 크기는 최대 300KByte이며, 파일포맷은 JPEG 입니다.    }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+        
         if OpenDialog1.Execute then begin
               filePath := OpenDialog1.FileName;
         end else begin
@@ -1048,7 +1147,10 @@ procedure TfrmExample.btnCheckIDClick(Sender: TObject);
 var
         response : TResponse;
 begin
-      
+        {**********************************************************************}
+        { 회원가입(JoinMember API)을 호출하기 전 아이디 중복을 확인합니다.     }
+        {**********************************************************************}
+              
         try
                 response := messagingService.CheckID(txtUserID.Text);
         except
@@ -1066,6 +1168,9 @@ var
         response : TResponse;
         joinInfo : TJoinContact;
 begin
+        {**********************************************************************}
+        { 연동회원의 담당자를 신규로 등록합니다.                               }
+        {**********************************************************************}
 
         // [필수] 아이디 (6자 이상 20자 미만)
         joinInfo.id := 'test_201509173';
@@ -1112,6 +1217,10 @@ var
         tmp : string;
         i : Integer;
 begin
+        {**********************************************************************}
+        { 연동회원의 담당자 목록을 확인합니다.                                 }
+        {**********************************************************************}
+        
         try
                 InfoList := messagingService.ListContact(txtCorpNum.text, txtUserID.text);
         except
@@ -1143,7 +1252,10 @@ var
         contactInfo : TContactInfo;
         response : TResponse;
 begin
-       
+        {**********************************************************************}
+        { 연동회원의 담당자 정보를 수정합니다.                                 }
+        {**********************************************************************}
+               
         contactInfo := TContactInfo.Create;
 
         // 담당자명
@@ -1185,7 +1297,10 @@ var
         corpInfo : TCorpInfo;
         tmp : string;
 begin
-       
+        {**********************************************************************}
+        { 연동회원의 회사정보를 확인합니다.                                    }
+        {**********************************************************************}
+               
         try
                 corpInfo := messagingService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
         except
@@ -1210,7 +1325,10 @@ var
         corpInfo : TCorpInfo;
         response : TResponse;
 begin
-
+        {**********************************************************************}
+        { 연동회원의 회사정보를 수정합니다.                                    }
+        {**********************************************************************}
+        
         corpInfo := TCorpInfo.Create;
 
         // 대표자명, 최대 30자
@@ -1250,11 +1368,11 @@ var
         Messages : TSearchList;
         i : integer;
 begin
-        {***********************************************************************}
-        { 검색조건에 따라 문자전송 내역을 조회합니다.                           }
-        { 응답항목에 관한 사항은 "[문자 API 연동매뉴얼] > Search (전송내역      }
-        { 목록 조회)를 참조하시기 바랍니다.                                     }
-        {***********************************************************************}
+        {**********************************************************************}
+        { 검색조건에 따라 문자전송 내역을 조회합니다.                          }
+        { - 응답항목에 관한 사항은 "[문자 API 연동매뉴얼] > Search (전송내역   }
+        {   목록 조회)를 참조하시기 바랍니다.                                  }
+        {**********************************************************************s}
 
 
         // 검색기간 시작일자, 날짜형식 yyyyMMdd
@@ -1263,7 +1381,7 @@ begin
         // 검색기간 종료일자, 날짜형식 yyyyMMdd
         EDate := '20161031';
 
-        //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소 ex) State=1,2,4
+        //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소
         SetLength(State, 4);
         State[0] := '1';
         State[1] := '2';
@@ -1333,6 +1451,11 @@ procedure TfrmExample.btnCheckIsMemberClick(Sender: TObject);
 var
         response : TResponse;
 begin
+        {**********************************************************************}
+        { 해당 사업자의 연동회원 가입여부를 확인합니다.                        }
+        { - LinkID는 파트너를 식별하는 인증정보(32번라인)에 설정되어 있습니다. }
+        {**********************************************************************}
+
         try
                 response := messagingService.CheckIsMember(txtCorpNum.text, LinkID);
         except
@@ -1350,7 +1473,10 @@ procedure TfrmExample.btnGetPopbillURL_CHRGClick(Sender: TObject);
 var
         resultURL : String;
 begin
-        // 반환된 URL은 보안정책으로 인해 30초의 유효시간을 갖습니다.
+        {**********************************************************************}
+        { 연동회원 포인트 충전 URL을 반환합니다.                               }
+        { - 보안정책으로 인해 반환된 URL의 유효시간은 30초입니다.              }
+        {**********************************************************************}
         
         try
                 resultURL := messagingService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
@@ -1370,10 +1496,12 @@ var
         tmp : String;
         i : Integer;
 begin
-        // 080 수신거부 목록을 확인합니다.
-        // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
-        // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
-
+        {**********************************************************************}
+        { 080 수신거부 목록을 확인합니다.                                      }
+        { [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770}
+        { [참고] 광고문자 표기 의무 안내 - http://blog.linkhub.co.kr/2642      }
+        {**********************************************************************}
+        
         try
              AutoDenyList := messagingService.getAutoDenyList(txtCorpNum.Text);
 
@@ -1401,6 +1529,10 @@ var
         chargeInfo : TMessageChargeInfo;
         tmp : String;
 begin
+        {**********************************************************************}
+        { 연동회원의 문자 API 서비스 단문(SMS)메시지 과금정보를 확인합니다.    }
+        {**********************************************************************}
+        
         try
                 chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text, SMS);
         except
@@ -1422,6 +1554,10 @@ var
         chargeInfo : TMessageChargeInfo;
         tmp : String;
 begin
+        {**********************************************************************}
+        { 연동회원의 문자 API 서비스 장문(LMS)메시지 과금정보를 확인합니다.    }
+        {**********************************************************************}
+
         try
                 chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text, LMS);
         except
@@ -1443,6 +1579,10 @@ var
         chargeInfo : TMessageChargeInfo;
         tmp : String;
 begin
+        {**********************************************************************}
+        { 연동회원의 문자 API 서비스 포토(MMS)메시지 과금정보를 확인합니다.    }
+        {**********************************************************************}
+
         try
                 chargeInfo := messagingService.GetChargeInfo(txtCorpNum.text, MMS);
         except
