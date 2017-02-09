@@ -166,7 +166,7 @@ begin
         stringgrid1.Cells[9,0] := 'receiptDT';
         stringgrid1.Cells[10,0] := 'sendDT';
         stringgrid1.Cells[11,0] := 'resultDT';
-        stringgrid1.Cells[12,0] := 'sendResult';
+        stringgrid1.Cells[12,0] := 'result';
         stringgrid1.Cells[13,0] := 'tranNet';
 end;
 
@@ -663,7 +663,7 @@ begin
                stringgrid1.Cells[11,i+1] := Messages[i].resultDT;
 
                // 이동통신사 전송결과 
-               stringgrid1.Cells[12,i+1] := Messages[i].sendResult;
+               stringgrid1.Cells[12,i+1] := IntToStr(Messages[i].result);
 
                // 전송 통신사명
                stringgrid1.Cells[13,i+1] := Messages[i].tranNet;
@@ -811,7 +811,7 @@ begin
         sendName := '발신자명';
         
         // 수신번호
-        receiver := '010-222-333';
+        receiver := '010-111-222';
 
         // 수신자명
         receiverName := '수신자명';
@@ -1440,7 +1440,7 @@ begin
                stringgrid1.Cells[9,i+1] := Messages.list[i].receiptDT;
                stringgrid1.Cells[10,i+1] := Messages.list[i].sendDT;
                stringgrid1.Cells[11,i+1] := Messages.list[i].resultDT;
-               stringgrid1.Cells[12,i+1] := Messages.list[i].sendResult;
+               stringgrid1.Cells[12,i+1] := IntToStr(Messages.list[i].result);
                stringgrid1.Cells[13,i+1] := Messages.list[i].tranNet;
         end;
         Messages.Free;
