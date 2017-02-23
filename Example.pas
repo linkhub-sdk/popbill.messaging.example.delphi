@@ -2,8 +2,8 @@
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/1059                  }
-{ - 업데이트 일자 : 2016-10-06                                                 }
-{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991 (정요한 대리)             }
+{ - 업데이트 일자 : 2017-02-23                                                 }
+{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
 { <테스트 연동개발 준비사항>                                                   }
@@ -197,7 +197,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'LOGIN');
+                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, 'LOGIN');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -419,7 +419,7 @@ begin
                 adsYN := false;
                  
                 receiptNum := messagingService.SendSMS ( txtCorpNum.Text, sendNum, sendName, receiver,
-                                                        receiverName, contents, txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                        receiverName, contents, txtReserveDT.Text, adsYN);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -474,7 +474,7 @@ begin
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendSMS(txtCorpNum.Text, Messages,
-                                                        txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                        txtReserveDT.Text, adsYN);
                 
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
@@ -535,7 +535,7 @@ begin
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendSMS(txtCorpNum.Text, sendNum, sendName, contents,
-                                                        Messages, txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                        Messages, txtReserveDT.Text, adsYN);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
@@ -590,7 +590,7 @@ begin
         
         try
                 receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum, sendName, receiver, receiverName,
-                                                        subject, contents, txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                        subject, contents, txtReserveDT.Text, adsYN);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -616,7 +616,7 @@ begin
         {**********************************************************************}
                 
         try
-                Messages := messagingService.GetMessages(txtCorpNum.Text, txtReceiptNum.Text, txtUserID.Text);
+                Messages := messagingService.GetMessages(txtCorpNum.Text, txtReceiptNum.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -717,7 +717,7 @@ begin
                 Tinit := NOW;
                 
                 receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum, senderName, subject, contents,
-                                                        Messages, txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                        Messages, txtReserveDT.Text, adsYN);
                 
                 Tpost := NOW;
         except
@@ -778,7 +778,7 @@ begin
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendLMS(txtCorpNum.Text, Messages,
-                                                txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                txtReserveDT.Text, adsYN);
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
         except
@@ -831,7 +831,7 @@ begin
         try
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum,
                                 sendName, receiver, receiverName, subject, contents,
-                                txtReserveDT.Text, adsYN, txtUserID.Text);
+                                txtReserveDT.Text, adsYN);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -891,7 +891,7 @@ begin
 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum,
                                                 sendName, subject, contents, Messages,
-                                                txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                txtReserveDT.Text, adsYN);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
@@ -966,7 +966,7 @@ begin
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text, Messages,
-                                        txtReserveDT.Text, adsYN, txtUserID.Text);
+                                        txtReserveDT.Text, adsYN);
 
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
@@ -992,7 +992,7 @@ begin
         {**********************************************************************}
         
         try
-                response := messagingService.CancelReserve(txtCorpNum.Text, txtReceiptNum.Text, txtUserID.Text);
+                response := messagingService.CancelReserve(txtCorpNum.Text, txtReceiptNum.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1014,7 +1014,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := messagingService.getURL(txtCorpNum.Text, txtUserID.Text, 'BOX');
+                resultURL := messagingService.getURL(txtCorpNum.Text, 'BOX');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1070,7 +1070,7 @@ begin
         try
                 receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, sendName, receiver,
                                         receiverName, subject, contents, filePath,
-                                        txtReserveDT.Text, adsYN, txtUserID.Text);
+                                        txtReserveDT.Text, adsYN);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1130,7 +1130,7 @@ begin
         try
                 receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, subject,
                                                 contents, Messages, filePath,
-                                                txtReserveDT.Text, adsYN, txtUserID.Text);
+                                                txtReserveDT.Text, adsYN);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1200,7 +1200,7 @@ begin
         joinInfo.mgrYN := false;
 
         try
-                response := messagingService.RegistContact(txtCorpNum.text, joinInfo, txtUserID.text);
+                response := messagingService.RegistContact(txtCorpNum.text, joinInfo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1222,7 +1222,7 @@ begin
         {**********************************************************************}
         
         try
-                InfoList := messagingService.ListContact(txtCorpNum.text, txtUserID.text);
+                InfoList := messagingService.ListContact(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1302,7 +1302,7 @@ begin
         {**********************************************************************}
                
         try
-                corpInfo := messagingService.GetCorpInfo(txtCorpNum.text, txtUserID.Text);
+                corpInfo := messagingService.GetCorpInfo(txtCorpNum.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1347,7 +1347,7 @@ begin
         corpInfo.addr := '서울특별시 강남구 영동대로 517';
         
         try
-                response := messagingService.UpdateCorpInfo(txtCorpNum.text, corpInfo, txtUserID.Text);
+                response := messagingService.UpdateCorpInfo(txtCorpNum.text, corpInfo);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1376,10 +1376,10 @@ begin
 
 
         // 검색기간 시작일자, 날짜형식 yyyyMMdd
-        SDate := '20160901';
+        SDate := '20170101';
 
         // 검색기간 종료일자, 날짜형식 yyyyMMdd
-        EDate := '20161031';
+        EDate := '20170301';
 
         //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소
         SetLength(State, 4);
@@ -1410,8 +1410,7 @@ begin
 
         try
                 Messages := messagingService.search(txtCorpNum.text, SDate, EDate, State,
-                                                        Item, ReserveYN, SenderYN, Page, PerPage,
-                                                        Order, txtUserID.text);
+                                                        Item, ReserveYN, SenderYN, Page, PerPage, Order);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1479,7 +1478,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, txtUserID.Text, 'CHRG');
+                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, 'CHRG');
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
