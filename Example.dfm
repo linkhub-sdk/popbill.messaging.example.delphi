@@ -513,6 +513,32 @@ object frmExample: TfrmExample
       TabOrder = 11
       OnClick = btnGetAutoDenyListClick
     end
+    object GroupBox13: TGroupBox
+      Left = 912
+      Top = 56
+      Width = 156
+      Height = 113
+      Caption = '발신번호 관리 '
+      TabOrder = 13
+      object btnGetURL_SENDER: TButton
+        Left = 8
+        Top = 64
+        Width = 137
+        Height = 33
+        Caption = '발신번호 관리 팝업'
+        TabOrder = 0
+        OnClick = btnGetURL_SENDERClick
+      end
+      object btnGetSenderNumberList: TButton
+        Left = 8
+        Top = 24
+        Width = 137
+        Height = 33
+        Caption = '발신번호 목록 조회'
+        TabOrder = 1
+        OnClick = btnGetSenderNumberListClick
+      end
+    end
   end
   object OpenDialog1: TOpenDialog
     Left = 664

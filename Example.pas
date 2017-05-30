@@ -93,6 +93,9 @@ type
     btnGetChargeInfo_SMS: TButton;
     btnGetChargeInfo_LMS: TButton;
     btnGetChargeInfo_MMS: TButton;
+    GroupBox13: TGroupBox;
+    btnGetURL_SENDER: TButton;
+    btnGetSenderNumberList: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
@@ -129,6 +132,8 @@ type
     procedure btnGetChargeInfo_SMSClick(Sender: TObject);
     procedure btnGetChargeInfo_LMSClick(Sender: TObject);
     procedure btnGetChargeInfo_MMSClick(Sender: TObject);
+    procedure btnGetURL_SENDERClick(Sender: TObject);
+    procedure btnGetSenderNumberListClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -1503,7 +1508,7 @@ begin
         { [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770}
         { [참고] 광고문자 표기 의무 안내 - http://blog.linkhub.co.kr/2642      }
         {**********************************************************************}
-        
+
         try
              AutoDenyList := messagingService.getAutoDenyList(txtCorpNum.Text);
 
@@ -1515,7 +1520,7 @@ begin
         end;
 
         tmp := '수신거부번호 (number) | 등록일시 (regDT)' + #13;
-        
+
         for i := 0 to Length(AutoDenyList) -1 do
         begin
                 tmp:= tmp + AutoDenyList[i].number + '  |  '
@@ -1599,6 +1604,60 @@ begin
         tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
 
         ShowMessage(tmp);
+end;
+
+procedure TfrmExample.btnGetURL_SENDERClick(Sender: TObject);
+var
+  resultURL : String;
+begin
+        {**********************************************************************}
+        { 문자 발신번호 관리 팝업 URL 반환합니다.                              }
+        {  URL 보안정책에 따라 반환된 URL은 30초의 유효시간을 갖습니다.        }
+        {**********************************************************************}
+
+        try
+                resultURL := messagingService.getURL(txtCorpNum.Text, 'SENDER');
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
+
+procedure TfrmExample.btnGetSenderNumberListClick(Sender: TObject);
+var
+        SenderNumberList : TMSGSenderNumberList;
+        tmp : String;
+        i : Integer;
+begin
+        {**********************************************************************}
+        { 문자 발신번호 목록을 조회합니다.                                     }
+        {**********************************************************************}
+
+        try
+             SenderNumberList := messagingService.getSenderNumberList(txtCorpNum.Text);
+
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+
+        for i := 0 to Length(SenderNumberList) -1 do
+        begin
+                tmp := tmp + '******** 문자 발신번호 목록 ['+ IntToStr(i+1) + '] ********' + #13;
+                tmp := tmp + '발신번호(number) : ' + SenderNumberList[i].number + #13;
+                tmp := tmp + '등록상태(state) : ' + IntToStr(SenderNumberList[i].state) + #13;
+                tmp := tmp + '대표번호 지정여부(representYN) : ' + BoolToStr(SenderNumberList[i].representYN) + #13 + #13;
+        end;
+
+        ShowMessage(tmp);
+
+
 end;
 
 end.
