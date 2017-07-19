@@ -2,8 +2,8 @@
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2017-02-23                                                 }
-{ - 연동 기술지원 연락처 : 1600-8536 / 070-4304-2991                           }
+{ - 업데이트 일자 : 2017-07-19                                                 }
+{ - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
 { <테스트 연동개발 준비사항>                                                   }
@@ -148,31 +148,33 @@ implementation
 
 procedure TfrmExample.FormCreate(Sender: TObject);
 begin
-        //문자 api 모듈 초기화.
+        // 문자 api 모듈 초기화.
         messagingService := TMessagingService.Create(LinkID,SecretKey);
-        
-        //연동환경 설정값, 개발용(true), 상업용(false)
+
+        // 연동환경 설정값, 개발용(true), 상업용(false)
         messagingService.IsTest := true;
 
-        //Exception 처리 설정값, 기본값(true)
+        // Exception 처리 설정값, 기본값(true)
         messagingService.IsThrowException := true;
 
         //그리드 초기화
         stringgrid1.Cells[0,0] := 'state';
-        stringgrid1.Cells[1,0] := 'type';
-        stringgrid1.Cells[2,0] := 'subject';
-        stringgrid1.Cells[3,0] := 'content';
-        stringgrid1.ColWidths[3] := 100;
-        stringgrid1.Cells[4,0] := 'sendNum';
-        stringgrid1.Cells[5,0] := 'senderName';
-        stringgrid1.Cells[6,0] := 'receiveNum';
-        stringgrid1.Cells[7,0] := 'receiveName';
-        stringgrid1.Cells[8,0] := 'reserveDT';
-        stringgrid1.Cells[9,0] := 'receiptDT';
-        stringgrid1.Cells[10,0] := 'sendDT';
-        stringgrid1.Cells[11,0] := 'resultDT';
-        stringgrid1.Cells[12,0] := 'result';
+        stringgrid1.Cells[1,0] := 'result';
+        stringgrid1.Cells[2,0] := 'type';
+        stringgrid1.Cells[3,0] := 'subject';
+        stringgrid1.Cells[4,0] := 'content';
+        stringgrid1.ColWidths[4] := 100;
+        stringgrid1.Cells[5,0] := 'sendNum';
+        stringgrid1.Cells[6,0] := 'senderName';
+        stringgrid1.Cells[7,0] := 'receiveNum';
+        stringgrid1.Cells[8,0] := 'receiveName';
+        stringgrid1.Cells[9,0] := 'reserveDT';
+        stringgrid1.Cells[10,0] := 'receiptDT';
+        stringgrid1.Cells[11,0] := 'sendDT';
+        stringgrid1.Cells[12,0] := 'resultDT';
         stringgrid1.Cells[13,0] := 'tranNet';
+
+
 end;
 
 procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
@@ -632,47 +634,49 @@ begin
         stringgrid1.RowCount := Length(Messages) + 1;
 
         for i:= 0 to Length(Messages) -1 do begin
+
+               // 전송상태 코드
                stringgrid1.Cells[0,i+1] := IntToStr(Messages[i].state);
-               
-               // 메시지 유형 
-               stringgrid1.Cells[1,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
 
-               // 제목 
-               stringgrid1.Cells[2,i+1] := Messages[i].subject;
+               // 전송결과 코드
+               stringgrid1.Cells[1,i+1] := IntToStr(Messages[i].result);
 
-               // 내용 
-               stringgrid1.Cells[3,i+1] := Messages[i].content;
+               // 메시지 유형
+               stringgrid1.Cells[2,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
 
-               // 발신번호 
-               stringgrid1.Cells[4,i+1] := Messages[i].sendNum;
+               // 제목
+               stringgrid1.Cells[3,i+1] := Messages[i].subject;
 
-               // 발신자명 
-               stringgrid1.Cells[5,i+1] := Messages[i].senderName;
+               // 내용
+               stringgrid1.Cells[4,i+1] := Messages[i].content;
 
-               // 수신번호 
-               stringgrid1.Cells[6,i+1] := Messages[i].receiveNum;
+               // 발신번호
+               stringgrid1.Cells[5,i+1] := Messages[i].sendNum;
 
-               // 수신자명 
-               stringgrid1.Cells[7,i+1] := Messages[i].receiveName;
+               // 발신자명
+               stringgrid1.Cells[6,i+1] := Messages[i].senderName;
 
-               // 예약일시 
-               stringgrid1.Cells[8,i+1] := Messages[i].reserveDT;
+               // 수신번호
+               stringgrid1.Cells[7,i+1] := Messages[i].receiveNum;
 
-               // 접수일시 
-               stringgrid1.Cells[9,i+1] := Messages[i].receiptDT;
+               // 수신자명
+               stringgrid1.Cells[8,i+1] := Messages[i].receiveName;
 
-               // 전송일시 
-               stringgrid1.Cells[10,i+1] := Messages[i].sendDT;
+               // 예약일시
+               stringgrid1.Cells[9,i+1] := Messages[i].reserveDT;
 
-               // 전송결과 일시 
-               stringgrid1.Cells[11,i+1] := Messages[i].resultDT;
+               // 접수일시
+               stringgrid1.Cells[10,i+1] := Messages[i].receiptDT;
 
-               // 이동통신사 전송결과 
-               stringgrid1.Cells[12,i+1] := IntToStr(Messages[i].result);
+               // 전송일시
+               stringgrid1.Cells[11,i+1] := Messages[i].sendDT;
+
+               // 전송결과 일시
+               stringgrid1.Cells[12,i+1] := Messages[i].resultDT;
 
                // 전송 통신사명
                stringgrid1.Cells[13,i+1] := Messages[i].tranNet;
-               
+
         end;
 end;
 
@@ -1384,16 +1388,17 @@ begin
 
 
         // 검색기간 시작일자, 날짜형식 yyyyMMdd
-        SDate := '20170101';
+        SDate := '20170701';
 
         // 검색기간 종료일자, 날짜형식 yyyyMMdd
-        EDate := '20170301';
+        EDate := '20170801';
 
         //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소
         SetLength(State, 4);
         State[0] := '1';
         State[1] := '2';
         State[2] := '3';
+        State[3] := '4';        
 
         // 검색대상 배열, SMS, LMS, MMS ex) Item=SMS,MMS
         SetLength(Item, 3);
@@ -1434,21 +1439,49 @@ begin
         tmp := tmp + 'message (응답메시지) : '+ Messages.message + #13;
 
         stringgrid1.RowCount := Length(Messages.list) + 1;
+        
         for i:= 0 to Length(Messages.list) -1 do begin
-               stringgrid1.Cells[0,i+1] := IntToStr(Messages.list[i].state);
-               stringgrid1.Cells[1,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages.list[i].messageType));
-               stringgrid1.Cells[2,i+1] := Messages.list[i].subject;
-               stringgrid1.Cells[3,i+1] := Messages.list[i].content;
-               stringgrid1.Cells[4,i+1] := Messages.list[i].sendNum;
-               stringgrid1.Cells[5,i+1] := Messages.list[i].senderName;
-               stringgrid1.Cells[6,i+1] := Messages.list[i].receiveNum;
-               stringgrid1.Cells[7,i+1] := Messages.list[i].receiveName;
-               stringgrid1.Cells[8,i+1] := Messages.list[i].reserveDT;
-               stringgrid1.Cells[9,i+1] := Messages.list[i].receiptDT;
-               stringgrid1.Cells[10,i+1] := Messages.list[i].sendDT;
-               stringgrid1.Cells[11,i+1] := Messages.list[i].resultDT;
-               stringgrid1.Cells[12,i+1] := IntToStr(Messages.list[i].result);
-               stringgrid1.Cells[13,i+1] := Messages.list[i].tranNet;
+                // 전송상태 코드
+                stringgrid1.Cells[0,i+1] := IntToStr(Messages.list[i].state);
+
+                // 전송결과 코드
+                stringgrid1.Cells[1,i+1] := IntToStr(Messages.list[i].result);
+
+                // 메시지 유형
+                stringgrid1.Cells[2,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages.list[i].messageType));
+
+                // 메시지 제목
+                stringgrid1.Cells[3,i+1] := Messages.list[i].subject;
+
+                // 메시지 내용
+                stringgrid1.Cells[4,i+1] := Messages.list[i].content;
+
+                // 발신번호
+                stringgrid1.Cells[5,i+1] := Messages.list[i].sendNum;
+
+                // 발신자명
+                stringgrid1.Cells[6,i+1] := Messages.list[i].senderName;
+
+                // 수신번호
+                stringgrid1.Cells[7,i+1] := Messages.list[i].receiveNum;
+
+                // 수신자명
+                stringgrid1.Cells[8,i+1] := Messages.list[i].receiveName;
+
+                // 예약일시
+                stringgrid1.Cells[9,i+1] := Messages.list[i].reserveDT;
+
+                // 접수일시
+                stringgrid1.Cells[10,i+1] := Messages.list[i].receiptDT;
+
+                // 전송일시
+                stringgrid1.Cells[11,i+1] := Messages.list[i].sendDT;
+
+                // 전송결과 수신일시
+                stringgrid1.Cells[12,i+1] := Messages.list[i].resultDT;
+
+                // 전송 이동통신사명
+                stringgrid1.Cells[13,i+1] := Messages.list[i].tranNet;
         end;
         Messages.Free;
         ShowMessage(tmp);
