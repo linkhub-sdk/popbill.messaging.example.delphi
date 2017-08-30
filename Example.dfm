@@ -1,9 +1,9 @@
 object frmExample: TfrmExample
   Left = 249
   Top = 129
-  Width = 1153
-  Height = 844
-  Caption = '팝빌 메시징 SDK Examples'
+  Width = 1309
+  Height = 821
+  Caption = '팝빌 문자 API SDK Delphi Example'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -31,7 +31,7 @@ object frmExample: TfrmExample
   object GroupBox8: TGroupBox
     Left = 16
     Top = 48
-    Width = 1105
+    Width = 1257
     Height = 169
     Caption = '팝빌 기본 API'
     TabOrder = 0
@@ -73,7 +73,7 @@ object frmExample: TfrmExample
     object GroupBox11: TGroupBox
       Left = 168
       Top = 24
-      Width = 441
+      Width = 297
       Height = 129
       Caption = '포인트 관련'
       TabOrder = 1
@@ -104,31 +104,13 @@ object frmExample: TfrmExample
         TabOrder = 2
         OnClick = btnGetUnitCost_MMSClick
       end
-      object btnGetBalance: TButton
-        Left = 296
-        Top = 24
-        Width = 129
-        Height = 25
-        Caption = '잔여포인트 확인'
-        TabOrder = 3
-        OnClick = btnGetBalanceClick
-      end
-      object btnGetPartnerBalance: TButton
-        Left = 296
-        Top = 56
-        Width = 129
-        Height = 25
-        Caption = '파트너포인트 확인'
-        TabOrder = 4
-        OnClick = btnGetPartnerBalanceClick
-      end
       object btnGetChargeInfo_SMS: TButton
         Left = 8
         Top = 24
         Width = 129
         Height = 25
         Caption = 'SMS 과금정보 확인'
-        TabOrder = 5
+        TabOrder = 3
         OnClick = btnGetChargeInfo_SMSClick
       end
       object btnGetChargeInfo_LMS: TButton
@@ -137,7 +119,7 @@ object frmExample: TfrmExample
         Width = 129
         Height = 25
         Caption = 'LMS 과금정보 확인'
-        TabOrder = 6
+        TabOrder = 4
         OnClick = btnGetChargeInfo_LMSClick
       end
       object btnGetChargeInfo_MMS: TButton
@@ -146,12 +128,12 @@ object frmExample: TfrmExample
         Width = 129
         Height = 25
         Caption = 'MMS 과금정보 확인'
-        TabOrder = 7
+        TabOrder = 5
         OnClick = btnGetChargeInfo_MMSClick
       end
     end
     object GroupBox12: TGroupBox
-      Left = 624
+      Left = 784
       Top = 24
       Width = 137
       Height = 129
@@ -166,18 +148,9 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetPopBillURL_LOGINClick
       end
-      object btnGetPopbillURL_CHRG: TButton
-        Left = 8
-        Top = 56
-        Width = 121
-        Height = 25
-        Caption = '포인트 충전 URL'
-        TabOrder = 1
-        OnClick = btnGetPopbillURL_CHRGClick
-      end
     end
     object GroupBox4: TGroupBox
-      Left = 776
+      Left = 936
       Top = 24
       Width = 145
       Height = 129
@@ -212,7 +185,7 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox7: TGroupBox
-      Left = 936
+      Left = 1096
       Top = 24
       Width = 145
       Height = 129
@@ -538,6 +511,58 @@ object frmExample: TfrmExample
         TabOrder = 1
         OnClick = btnGetSenderNumberListClick
       end
+    end
+  end
+  object GroupBox14: TGroupBox
+    Left = 488
+    Top = 73
+    Width = 148
+    Height = 130
+    Caption = '연동과금 포인트'
+    TabOrder = 4
+    object btnGetBalance: TButton
+      Left = 9
+      Top = 24
+      Width = 129
+      Height = 25
+      Caption = '잔여포인트 확인'
+      TabOrder = 0
+      OnClick = btnGetBalanceClick
+    end
+    object btnGetPopbillURL_CHRG: TButton
+      Left = 8
+      Top = 56
+      Width = 130
+      Height = 25
+      Caption = '포인트 충전 URL'
+      TabOrder = 1
+      OnClick = btnGetPopbillURL_CHRGClick
+    end
+  end
+  object GroupBox15: TGroupBox
+    Left = 640
+    Top = 73
+    Width = 149
+    Height = 130
+    Caption = '파트너과금 포인트'
+    TabOrder = 5
+    object btnGetPartnerBalance: TButton
+      Left = 9
+      Top = 24
+      Width = 129
+      Height = 25
+      Caption = '파트너포인트 확인'
+      TabOrder = 0
+      OnClick = btnGetPartnerBalanceClick
+    end
+    object btnGetPartnerURL_CHRG: TButton
+      Left = 8
+      Top = 56
+      Width = 129
+      Height = 25
+      Caption = '포인트 충전 URL'
+      TabOrder = 1
+      OnClick = btnGetPartnerURL_CHRGClick
     end
   end
   object OpenDialog1: TOpenDialog
