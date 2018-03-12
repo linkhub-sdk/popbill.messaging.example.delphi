@@ -1,8 +1,8 @@
 object frmExample: TfrmExample
-  Left = 249
-  Top = 129
+  Left = 318
+  Top = 122
   Width = 1309
-  Height = 821
+  Height = 851
   Caption = 'ÆËºô ¹®ÀÚ API SDK Delphi Example'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -394,18 +394,18 @@ object frmExample: TfrmExample
       ColWidths = (
         64
         64
-        73
-        75
-        88
-        82
-        75
-        76
         64
         64
         64
         64
-        83
-        81)
+        64
+        64
+        64
+        64
+        64
+        64
+        64
+        64)
     end
     object btnCancelReserve: TButton
       Left = 461

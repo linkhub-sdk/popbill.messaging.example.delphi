@@ -410,7 +410,7 @@ begin
 
         try
                 // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-                sendNum := '070-4304-2991';
+                sendNum := '070-4304-2993';
 
                 // 발신자명
                 sendName := '발신자명';
@@ -529,7 +529,7 @@ begin
 
 
         // 대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-4304-2991';
+        sendNum := '010-8349-0706';
 
         // 대량전송 발신자명
         sendName := '발신자명_SMS';
@@ -1058,16 +1058,16 @@ begin
         end;
 
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '070-4304-2991';
+        sendNum := '010-8349-0706';
 
         // 발신자명
-        sendName := '발신자명';
+        sendName := 'kimzznag';
 
         // 수신번호
-        receiver := '010-111-222';
+        receiver := '010-8349-0706';
 
         // 수신자명 
-        receiverName := '수신자명';
+        receiverName := 'hyunjin';
 
         // 메시지 제목 
         subject := '포토 메시지 제목';
