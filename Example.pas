@@ -61,15 +61,10 @@ type
     GroupBox3: TGroupBox;
     btnSendXMS: TButton;
     btnSendXMSThousand: TButton;
-    Label1: TLabel;
-    txtReceiptNum: TEdit;
-    btnGetMessage: TButton;
     StringGrid1: TStringGrid;
     btnSendXMSThousand_Same: TButton;
-    btnCancelReserve: TButton;
     Label2: TLabel;
     txtReserveDT: TEdit;
-    btnSMSPopUp: TButton;
     btnGetUnitCost_MMS: TButton;
     GroupBox6: TGroupBox;
     btnSendMMS: TButton;
@@ -84,8 +79,6 @@ type
     btnUpdateContact: TButton;
     btnGetCorpInfo: TButton;
     btnUpdateCorpInfo: TButton;
-    btnSearchMessages: TButton;
-    btnGetAutoDenyList: TButton;
     GroupBox10: TGroupBox;
     btnGetChargeInfo_SMS: TButton;
     btnGetChargeInfo_LMS: TButton;
@@ -93,12 +86,25 @@ type
     GroupBox13: TGroupBox;
     btnGetURL_SENDER: TButton;
     btnGetSenderNumberList: TButton;
+    GroupBox16: TGroupBox;
+    Label1: TLabel;
+    txtReceiptNum: TEdit;
+    btnGetMessage: TButton;
+    btnCancelReserve: TButton;
+    GroupBox17: TGroupBox;
+    Label5: TLabel;
+    txtRequestNum: TEdit;
+    btnGetMessageRN: TButton;
+    btnCancelReserveRN: TButton;
     GroupBox14: TGroupBox;
-    GroupBox15: TGroupBox;
     btnGetBalance: TButton;
-    btnGetPartnerBalance: TButton;
     btnGetPopbillURL_CHRG: TButton;
+    GroupBox15: TGroupBox;
+    btnGetPartnerBalance: TButton;
     btnGetPartnerURL_CHRG: TButton;
+    btnSMSPopUp: TButton;
+    btnSearchMessages: TButton;
+    btnGetAutoDenyList: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
@@ -138,6 +144,9 @@ type
     procedure btnGetURL_SENDERClick(Sender: TObject);
     procedure btnGetSenderNumberListClick(Sender: TObject);
     procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
+    procedure btnGetMessageRNClick(Sender: TObject);
+    procedure btnCancelReserveRNClick(Sender: TObject);
+    procedure btnSendMMS_ThousandClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -167,7 +176,7 @@ begin
         stringgrid1.Cells[2,0] := 'type';
         stringgrid1.Cells[3,0] := 'subject';
         stringgrid1.Cells[4,0] := 'content';
-        stringgrid1.ColWidths[4] := 100;
+        stringgrid1.ColWidths[4] := 150;
         stringgrid1.Cells[5,0] := 'sendNum';
         stringgrid1.Cells[6,0] := 'senderName';
         stringgrid1.Cells[7,0] := 'receiveNum';
@@ -177,8 +186,6 @@ begin
         stringgrid1.Cells[11,0] := 'sendDT';
         stringgrid1.Cells[12,0] := 'resultDT';
         stringgrid1.Cells[13,0] := 'tranNet';
-
-
 end;
 
 procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
@@ -402,6 +409,7 @@ var
         receiverName : String;
         contents : String;
         adsYN : Boolean;
+        RequestNum : String;
 begin
         {**********************************************************************}
         { 단문(SMS) 메시지 전송을 요청합니다.                                  }
@@ -410,7 +418,7 @@ begin
 
         try
                 // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-                sendNum := '070-4304-2993';
+                sendNum := '070-4304-2991';
 
                 // 발신자명
                 sendName := '발신자명';
@@ -423,14 +431,21 @@ begin
 
                 //메시지 내용이 90byte를 초과하는 경우 메시지 내용이 조정되어 전송됨.
                 contents := '안녕하세요. ';
-                
+
+                // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+                // 팝빌 회원별로 중복되지 않도록 구성.
+                RequestNum := txtRequestNum.text;
+
                 // 광고문자 전송여부
                 // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
                 // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
                 adsYN := false;
-                 
-                receiptNum := messagingService.SendSMS ( txtCorpNum.Text, sendNum, sendName, receiver,
-                                                        receiverName, contents, txtReserveDT.Text, adsYN);
+
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text, sendNum,
+                                                       sendName, receiver,
+                                                       receiverName, contents,
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text ,RequestNum);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -447,7 +462,7 @@ end;
 procedure TfrmExample.btnSendThousandClick(Sender: TObject);
 var
         Messages : TSendMessageList;
-        receiptNum : String;
+        receiptNum, RequestNum : String;
         i : Integer;
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
@@ -464,7 +479,7 @@ begin
             Messages[i] := TSendMessage.create;
 
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-            Messages[i].sender := '010-111-222';
+            Messages[i].sender := '070-4304-2991';
 
             // 발신자명
             Messages[i].senderName := '발신자명' + InttoStr(i);
@@ -473,8 +488,12 @@ begin
             Messages[i].receiver := '010111222';
 
             // 메시지 내용, 90byte 초과된 내용은 삭제되어 전송됨
-            Messages[i].content := '내용내용' + IntToStr(i);
+            Messages[i].content := '내용내용_' + IntToStr(i);
         end;
+
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
 
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
@@ -485,7 +504,8 @@ begin
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendSMS(txtCorpNum.Text, Messages,
-                                                        txtReserveDT.Text, adsYN);
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
                 
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
@@ -511,6 +531,7 @@ var
         i : Integer;
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
+        RequestNum : String;
 begin
         {**********************************************************************}
         { 단문(SMS) 메시지 전송을 요청합니다.                                  }
@@ -522,20 +543,22 @@ begin
 
         for i := 0 to Length(Messages) -1 do begin
             Messages[i] := TSendMessage.create;
-
             // 수신번호
             Messages[i].receiver := '010-111-222';
         end;
 
-
         // 대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '010-8349-0706';
+        sendNum := '070-4304-2991';
 
         // 대량전송 발신자명
         sendName := '발신자명_SMS';
 
         // 대량전송 메시지 내용, 90byte 초과된 내용은 삭제되어 전송됨.
         contents := '대량전송 내용';
+
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
 
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
@@ -545,8 +568,10 @@ begin
         try
                 Tinit := NOW;
 
-                receiptNum := messagingService.SendSMS(txtCorpNum.Text, sendNum, sendName, contents,
-                                                        Messages, txtReserveDT.Text, adsYN);
+                receiptNum := messagingService.SendSMS(txtCorpNum.Text, sendNum,
+                                                       sendName, contents,
+                                                       Messages, txtReserveDT.Text,
+                                                       adsYN, txtUserID.text, RequestNum);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
@@ -570,6 +595,7 @@ var
         subject : String;
         contents : String;
         adsYN : Boolean;
+        RequestNum : String;
 begin
         {**********************************************************************}
         { 장문(LMS) 메시지 전송을 요청합니다.                                  }
@@ -594,14 +620,21 @@ begin
         // 메시지 내용, 2000byte 초과된 내용은 삭제되어 전송
         contents := '장문 문자 문자메시지 내용입니다';
 
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
+
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
         // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
         adsYN := false;
-        
+
         try
-                receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum, sendName, receiver, receiverName,
-                                                        subject, contents, txtReserveDT.Text, adsYN);
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum,
+                                                       sendName, receiver,
+                                                       receiverName, subject,
+                                                       contents, txtReserveDT.Text,
+                                                       adsYN, txtUserID.text, RequestNum);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -627,14 +660,14 @@ begin
         {**********************************************************************}
                 
         try
-                Messages := messagingService.GetMessages(txtCorpNum.Text, txtReceiptNum.Text);
+                Messages := messagingService.GetMessages(txtCorpNum.Text, txtReceiptNum.Text)
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
                         Exit;
                 end;
         end;
-        
+
         stringgrid1.RowCount := Length(Messages) + 1;
 
         for i:= 0 to Length(Messages) -1 do begin
@@ -695,6 +728,7 @@ var
         i : Integer;
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
+        RequestNum : String;
 begin
         {**********************************************************************}
         { 장문(LMS) 메시지 전송을 요청합니다.                                  }
@@ -706,9 +740,10 @@ begin
 
         for i := 0 to Length(Messages) -1 do begin
             Messages[i] := TSendMessage.create;
-            Messages[i].receiver := '010-111-222';      // 수신번호
+            // 수신번호
+            Messages[i].receiver := '010-111-222';
         end;
-        
+
         // 대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
         sendNum := '070-4304-2991';
 
@@ -721,16 +756,23 @@ begin
         // 메시지 내용
         contents := '대량전송 메시지 내용';
 
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
+
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
         // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
-        adsYN := true;
-        
+        adsYN := False;
+
         try
                 Tinit := NOW;
                 
-                receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum, senderName, subject, contents,
-                                                        Messages, txtReserveDT.Text, adsYN);
+                receiptNum := messagingService.SendLMS(txtCorpNum.Text, sendNum,
+                                                       senderName, subject,
+                                                       contents, Messages,
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
                 
                 Tpost := NOW;
         except
@@ -748,11 +790,10 @@ end;
 procedure TfrmExample.btnSendLMSThousandClick(Sender: TObject);
 var
         Messages : TSendMessageList;
-        receiptNum : String;
+        receiptNum, RequestNum : String;
         i : Integer;
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
-
 begin
         {**********************************************************************}
         { 장문(LMS) 메시지 전송을 요청합니다.                                  }
@@ -773,25 +814,29 @@ begin
 
             // 수신번호
             Messages[i].receiver := '010111222';
-            
+
             // 장문메시지 제목
             Messages[i].subject := '장문제목';
 
             // 장문메시지 내용, 2000byte 초과된 내용은 삭제되어 전송됨
-            Messages[i].content := '장문 문자 메시지의 내용을 기재합니다. - ' + IntToStr(i);        
+            Messages[i].content := '장문 문자 메시지의 내용을 기재합니다. - ' + IntToStr(i);
         end;
 
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
 
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
         // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
-        adsYN := true;
+        adsYN := False;
 
         try
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendLMS(txtCorpNum.Text, Messages,
-                                                txtReserveDT.Text, adsYN);
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
         except
@@ -808,7 +853,7 @@ end;
 
 procedure TfrmExample.btnSendXMSClick(Sender: TObject);
 var
-        receiptNum, sendNum, sendName, receiver, receiverName, subject, contents: String;
+        receiptNum, sendNum, sendName, receiver, receiverName, subject, contents, RequestNum: String;
         adsYN : Boolean;
 begin
         {**********************************************************************}
@@ -822,7 +867,7 @@ begin
 
         // 발신자명
         sendName := '발신자명';
-        
+
         // 수신번호
         receiver := '010-111-222';
 
@@ -836,6 +881,10 @@ begin
         // 메시지 내용, 2000byte를 초과하는 내용은 삭제되어 전송됩니다.
         contents := 'XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 2000byte 초과한 내용은 삭제되어 전송됩니다.';
 
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
+
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
         // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
@@ -843,8 +892,10 @@ begin
         
         try
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum,
-                                sendName, receiver, receiverName, subject, contents,
-                                txtReserveDT.Text, adsYN);
+                                                       sendName, receiver,
+                                                       receiverName, subject,
+                                                       contents, txtReserveDT.Text,
+                                                       adsYN, txtUserID.text, RequestNum);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -862,7 +913,7 @@ end;
 procedure TfrmExample.btnSendXMSThousand_SameClick(Sender: TObject);
 var
         Messages : TSendMessageList;
-        receiptNum, sendNum, sendName, subject, contents : String;
+        receiptNum, sendNum, sendName, subject, contents, RequestNum : String;
         i : Integer;
         Tinit,Tpost :TDateTime;
         adsYN : Boolean;
@@ -881,18 +932,22 @@ begin
             // 수신번호
             Messages[i].receiver := '010-111-222';
         end;
-        
+
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
         sendNum  := '070-4304-2991';
-        
+
         // 발신자명
         sendName := '발신자명';
-        
+
         // 메시지 제목
         subject := '대량 메시지 제목';
 
         // 메시지 내용        
         contents := '대량 전송 내용';
+
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
 
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
@@ -903,8 +958,10 @@ begin
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text, sendNum,
-                                                sendName, subject, contents, Messages,
-                                                txtReserveDT.Text, adsYN);
+                                                       sendName, subject,
+                                                       contents, Messages,
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
                 Tpost := NOW;
         except
                 on le : EPopbillException do begin
@@ -921,7 +978,7 @@ end;
 procedure TfrmExample.btnSendXMSThousandClick(Sender: TObject);
 var
         Messages : TSendMessageList;
-        receiptNum : String;
+        receiptNum, RequestNum : String;
         i : Integer;
         Tinit,Tpost,Ttotal :TDateTime;
         adsYN : Boolean;
@@ -933,42 +990,30 @@ begin
         {**********************************************************************}
 
         //전송정보 배열 최대 1000건
-        SetLength(Messages,100);
+        SetLength(Messages,10);
 
-        for i := 0 to 50 -1 do begin
+        for i := 0 to Length(Messages) -1  do begin
             Messages[i] := TSendMessage.create;
-            
+
             // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
             Messages[i].sender := '070-4304-2991';
-            
+
             // 발신자명
             Messages[i].senderName := '발신자명' + IntToStr(i);
 
             // 수신번호
             Messages[i].receiver := '010-111-222';
 
-            // 메시지 내용 
+            // 메시지 제목
+            Messages[i].subject := '메시지 제목';
+
+            // 메시지 내용
             Messages[i].content := '문자내용 길이에 대한 자동인식 전송 ' + IntToStr(i);    // 메시지 내용
         end;
 
-        for i := 50 to 100 -1 do begin
-            Messages[i] := TSendMessage.create;
-
-            // 발신번호
-            Messages[i].sender := '010-111-222';
-            
-            // 발신번호
-            Messages[i].senderName := '발신자명' + IntToStr(i);
-
-            // 수신번호
-            Messages[i].receiver := '010-111-222';
-            
-            // 메시지 제목
-            Messages[i].subject := '제목제목';
-
-            // 메시지 내용
-            Messages[i].content := 'XMS란. 90byte를 기준으로 SMS/LMS가 선택 전송됩니다. 장문은 2000byte 에서 자동으로 잘립니다.' + IntToStr(i);
-        end;
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
 
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
@@ -979,7 +1024,8 @@ begin
                 Tinit := NOW;
 
                 receiptNum := messagingService.SendXMS(txtCorpNum.Text, Messages,
-                                        txtReserveDT.Text, adsYN);
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
 
                 Tpost := NOW;
                 TTotal := TPost - Tinit;
@@ -1003,9 +1049,9 @@ begin
         { 예약문자 전송을 취소합니다.                                          }
         { - 예약전송 취소는 예약시간 10분전까지만 가능합니다.                  }
         {**********************************************************************}
-        
+
         try
-                response := messagingService.CancelReserve(txtCorpNum.Text, txtReceiptNum.Text);
+                response := messagingService.CancelReserve(txtCorpNum.Text, txtReceiptNum.Text)
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1042,7 +1088,7 @@ end;
 
 procedure TfrmExample.btnSendMMSClick(Sender: TObject);
 var
-        filePath, receiptNum, sendNum, sendName, receiver, receiverName, subject, contents : string;
+        filePath, receiptNum, sendNum, sendName, receiver, receiverName, subject, contents, RequestNum : string;
         adsYN : Boolean;
 begin
         {**********************************************************************}
@@ -1058,16 +1104,16 @@ begin
         end;
 
         // 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
-        sendNum := '010-8349-0706';
+        sendNum := '070-4304-2991';
 
         // 발신자명
-        sendName := 'kimzznag';
+        sendName := '발신자명';
 
         // 수신번호
-        receiver := '010-8349-0706';
+        receiver := '010-111-222';
 
-        // 수신자명 
-        receiverName := 'hyunjin';
+        // 수신자명
+        receiverName := '수신자명';
 
         // 메시지 제목 
         subject := '포토 메시지 제목';
@@ -1075,15 +1121,22 @@ begin
         // 메시지 길이, 2000byte 초과된 내용은 삭제되어 전송
         contents := '포토 메시지 내용';
 
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
+
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
         // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
         adsYN := false;
 
         try
-                receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, sendName, receiver,
-                                        receiverName, subject, contents, filePath,
-                                        txtReserveDT.Text, adsYN);
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum,
+                                                       sendName, receiver,
+                                                       receiverName, subject,
+                                                       contents, filePath,
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1099,7 +1152,7 @@ end;
 procedure TfrmExample.btnSendMMSThousand_SameClick(Sender: TObject);
 var
         Messages : TSendMessageList;
-        filePath, receiptNum, sendNum, subject, contents : string;
+        filePath, receiptNum, sendNum, sendname, subject, contents, RequestNum : string;
         i : Integer;
         adsYN : Boolean;
 begin
@@ -1116,18 +1169,19 @@ begin
         end;
 
         //전송정보 배열, 최대 1000건
-        SetLength(Messages, 5);
+        SetLength(Messages, 10);
 
         for i := 0 to Length(Messages) -1 do begin
                 Messages[i] := TSendMessage.create;
-                Messages[i].sender := '07043042991';       //발신번호
-                Messages[i].senderName := '발신자명';      //발신자명
-                Messages[i].receiver := '010111222';       //수신번호
-                Messages[i].receiverName :='수신자명';     //수신자명
+                // 수신번호
+                Messages[i].receiver := '010111222';
         end;
 
         //대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
         sendNum := '070-4304-2991';
+
+        // 발신자명
+        sendName := '발신자명';
 
         // 메시지 제목
         subject := '포토 대량전송 메시지 제목';
@@ -1135,15 +1189,21 @@ begin
         // 메시지 내용, 2000byte 초과된 내용은 삭제되어 전송
         contents := '포토 메시지 내용';
 
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
+
         // 광고문자 전송여부
         // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
         // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
         adsYN := false;
 
         try
-                receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum, subject,
-                                                contents, Messages, filePath,
-                                                txtReserveDT.Text, adsYN);
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum,
+                                                       subject, contents,
+                                                       Messages, filePath,
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1716,6 +1776,163 @@ begin
         end;
 
         ShowMessage('ResultURL is ' + #13 + resultURL);
+end;
+
+procedure TfrmExample.btnGetMessageRNClick(Sender: TObject);
+var
+        Messages : TSentMessageList;
+        i :integer;
+begin
+        {*******************************************************************************}
+        { 문자전송요청시 할당한 전송요청번호(RequestNum)로 전송상태를 확인합니다        }
+        { - 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] >                      }
+        {   3.3.2. GetMessagesRN (전송내역 확인 - 요청번호 할당)을 참조하시기 바랍니다. }
+        {*******************************************************************************}
+                
+        try
+                Messages := messagingService.GetMessagesRN(txtCorpNum.Text, txtRequestNum.Text)
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+
+        stringgrid1.RowCount := Length(Messages) + 1;
+
+        for i:= 0 to Length(Messages) -1 do begin
+
+               // 전송상태 코드
+               stringgrid1.Cells[0,i+1] := IntToStr(Messages[i].state);
+
+               // 전송결과 코드
+               stringgrid1.Cells[1,i+1] := IntToStr(Messages[i].result);
+
+               // 메시지 유형
+               stringgrid1.Cells[2,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
+
+               // 제목
+               stringgrid1.Cells[3,i+1] := Messages[i].subject;
+
+               // 내용
+               stringgrid1.Cells[4,i+1] := Messages[i].content;
+
+               // 발신번호
+               stringgrid1.Cells[5,i+1] := Messages[i].sendNum;
+
+               // 발신자명
+               stringgrid1.Cells[6,i+1] := Messages[i].senderName;
+
+               // 수신번호
+               stringgrid1.Cells[7,i+1] := Messages[i].receiveNum;
+
+               // 수신자명
+               stringgrid1.Cells[8,i+1] := Messages[i].receiveName;
+
+               // 예약일시
+               stringgrid1.Cells[9,i+1] := Messages[i].reserveDT;
+
+               // 접수일시
+               stringgrid1.Cells[10,i+1] := Messages[i].receiptDT;
+
+               // 전송일시
+               stringgrid1.Cells[11,i+1] := Messages[i].sendDT;
+
+               // 전송결과 일시
+               stringgrid1.Cells[12,i+1] := Messages[i].resultDT;
+
+               // 전송 통신사명
+               stringgrid1.Cells[13,i+1] := Messages[i].tranNet;
+
+        end;
+end;
+
+procedure TfrmExample.btnCancelReserveRNClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+        {**********************************************************************}
+        { 예약문자 전송을 취소합니다.                                          }
+        { - 예약전송 취소는 예약시간 10분전까지만 가능합니다.                  }
+        {**********************************************************************}
+
+        try
+                response := messagingService.CancelReserveRN(txtCorpNum.Text, txtRequestNum.Text)
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+
+        ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
+end;
+
+
+procedure TfrmExample.btnSendMMS_ThousandClick(Sender: TObject);
+var
+        Messages : TSendMessageList;
+        filePath, receiptNum, sendNum, subject, contents, RequestNum : string;
+        i : Integer;
+        adsYN : Boolean;
+begin
+        {**********************************************************************}
+        { 포토(MMS) 메시지 전송을 요청합니다.                                  }
+        { - 이미지 파일의 크기는 최대 300KByte이며, 파일포맷은 JPEG 입니다.    }
+        { - 발신번호가 전화번호 세칙에 위반되는 경우 전송실패 처리됩니다.      }
+        {**********************************************************************}
+        
+        if OpenDialog1.Execute then begin
+              filePath := OpenDialog1.FileName;
+        end else begin
+                Exit;
+        end;
+
+        //전송정보 배열, 최대 1000건
+        SetLength(Messages, 5);
+
+        for i := 0 to Length(Messages) -1 do begin
+                Messages[i] := TSendMessage.create;
+                Messages[i].sender := '07043042991';       //발신번호
+                Messages[i].senderName := '발신자명';      //발신자명
+                Messages[i].receiver := '010111222';       //수신번호
+                Messages[i].receiverName :='수신자명';     //수신자명
+        end;
+
+        //대량전송 발신번호, [참고] 발신번호 세칙 안내 - http://blog.linkhub.co.kr/3064/
+        sendNum := '070-4304-2991';
+
+        // 메시지 제목
+        subject := '포토 대량전송 메시지 제목';
+
+        // 메시지 내용, 2000byte 초과된 내용은 삭제되어 전송
+        contents := '포토 메시지 내용';
+
+        // 전송요청번호, 1~36자리 (숫자, 영문, '-', '_') 조합으로 구성
+        // 팝빌 회원별로 중복되지 않도록 구성.
+        RequestNum := txtRequestNum.text;
+
+        // 광고문자 전송여부
+        // [참고] 광고문자 표기 의무 및 전송방법 안내 - http://blog.linkhub.co.kr/2642
+        // [참고] 080 수신거부 서비스 신청 안내 - http://blog.linkhub.co.kr/1770
+        adsYN := false;
+
+        try
+                receiptNum := messagingService.SendMMS(txtCorpNum.Text, sendNum,
+                                                       subject, contents,
+                                                       Messages, filePath,
+                                                       txtReserveDT.Text, adsYN,
+                                                       txtUserID.text, RequestNum);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+
+        txtReceiptNum.Text := receiptNum;
+
+        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
 end;
 
 end.
