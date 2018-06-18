@@ -299,7 +299,7 @@ object frmExample: TfrmExample
       Left = 1013
       Top = 24
       Width = 161
-      Height = 129
+      Height = 161
       Caption = '부가기능'
       TabOrder = 6
       object btnSMSPopUp: TButton
@@ -328,6 +328,15 @@ object frmExample: TfrmExample
         Caption = '080수신거부목록 조회'
         TabOrder = 2
         OnClick = btnGetAutoDenyListClick
+      end
+      object btnSentMessageSummaryInfo: TButton
+        Left = 8
+        Top = 120
+        Width = 144
+        Height = 25
+        Caption = '전송내역 요약정보확인'
+        TabOrder = 3
+        OnClick = btnSentMessageSummaryInfoClick
       end
     end
     object GroupBox1: TGroupBox

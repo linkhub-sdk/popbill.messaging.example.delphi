@@ -2,7 +2,7 @@
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-06-15                                                 }
+{ - 업데이트 일자 : 2018-06-18                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -105,6 +105,7 @@ type
     btnSMSPopUp: TButton;
     btnSearchMessages: TButton;
     btnGetAutoDenyList: TButton;
+    btnSentMessageSummaryInfo: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
@@ -147,6 +148,7 @@ type
     procedure btnGetMessageRNClick(Sender: TObject);
     procedure btnCancelReserveRNClick(Sender: TObject);
     procedure btnSendMMS_ThousandClick(Sender: TObject);
+    procedure btnSentMessageSummaryInfoClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -662,7 +664,7 @@ begin
         { - 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] >             }
         {   3.3.1. GetMessages (전송내역 확인)을 참조하시기 바랍니다.          }
         {**********************************************************************}
-                
+
         try
                 Messages := messagingService.GetMessages(txtCorpNum.Text, txtReceiptNum.Text)
         except
@@ -1947,6 +1949,49 @@ begin
         txtReceiptNum.Text := receiptNum;
 
         ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+end;
+
+procedure TfrmExample.btnSentMessageSummaryInfoClick(Sender: TObject);
+var
+        NumList : Array of String;
+        InfoList : TSentMessageSummaryInfoList;
+        tmp : string;
+        i : Integer;
+begin
+        {**********************************************************************}
+        { 다량의 문자 전송내역 요약정보를 확인합니다.                          }
+        { - 응답항목에 대한 자세한 사항은 "[문자 API 연동매뉴얼] >             }
+        {   3.3.3. GetStates (전송내역 요약정보 확인)을 참조하시기 바랍니다.   }
+        {**********************************************************************}
+
+        // 문자 접수번호 배열.
+        SetLength(NumList,2);
+        NumList[0] := '018061815000000041';
+        NumList[1] := '018061815000000042';
+
+        try
+                InfoList := messagingService.GetStates(txtCorpNum.text, NumList, txtUserID.text);
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
+                        Exit;
+                end;
+        end;
+
+        tmp := 'rNum | sn | stat | rlt | sDT | rDT | net' + #13;
+
+        for i := 0 to Length(InfoList) -1 do
+        begin
+            tmp := tmp + InfoList[i].rNum + ' | '
+                       + InfoList[i].sn   + ' | '
+                       + InfoList[i].stat + ' | '
+                       + InfoList[i].rlt  + ' | '
+                       + InfoList[i].sDT  + ' | '
+                       + InfoList[i].rDT  + ' | '
+                       + InfoList[i].net  + #13;
+        end;
+
+        ShowMessage(tmp);
 end;
 
 end.
