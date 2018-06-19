@@ -329,14 +329,14 @@ object frmExample: TfrmExample
         TabOrder = 2
         OnClick = btnGetAutoDenyListClick
       end
-      object btnSentMessageSummaryInfo: TButton
+      object btnGetStates: TButton
         Left = 8
         Top = 120
         Width = 144
         Height = 25
         Caption = '전송내역 요약정보확인'
         TabOrder = 3
-        OnClick = btnSentMessageSummaryInfoClick
+        OnClick = btnGetStatesClick
       end
     end
     object GroupBox1: TGroupBox

@@ -2,7 +2,7 @@
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-06-18                                                 }
+{ - 업데이트 일자 : 2018-06-19                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -105,7 +105,7 @@ type
     btnSMSPopUp: TButton;
     btnSearchMessages: TButton;
     btnGetAutoDenyList: TButton;
-    btnSentMessageSummaryInfo: TButton;
+    btnGetStates: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
@@ -148,7 +148,7 @@ type
     procedure btnGetMessageRNClick(Sender: TObject);
     procedure btnCancelReserveRNClick(Sender: TObject);
     procedure btnSendMMS_ThousandClick(Sender: TObject);
-    procedure btnSentMessageSummaryInfoClick(Sender: TObject);
+    procedure btnGetStatesClick(Sender: TObject);
   private
     messagingService : TMessagingService;
   public
@@ -1951,7 +1951,7 @@ begin
         ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
 end;
 
-procedure TfrmExample.btnSentMessageSummaryInfoClick(Sender: TObject);
+procedure TfrmExample.btnGetStatesClick(Sender: TObject);
 var
         NumList : Array of String;
         InfoList : TSentMessageSummaryInfoList;
