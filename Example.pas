@@ -2,7 +2,7 @@
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-09-18                                                 }
+{ - 업데이트 일자 : 2018-09-26                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -2001,7 +2001,7 @@ begin
                 end;
         end;
 
-        tmp := 'rNum | sn | stat | rlt | sDT | rDT | net' + #13;
+        tmp := 'rNum | sn | stat | rlt | sDT | rDT | net | srt' + #13;
 
         for i := 0 to Length(InfoList) -1 do
         begin
@@ -2011,7 +2011,8 @@ begin
                        + InfoList[i].rlt  + ' | '
                        + InfoList[i].sDT  + ' | '
                        + InfoList[i].rDT  + ' | '
-                       + InfoList[i].net  + #13;
+                       + InfoList[i].net  + ' | '
+                       + InfoList[i].srt  + #13;
         end;
 
         ShowMessage(tmp);
