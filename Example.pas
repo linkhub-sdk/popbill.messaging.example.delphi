@@ -2,7 +2,7 @@
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2018-09-26                                                 }
+{ - 업데이트 일자 : 2018-11-21                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -42,7 +42,7 @@ type
     GroupBox11: TGroupBox;
     btnGetUnitCost_SMS: TButton;
     GroupBox12: TGroupBox;
-    btnGetPopBillURL_LOGIN: TButton;
+    btnGetAccessURL: TButton;
     txtCorpNum: TEdit;
     Label3: TLabel;
     GroupBox4: TGroupBox;
@@ -84,7 +84,7 @@ type
     btnGetChargeInfo_LMS: TButton;
     btnGetChargeInfo_MMS: TButton;
     GroupBox13: TGroupBox;
-    btnGetURL_SENDER: TButton;
+    btnGetSenderNumberMgtURL: TButton;
     btnGetSenderNumberList: TButton;
     GroupBox16: TGroupBox;
     Label1: TLabel;
@@ -98,17 +98,17 @@ type
     btnCancelReserveRN: TButton;
     GroupBox14: TGroupBox;
     btnGetBalance: TButton;
-    btnGetPopbillURL_CHRG: TButton;
+    btnGetChargeURL: TButton;
     GroupBox15: TGroupBox;
     btnGetPartnerBalance: TButton;
     btnGetPartnerURL_CHRG: TButton;
-    btnSMSPopUp: TButton;
+    btnGetSentListURL: TButton;
     btnSearchMessages: TButton;
     btnGetAutoDenyList: TButton;
     btnGetStates: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
-    procedure btnGetPopBillURL_LOGINClick(Sender: TObject);
+    procedure btnGetAccessURLClick(Sender: TObject);
     procedure btnJoinClick(Sender: TObject);
     procedure btnGetBalanceClick(Sender: TObject);
     procedure btnGetUnitCost_SMSClick(Sender: TObject);
@@ -125,7 +125,7 @@ type
     procedure btnSendXMSThousand_SameClick(Sender: TObject);
     procedure btnSendXMSThousandClick(Sender: TObject);
     procedure btnCancelReserveClick(Sender: TObject);
-    procedure btnSMSPopUpClick(Sender: TObject);
+    procedure btnGetSentListURLClick(Sender: TObject);
     procedure btnGetUnitCost_MMSClick(Sender: TObject);
     procedure btnSendMMSClick(Sender: TObject);
     procedure btnSendMMSThousand_SameClick(Sender: TObject);
@@ -137,12 +137,12 @@ type
     procedure btnUpdateCorpInfoClick(Sender: TObject);
     procedure btnSearchMessagesClick(Sender: TObject);
     procedure btnCheckIsMemberClick(Sender: TObject);
-    procedure btnGetPopbillURL_CHRGClick(Sender: TObject);
+    procedure btnGetChargeURLClick(Sender: TObject);
     procedure btnGetAutoDenyListClick(Sender: TObject);
     procedure btnGetChargeInfo_SMSClick(Sender: TObject);
     procedure btnGetChargeInfo_LMSClick(Sender: TObject);
     procedure btnGetChargeInfo_MMSClick(Sender: TObject);
-    procedure btnGetURL_SENDERClick(Sender: TObject);
+    procedure btnGetSenderNumberMgtURLClick(Sender: TObject);
     procedure btnGetSenderNumberListClick(Sender: TObject);
     procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
     procedure btnGetMessageRNClick(Sender: TObject);
@@ -209,7 +209,7 @@ begin
     if b = false then BoolToStr:='False';
 end;
 
-procedure TfrmExample.btnGetPopBillURL_LOGINClick(Sender: TObject);
+procedure TfrmExample.btnGetAccessURLClick(Sender: TObject);
 var
         resultURL : String;
 begin
@@ -219,7 +219,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, 'LOGIN');
+                resultURL := messagingService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1082,7 +1082,7 @@ begin
 
 end;
 
-procedure TfrmExample.btnSMSPopUpClick(Sender: TObject);
+procedure TfrmExample.btnGetSentListURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -1092,7 +1092,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := messagingService.getURL(txtCorpNum.Text, 'BOX');
+                resultURL := messagingService.getSentListURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1477,7 +1477,7 @@ begin
         SDate := '20180901';
 
         // 검색기간 종료일자, 날짜형식 yyyyMMdd
-        EDate := '20180920';
+        EDate := '20180930';
 
         //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소
         SetLength(State, 4);
@@ -1493,7 +1493,7 @@ begin
         Item[2] := 'MMS';
 
         // 예약전송 검색여부, true(예약전송건 검색), false(즉시전송건 검색)
-        ReserveYN := false;
+        ReserveYN := true;
 
         // 개인조회여부, true(개인조회), false(회사조회).
         SenderYN := false;
@@ -1604,7 +1604,7 @@ begin
 
 end;
 
-procedure TfrmExample.btnGetPopbillURL_CHRGClick(Sender: TObject);
+procedure TfrmExample.btnGetChargeURLClick(Sender: TObject);
 var
         resultURL : String;
 begin
@@ -1614,7 +1614,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := messagingService.getPopbillURL(txtCorpNum.Text, 'CHRG');
+                resultURL := messagingService.getChargeURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1734,7 +1734,7 @@ begin
         ShowMessage(tmp);
 end;
 
-procedure TfrmExample.btnGetURL_SENDERClick(Sender: TObject);
+procedure TfrmExample.btnGetSenderNumberMgtURLClick(Sender: TObject);
 var
   resultURL : String;
 begin
@@ -1744,7 +1744,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := messagingService.getURL(txtCorpNum.Text, 'SENDER');
+                resultURL := messagingService.getSenderNumberMgtURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);

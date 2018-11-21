@@ -139,14 +139,14 @@ object frmExample: TfrmExample
       Height = 129
       Caption = '팝빌 기본 URL'
       TabOrder = 2
-      object btnGetPopBillURL_LOGIN: TButton
+      object btnGetAccessURL: TButton
         Left = 8
         Top = 24
         Width = 144
         Height = 25
         Caption = '팝빌 로그인 URL'
         TabOrder = 0
-        OnClick = btnGetPopBillURL_LOGINClick
+        OnClick = btnGetAccessURLClick
       end
     end
     object GroupBox4: TGroupBox
@@ -226,14 +226,14 @@ object frmExample: TfrmExample
         TabOrder = 0
         OnClick = btnGetBalanceClick
       end
-      object btnGetPopbillURL_CHRG: TButton
+      object btnGetChargeURL: TButton
         Left = 8
         Top = 56
         Width = 144
         Height = 25
         Caption = '포인트 충전 URL'
         TabOrder = 1
-        OnClick = btnGetPopbillURL_CHRGClick
+        OnClick = btnGetChargeURLClick
       end
     end
     object GroupBox15: TGroupBox
@@ -302,14 +302,14 @@ object frmExample: TfrmExample
       Height = 161
       Caption = '부가기능'
       TabOrder = 6
-      object btnSMSPopUp: TButton
+      object btnGetSentListURL: TButton
         Left = 8
         Top = 24
         Width = 144
         Height = 25
         Caption = '전송내역조회 팝업'
         TabOrder = 0
-        OnClick = btnSMSPopUpClick
+        OnClick = btnGetSentListURLClick
       end
       object btnSearchMessages: TButton
         Left = 8
@@ -523,14 +523,14 @@ object frmExample: TfrmExample
       Height = 97
       Caption = '발신번호 관리 '
       TabOrder = 7
-      object btnGetURL_SENDER: TButton
+      object btnGetSenderNumberMgtURL: TButton
         Left = 8
         Top = 56
         Width = 144
         Height = 25
         Caption = '발신번호 관리 팝업'
         TabOrder = 0
-        OnClick = btnGetURL_SENDERClick
+        OnClick = btnGetSenderNumberMgtURLClick
       end
       object btnGetSenderNumberList: TButton
         Left = 8
