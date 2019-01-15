@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 486
-  Top = 125
+  Left = 442
+  Top = 109
   Width = 1403
   Height = 868
   Caption = '팝빌 문자 API SDK Delphi Example'
@@ -296,16 +296,16 @@ object frmExample: TfrmExample
       Caption = '예약시간(yyyyMMddHHmmss) : '
     end
     object GroupBox10: TGroupBox
-      Left = 1013
+      Left = 1005
       Top = 24
-      Width = 161
+      Width = 172
       Height = 161
       Caption = '부가기능'
       TabOrder = 6
       object btnGetSentListURL: TButton
         Left = 8
         Top = 24
-        Width = 144
+        Width = 153
         Height = 25
         Caption = '전송내역조회 팝업'
         TabOrder = 0
@@ -314,7 +314,7 @@ object frmExample: TfrmExample
       object btnSearchMessages: TButton
         Left = 8
         Top = 88
-        Width = 144
+        Width = 153
         Height = 25
         Caption = '전송내역 목록조회'
         TabOrder = 1
@@ -323,7 +323,7 @@ object frmExample: TfrmExample
       object btnGetAutoDenyList: TButton
         Left = 8
         Top = 56
-        Width = 144
+        Width = 153
         Height = 25
         Caption = '080수신거부목록 조회'
         TabOrder = 2
@@ -332,7 +332,7 @@ object frmExample: TfrmExample
       object btnGetStates: TButton
         Left = 8
         Top = 120
-        Width = 144
+        Width = 153
         Height = 25
         Caption = '전송내역 요약정보확인'
         TabOrder = 3
@@ -360,7 +360,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '개별 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 1
         OnClick = btnSendThousandClick
       end
@@ -369,7 +369,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = '동보 1000건 전송'
         TabOrder = 2
         OnClick = btnSendThousandSameClick
       end
@@ -395,7 +395,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '개별 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 1
         OnClick = btnSendLMSThousandClick
       end
@@ -404,7 +404,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = '동보 1000건 전송'
         TabOrder = 2
         OnClick = btnSendLMSThousand_SameClick
       end
@@ -430,7 +430,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '개별 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 1
         OnClick = btnSendXMSThousandClick
       end
@@ -439,7 +439,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = '동보 1000건 전송'
         TabOrder = 2
         OnClick = btnSendXMSThousand_SameClick
       end
@@ -502,7 +502,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = '동보 1000건 전송'
         TabOrder = 1
         OnClick = btnSendMMSThousand_SameClick
       end
@@ -511,7 +511,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '개별 1000건 전송'
+        Caption = '대량 1000건 전송'
         TabOrder = 2
         OnClick = btnSendMMS_ThousandClick
       end
