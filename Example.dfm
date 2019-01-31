@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = 442
-  Top = 109
+  Left = -1
+  Top = 116
   Width = 1403
   Height = 868
   Caption = '팝빌 문자 API SDK Delphi Example'
@@ -47,7 +47,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 144
         Height = 25
-        Caption = '회원 가입'
+        Caption = '연동회원 신규가입'
         TabOrder = 0
         OnClick = btnJoinClick
       end
@@ -56,7 +56,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = 'ID 중복 확인'
+        Caption = '아이디 중복 확인'
         TabOrder = 1
         OnClick = btnCheckIDClick
       end
@@ -82,7 +82,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 144
         Height = 25
-        Caption = 'SMS 단가 확인'
+        Caption = 'SMS 전송단가 확인'
         TabOrder = 0
         OnClick = btnGetUnitCost_SMSClick
       end
@@ -91,7 +91,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = 'LMS 단가 확인'
+        Caption = 'LMS 전송단가 확인'
         TabOrder = 1
         OnClick = btnGetUnitCost_LMSClick
       end
@@ -100,7 +100,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 144
         Height = 25
-        Caption = 'MMS 단가 확인'
+        Caption = 'MMS 전송단가 확인'
         TabOrder = 2
         OnClick = btnGetUnitCost_MMSClick
       end
