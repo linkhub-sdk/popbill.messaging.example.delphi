@@ -659,10 +659,10 @@ begin
 
         for i:= 0 to Length(Messages) -1 do begin
 
-               // 제목
+               // 메시지 제목
                stringgrid1.Cells[0,i+1] := Messages[i].subject;
 
-               // 내용
+               // 메시지 내용
                stringgrid1.Cells[1,i+1] := Messages[i].content;
 
                // 발신번호
@@ -695,10 +695,10 @@ begin
                // 전송결과 코드
                stringgrid1.Cells[11,i+1] := IntToStr(Messages[i].result);
 
-               // 메시지 유형
+               // 메시지 타입
                stringgrid1.Cells[12,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
 
-               // 전송 통신사명
+               // 전송처리 이동통신사명
                stringgrid1.Cells[13,i+1] := Messages[i].tranNet;
 
                // 접수번호
@@ -1774,10 +1774,10 @@ begin
 
         for i:= 0 to Length(Messages) -1 do begin
 
-               // 제목
+               // 메시지 제목
                stringgrid1.Cells[0,i+1] := Messages[i].subject;
 
-               // 내용
+               // 메시지 내용
                stringgrid1.Cells[1,i+1] := Messages[i].content;
 
                // 발신번호
@@ -1810,10 +1810,10 @@ begin
                // 전송결과 코드
                stringgrid1.Cells[11,i+1] := IntToStr(Messages[i].result);
 
-               // 메시지 유형
+               // 메시지 타입
                stringgrid1.Cells[12,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
 
-               // 전송 통신사명
+               // 전송처리 이동통신사명
                stringgrid1.Cells[13,i+1] := Messages[i].tranNet;
 
                // 접수번호
