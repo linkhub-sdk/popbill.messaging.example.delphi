@@ -1,6 +1,6 @@
 object frmExample: TfrmExample
-  Left = -1
-  Top = 116
+  Left = 268
+  Top = 131
   Width = 1403
   Height = 868
   Caption = '팝빌 문자 API SDK Delphi Example'
@@ -307,7 +307,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 153
         Height = 25
-        Caption = '전송내역조회 팝업'
+        Caption = '전송내역조회 팝업 URL'
         TabOrder = 0
         OnClick = btnGetSentListURLClick
       end
@@ -316,7 +316,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 153
         Height = 25
-        Caption = '전송내역 목록조회'
+        Caption = '전송내역 목록 조회'
         TabOrder = 1
         OnClick = btnSearchMessagesClick
       end
@@ -325,7 +325,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 153
         Height = 25
-        Caption = '080수신거부목록 조회'
+        Caption = '080 수신거부목록 조회'
         TabOrder = 2
         OnClick = btnGetAutoDenyListClick
       end
@@ -334,7 +334,7 @@ object frmExample: TfrmExample
         Top = 120
         Width = 153
         Height = 25
-        Caption = '전송내역 요약정보확인'
+        Caption = '전송내역 요약정보 확인'
         TabOrder = 3
         OnClick = btnGetStatesClick
       end
@@ -537,7 +537,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 144
         Height = 25
-        Caption = '발신번호 목록 조회'
+        Caption = '발신번호 목록 확인'
         TabOrder = 1
         OnClick = btnGetSenderNumberListClick
       end
@@ -569,7 +569,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '전송상태확인'
+        Caption = '전송내역 확인'
         TabOrder = 1
         OnClick = btnGetMessageClick
       end
@@ -578,7 +578,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '예약전송취소'
+        Caption = '예약전송 취소'
         TabOrder = 2
         OnClick = btnCancelReserveClick
       end
@@ -610,7 +610,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '전송상태확인'
+        Caption = '전송내역 확인'
         TabOrder = 1
         OnClick = btnGetMessageRNClick
       end
@@ -619,7 +619,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '예약전송취소'
+        Caption = '예약전송 취소'
         TabOrder = 2
         OnClick = btnCancelReserveRNClick
       end
