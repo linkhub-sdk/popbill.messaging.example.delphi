@@ -2,7 +2,7 @@
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
 { - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2019-02-07                                                 }
+{ - 업데이트 일자 : 2019-03-20                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -334,7 +334,15 @@ begin
                 end;
         end;
 
-        ShowMessage('SMS 전송단가 : '+ FloatToStr(unitcost));
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('SMS 전송단가 : '+ FloatToStr(unitcost));
+        end;
+
 end;
 
 procedure TfrmExample.btnGetUnitCost_LMSClick(Sender: TObject);
@@ -354,7 +362,14 @@ begin
                 end;
         end;
 
-        ShowMessage('LMS 전송단가 : '+ FloatToStr(unitcost));
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('LMS 전송단가 : '+ FloatToStr(unitcost));
+        end;
 
 end;
 
@@ -375,7 +390,14 @@ begin
                 end;
         end;
 
-        ShowMessage('MMS 전송단가 : '+ FloatToStr(unitcost));
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('MMS 전송단가 : '+ FloatToStr(unitcost));
+        end;
 end;
     
 procedure TfrmExample.btnGetPartnerBalanceClick(Sender: TObject);
@@ -457,8 +479,16 @@ begin
                         Exit;
                 end;
         end;
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnSendThousandClick(Sender: TObject);
@@ -520,8 +550,15 @@ begin
                 end;
         end;
         
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnSendThousandSameClick(Sender: TObject);
@@ -587,8 +624,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnSendLMSClick(Sender: TObject);
@@ -655,8 +699,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnGetMessageClick(Sender: TObject);
@@ -679,57 +730,64 @@ begin
                 end;
         end;
 
-        stringgrid1.RowCount := Length(Messages) + 1;
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                stringgrid1.RowCount := Length(Messages) + 1;
 
-        for i:= 0 to Length(Messages) -1 do begin
+                for i:= 0 to Length(Messages) -1 do begin
 
-               // 메시지 제목
-               stringgrid1.Cells[0,i+1] := Messages[i].subject;
+                       // 메시지 제목
+                       stringgrid1.Cells[0,i+1] := Messages[i].subject;
 
-               // 메시지 내용
-               stringgrid1.Cells[1,i+1] := Messages[i].content;
+                       // 메시지 내용
+                       stringgrid1.Cells[1,i+1] := Messages[i].content;
 
-               // 발신번호
-               stringgrid1.Cells[2,i+1] := Messages[i].sendNum;
+                       // 발신번호
+                       stringgrid1.Cells[2,i+1] := Messages[i].sendNum;
 
-               // 발신자명
-               stringgrid1.Cells[3,i+1] := Messages[i].senderName;
+                       // 발신자명
+                       stringgrid1.Cells[3,i+1] := Messages[i].senderName;
 
-               // 수신번호
-               stringgrid1.Cells[4,i+1] := Messages[i].receiveNum;
+                       // 수신번호
+                       stringgrid1.Cells[4,i+1] := Messages[i].receiveNum;
 
-               // 수신자명
-               stringgrid1.Cells[5,i+1] := Messages[i].receiveName;
+                       // 수신자명
+                       stringgrid1.Cells[5,i+1] := Messages[i].receiveName;
 
-               // 접수일시
-               stringgrid1.Cells[6,i+1] := Messages[i].receiptDT;
+                       // 접수일시
+                       stringgrid1.Cells[6,i+1] := Messages[i].receiptDT;
 
-               // 전송일시
-               stringgrid1.Cells[7,i+1] := Messages[i].sendDT;
+                       // 전송일시
+                       stringgrid1.Cells[7,i+1] := Messages[i].sendDT;
 
-               // 전송결과 일시
-               stringgrid1.Cells[8,i+1] := Messages[i].resultDT;
+                       // 전송결과 일시
+                       stringgrid1.Cells[8,i+1] := Messages[i].resultDT;
 
-               // 예약일시
-               stringgrid1.Cells[9,i+1] := Messages[i].reserveDT;
+                       // 예약일시
+                       stringgrid1.Cells[9,i+1] := Messages[i].reserveDT;
 
-               // 전송상태 코드
-               stringgrid1.Cells[10,i+1] := IntToStr(Messages[i].state);
+                       // 전송상태 코드
+                       stringgrid1.Cells[10,i+1] := IntToStr(Messages[i].state);
 
-               // 전송결과 코드
-               stringgrid1.Cells[11,i+1] := IntToStr(Messages[i].result);
+                       // 전송결과 코드
+                       stringgrid1.Cells[11,i+1] := IntToStr(Messages[i].result);
 
-               // 메시지 타입
-               stringgrid1.Cells[12,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
+                       // 메시지 타입
+                       stringgrid1.Cells[12,i+1] := GetEnumName(TypeInfo(EnumMessageType),integer(Messages[i].messageType));
 
-               // 전송처리 이동통신사명
-               stringgrid1.Cells[13,i+1] := Messages[i].tranNet;
+                       // 전송처리 이동통신사명
+                       stringgrid1.Cells[13,i+1] := Messages[i].tranNet;
 
-               // 접수번호
-               stringgrid1.Cells[14,i+1] := Messages[i].receiptNum;
+                       // 접수번호
+                       stringgrid1.Cells[14,i+1] := Messages[i].receiptNum;
 
-               // 요청번호
-               stringgrid1.Cells[15,i+1] := Messages[i].requestNum;
+                       // 요청번호
+                       stringgrid1.Cells[15,i+1] := Messages[i].requestNum;
+                end;
         end;
 end;
 
@@ -801,8 +859,15 @@ begin
                 end;
         end;
         
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnSendLMSThousandClick(Sender: TObject);
@@ -867,8 +932,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnSendXMSClick(Sender: TObject);
@@ -928,8 +1000,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 
@@ -1001,9 +1080,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum + ' | ' + FormatDateTime('s.zzz', TPost - Tinit));
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnSendXMSThousandClick(Sender: TObject);
@@ -1069,8 +1154,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnCancelReserveClick(Sender: TObject);
@@ -1111,7 +1203,16 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('URL :  ' + #13 + resultURL);
+
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL :  ' + #13 + resultURL);
+        end;
+
 end;
 
 procedure TfrmExample.btnSendMMSClick(Sender: TObject);
@@ -1180,8 +1281,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnSendMMSThousand_SameClick(Sender: TObject);
@@ -1254,8 +1362,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnCheckIDClick(Sender: TObject);
@@ -1658,14 +1773,22 @@ begin
                 end;
         end;
 
-        tmp := 'number(수신거부번호) | regDT(등록일시) ' + #13;
 
-        for i := 0 to Length(AutoDenyList) -1 do
+        if messagingService.LastErrCode <> 0 then
         begin
-                tmp:= tmp + AutoDenyList[i].number + '  |  '
-                        + AutoDenyList[i].regDT + #13;
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'number(수신거부번호) | regDT(등록일시) ' + #13;
+
+                for i := 0 to Length(AutoDenyList) -1 do
+                begin
+                        tmp:= tmp + AutoDenyList[i].number + '  |  '
+                                + AutoDenyList[i].regDT + #13;
+                end;
+                ShowMessage(tmp);
         end;
-        ShowMessage(tmp);
 end;
 
 procedure TfrmExample.btnGetChargeInfo_SMSClick(Sender: TObject);
@@ -1686,11 +1809,18 @@ begin
                 end;
         end;
 
-        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
-        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
-        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+                tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+                tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
 
-        ShowMessage(tmp);
+                ShowMessage(tmp);
+        end;
 end;
 
 procedure TfrmExample.btnGetChargeInfo_LMSClick(Sender: TObject);
@@ -1711,11 +1841,18 @@ begin
                 end;
         end;
 
-        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
-        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
-        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+                tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+                tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
 
-        ShowMessage(tmp);
+                ShowMessage(tmp);
+        end;
 end;
 
 procedure TfrmExample.btnGetChargeInfo_MMSClick(Sender: TObject);
@@ -1736,11 +1873,18 @@ begin
                 end;
         end;
 
-        tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
-        tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
-        tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'unitCost (단가) : ' + chargeInfo.unitCost + #13;
+                tmp := tmp + 'chargeMethod (과금유형) : ' + chargeInfo.chargeMethod + #13;
+                tmp := tmp + 'rateSystem (과금제도) : ' + chargeInfo.rateSystem + #13;
 
-        ShowMessage(tmp);
+                ShowMessage(tmp);
+        end;
 end;
 
 procedure TfrmExample.btnGetSenderNumberMgtURLClick(Sender: TObject);
@@ -1760,7 +1904,15 @@ begin
                         Exit;
                 end;
         end;
-        ShowMessage('URL :  ' + #13 + resultURL);
+
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('URL :  ' + #13 + resultURL);
+        end;        
 end;
 
 procedure TfrmExample.btnGetSenderNumberListClick(Sender: TObject);
@@ -1783,14 +1935,23 @@ begin
                 end;
         end;
 
-        for i := 0 to Length(SenderNumberList) -1 do
+        if messagingService.LastErrCode <> 0 then
         begin
-                tmp := tmp + '******** 문자 발신번호 목록 ['+ IntToStr(i+1) + '] ********' + #13;
-                tmp := tmp + 'number(발신번호) : ' + SenderNumberList[i].number + #13;
-                tmp := tmp + 'state(등록상태) : ' + IntToStr(SenderNumberList[i].state) + #13;
-                tmp := tmp + 'representYN(대표번호 지정여부) : ' + BoolToStr(SenderNumberList[i].representYN) + #13 + #13;
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                for i := 0 to Length(SenderNumberList) -1 do
+                begin
+                        tmp := tmp + '******** 문자 발신번호 목록 ['+ IntToStr(i+1) + '] ********' + #13;
+                        tmp := tmp + 'number(발신번호) : ' + SenderNumberList[i].number + #13;
+                        tmp := tmp + 'state(등록상태) : ' + IntToStr(SenderNumberList[i].state) + #13;
+                        tmp := tmp + 'representYN(대표번호 지정여부) : ' + BoolToStr(SenderNumberList[i].representYN) + #13 + #13;
+                end;
+                ShowMessage(tmp);
         end;
-        ShowMessage(tmp);
+
+
 end;
 
 procedure TfrmExample.btnGetPartnerURL_CHRGClick(Sender: TObject);
@@ -1833,6 +1994,12 @@ begin
                 end;
         end;
 
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
         stringgrid1.RowCount := Length(Messages) + 1;
 
         for i:= 0 to Length(Messages) -1 do begin
@@ -1885,6 +2052,7 @@ begin
                // 요청번호
                stringgrid1.Cells[15,i+1] := Messages[i].requestNum;
         end;
+        end;
 end;
 
 procedure TfrmExample.btnCancelReserveRNClick(Sender: TObject);
@@ -1905,6 +2073,7 @@ begin
                         Exit;
                 end;
         end;
+        
         ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
 end;
 
@@ -1977,8 +2146,15 @@ begin
                 end;
         end;
 
-        txtReceiptNum.Text := receiptNum;
-        ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                txtReceiptNum.Text := receiptNum;
+                ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
+        end;
 end;
 
 procedure TfrmExample.btnGetStatesClick(Sender: TObject);
@@ -2008,12 +2184,18 @@ begin
                 end;
         end;
 
-        tmp := 'rNum(접수번호) | sn(일련번호) | stat(전송 상태코드) | rlt(전송 결과코드) | sDT(전송일시) |';
-        tmp := tmp + 'rDT(전송결과 수신일시) | net(전송 이동통신사명) | srt (구 전송 결과코드)' + #13;
-
-        for i := 0 to Length(InfoList) -1 do
+        if messagingService.LastErrCode <> 0 then
         begin
-            tmp := tmp + InfoList[i].rNum + ' | '
+                ShowMessage('응답코드 : '+ IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+  messagingService.LastErrMessage);
+        end
+        else
+        begin
+                tmp := 'rNum(접수번호) | sn(일련번호) | stat(전송 상태코드) | rlt(전송 결과코드) | sDT(전송일시) |';
+                tmp := tmp + 'rDT(전송결과 수신일시) | net(전송 이동통신사명) | srt (구 전송 결과코드)' + #13;
+
+                for i := 0 to Length(InfoList) -1 do
+                begin
+                    tmp := tmp + InfoList[i].rNum + ' | '
                        + InfoList[i].sn   + ' | '
                        + InfoList[i].stat + ' | '
                        + InfoList[i].rlt  + ' | '
@@ -2021,8 +2203,10 @@ begin
                        + InfoList[i].rDT  + ' | '
                        + InfoList[i].net  + ' | '
                        + InfoList[i].srt  + #13;
+                end;
+                ShowMessage(tmp);
         end;
-        ShowMessage(tmp);
+
 end;
 
 
