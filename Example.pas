@@ -1632,7 +1632,7 @@ begin
         Page := 1;
 
         // 페이지당 검색갯수, 기본값 500
-        PerPage := 500;
+        PerPage := 5;
 
         // 정렬방향, D-내림차순 , A-오름차순
         Order := 'D';
@@ -1642,7 +1642,7 @@ begin
 
         try
                 Messages := messagingService.search(txtCorpNum.text, SDate, EDate, State,
-                                                        Item, ReserveYN, SenderYN, Page, PerPage, Order, QString, txtUserID.text);
+                                                        Item, ReserveYN, SenderYN, Page, PerPage, Order, txtUserID.text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
