@@ -1,8 +1,7 @@
 {******************************************************************************}
 { 팝빌 문자 API Delphi SDK Example                                             }
 {                                                                              }
-{ - 델파이 SDK 적용방법 안내 : http://blog.linkhub.co.kr/572                   }
-{ - 업데이트 일자 : 2019-03-20                                                 }
+{ - 업데이트 일자 : 2019-09-25                                                 }
 { - 연동 기술지원 연락처 : 1600-9854 / 070-4304-2991                           }
 { - 연동 기술지원 이메일 : code@linkhub.co.kr                                  }
 {                                                                              }
@@ -173,6 +172,9 @@ begin
 
         // Exception 처리 설정값, 기본값(true)
         messagingService.IsThrowException := true;
+
+        // 인증토큰 IP제한긴으 사용여부, true(권장) 
+        messagingService.IPRestrictOnOff := true;
 
         //그리드 초기화
         stringgrid1.Cells[0,0]   := 'subject';
