@@ -183,6 +183,9 @@ begin
         // 인증토큰 IP제한긴으 사용여부, true(권장) 
         messagingService.IPRestrictOnOff := true;
 
+        //로컬시스템 시간 사용여부, true(사용), false(미사용) - 기본값
+        messagingService.UseLocalTimeYN := true;
+
         //그리드 초기화
         stringgrid1.Cells[0,0]   := 'subject';
         stringgrid1.Cells[1,0]   := 'content';
