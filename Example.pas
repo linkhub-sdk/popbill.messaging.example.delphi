@@ -173,17 +173,17 @@ begin
         // 문자 api 모듈 초기화.
         messagingService := TMessagingService.Create(LinkID,SecretKey);
 
-        // 연동환경 설정값, 개발용(true), 상업용(false)
+        // 연동환경 설정, true-개발용, false-상업용
         messagingService.IsTest := true;
 
-        // Exception 처리 설정값, 기본값(true)
+        // Exception 처리 설정, true-사용, false-미사용, 기본값(true)
         messagingService.IsThrowException := true;
 
-        // 인증토큰 IP제한긴으 사용여부, true(권장) 
+        // 인증토큰 IP제한기능 사용여부, true-사용, false-미사용, 기본값(true)
         messagingService.IPRestrictOnOff := true;
 
-        //로컬시스템 시간 사용여부, true(사용), false(미사용) - 기본값
-        messagingService.UseLocalTimeYN := true;
+        //로컬시스템 시간 사용여부, true-사용, false-미사용, 기본값(true)
+        messagingService.UseLocalTimeYN := false;
 
         //그리드 초기화
         stringgrid1.Cells[0,0]   := 'subject';
