@@ -111,6 +111,8 @@ type
     btnGetUseHistoryURL: TButton;
     btnGetContactInfo: TButton;
     Button1: TButton;
+    txtURL: TEdit;
+    Label6: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -237,6 +239,7 @@ begin
 
         try
                 resultURL := messagingService.getAccessURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1193,6 +1196,7 @@ begin
 
         try
                 resultURL := messagingService.getSentListURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1772,6 +1776,7 @@ begin
         
         try
                 resultURL := messagingService.getChargeURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1972,6 +1977,7 @@ begin
 
         try
                 resultURL := messagingService.getSenderNumberMgtURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -2042,6 +2048,7 @@ begin
 
         try
                 resultURL := messagingService.getPartnerURL(txtCorpNum.Text, 'CHRG');
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -2305,6 +2312,7 @@ begin
         
         try
                 resultURL := messagingService.getPaymentURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -2333,6 +2341,7 @@ begin
 
         try
                 resultURL := messagingService.getUseHistoryURL(txtCorpNum.Text, txtUserID.Text);
+                txtURL.Text := resultURL;
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);

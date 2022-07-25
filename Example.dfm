@@ -28,6 +28,15 @@ object frmExample: TfrmExample
     Height = 13
     Caption = 'ÆËºô¾ÆÀÌµð : '
   end
+  object Label6: TLabel
+    Left = 960
+    Top = 20
+    Width = 31
+    Height = 13
+    BiDiMode = bdRightToLeft
+    Caption = 'URL : '
+    ParentBiDiMode = False
+  end
   object GroupBox8: TGroupBox
     Left = 16
     Top = 48
@@ -661,6 +670,14 @@ object frmExample: TfrmExample
         OnClick = btnCancelReserveRNClick
       end
     end
+  end
+  object txtURL: TEdit
+    Left = 1000
+    Top = 16
+    Width = 377
+    Height = 21
+    ImeName = 'Microsoft IME 2010'
+    TabOrder = 4
   end
   object OpenDialog1: TOpenDialog
     Left = 528
