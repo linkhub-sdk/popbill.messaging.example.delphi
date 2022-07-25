@@ -1,7 +1,7 @@
 {******************************************************************************}
 { 팝빌 문자 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2022-04-07
+{ - 업데이트 일자 : 2022-07-25
 { - 연동 기술지원 연락처 : 1600-9854
 { - 연동 기술지원 이메일 : code@linkhubcorp.com
 { - SDK 튜토리얼 : https://docs.popbill.com/message/tutorial/delphi
@@ -205,6 +205,7 @@ begin
         stringgrid1.Cells[13,0]  := 'tranNet';
         stringgrid1.Cells[14,0]  := 'receiptNum';
         stringgrid1.Cells[15,0]  := 'requestNum';
+        stringgrid1.Cells[16,0]  := 'interOPRefKey';
 end;
 
 procedure TfrmExample.FormClose(Sender:TObject; var Action:TCloseAction);
@@ -552,6 +553,9 @@ begin
 
             // 메시지 내용 (90Byte 초과된 내용은 삭제되어 전송됨)
             Messages[i].content := '내용내용_' + IntToStr(i);
+
+            // 파트너 지정키
+            Messages[i].interOPRefKey := 'TEST' + IntToStr(i);
         end;
 
         // 전송요청번호
@@ -598,7 +602,7 @@ var
 begin
         {***************************************************************************}
         { 최대 90byte의 단문(SMS) 메시지 다수건 전송을 팝빌에 접수합니다. (최대 1,000건)
-        { - 모든 수신자에게 동일한 내용을 전송하거나(동보전송).
+        { - 모든 수신자에게 동일한 내용을 전송할 수 있습니다.(동보전송).
         { - https://docs.popbill.com/message/delphi/api#SendSMS_Multi
         {***************************************************************************}
 
@@ -609,6 +613,7 @@ begin
             Messages[i] := TSendMessage.create;
             Messages[i].receiver := '010-111-222';    // 수신번호
             Messages[i].receiverName := '수신자명';   // 수신자명
+            MEssages[i].interOPRefKey := 'TEST' + IntToStr(i);    // 파트너 지정 키
         end;
 
         // 발신번호 (팝빌에 등록된 발신번호)
@@ -794,6 +799,9 @@ begin
 
                        // 요청번호
                        stringgrid1.Cells[15,i+1] := Messages[i].requestNum;
+
+                       // 파트너 지정 키
+                       stringgrid1.Cells[16,i+1] := Messages[i].interOPRefKey;
                 end;
         end;
 end;
@@ -824,6 +832,7 @@ begin
             Messages[i] := TSendMessage.create;
             Messages[i].receiver := '010-111-222';    // 수신번호
             Messages[i].receiverName := '수신자명';   // 수신자명
+            Messages[i].interOPRefKey := 'TEST' + IntToSTr(i);  // 파트너 지정키
         end;
 
         // 발신번호 (팝빌에 등록된 발신번호)
@@ -904,6 +913,9 @@ begin
 
             // 메시지 내용 (2000Byte 초과된 내용은 삭제되어 전송됨)
             Messages[i].content := '장문 문자 메시지의 내용을 기재합니다. - ' + IntToStr(i);
+
+            // 파트너 지정 키
+            Messages[i].interOPRefKey := 'TEST' + IntToSTr(i);
         end;
 
         // 전송요청번호
@@ -1019,6 +1031,7 @@ begin
             Messages[i] := TSendMessage.create;
             Messages[i].receiver := '010-111-222';    // 수신번호
             Messages[i].receiverName := '수신자명';   // 수신자명
+            Messages[i].interOPRefKey := 'TEST' + IntToSTr(i);  // 파트너 지정키
         end;
 
         // 발신번호 (팝빌에 등록된 발신번호)
@@ -1106,6 +1119,9 @@ begin
             // 90Byte를 기준으로 단문(SMS)/장문(LMS) 자동 인식되어 전송됩니다.
             // 메시지 내용 (2000Byte 초과된 내용은 삭제되어 전송됨)
             Messages[i].content := '문자내용 길이에 대한 자동인식 전송 ' + IntToStr(i);
+
+            // 파트너 지정키
+            Messages[i].interOPRefKey := 'TEST' + IntToSTr(i);
         end;
 
         // 전송요청번호
@@ -1291,6 +1307,7 @@ begin
             Messages[i] := TSendMessage.create;
             Messages[i].receiver := '010-111-222';    // 수신번호
             Messages[i].receiverName := '수신자명';   // 수신자명
+            Messages[i].interOPRefKey := 'TEST' + IntToSTr(i);  // 파트너 지정키
         end;
 
         // 발신번호 (팝빌에 등록된 발신번호)
@@ -1597,10 +1614,10 @@ begin
         {**********************************************************************}
 
         // 검색기간 시작일자, 날짜형식 yyyyMMdd
-        SDate := '20220101';
+        SDate := '20220725';
 
         // 검색기간 종료일자, 날짜형식 yyyyMMdd
-        EDate := '20220110';
+        EDate := '20220725';
 
         //문자메시지 전송상태값 배열, 1:대기, 2:성공, 3:실패, 4:취소
         SetLength(State, 4);
@@ -1706,6 +1723,9 @@ begin
 
                         // 요청번호
                         stringgrid1.Cells[15,i+1] := Messages.list[i].requestNum;
+
+                        // 파트너 지정 키
+                        stringgrid1.Cells[16,i+1] := Messages.list[i].interOPRefKey;
                 end;
                 Messages.Free;
                 ShowMessage(tmp);
@@ -2115,6 +2135,9 @@ begin
 
                // 요청번호
                stringgrid1.Cells[15,i+1] := Messages[i].requestNum;
+
+               // 파트너 지정 키
+               stringgrid1.Cells[16,i+1] := Messages[i].interOPRefKey;
         end;
         end;
 end;
@@ -2175,6 +2198,7 @@ begin
                 Messages[i].senderName := '발신자명';      //발신자명
                 Messages[i].receiver := '010111222';       //수신번호
                 Messages[i].receiverName :='수신자명';     //수신자명
+                Messages[i].interOPRefKey := 'TEST' + IntToStr(i);   // 파트너 지정 키
         end;
 
         // 발신번호 (팝빌에 등록된 발신번호)
