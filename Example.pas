@@ -1652,7 +1652,7 @@ begin
 
         try
                 Messages := messagingService.search(txtCorpNum.text, SDate, EDate, State,
-                                                        Item, ReserveYN, SenderYN, Page, PerPage, Order, txtUserID.text);
+                                                        Item, ReserveYN, SenderYN, Page, PerPage, Order);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1941,7 +1941,7 @@ begin
         senderNumber := '07079987110';
 
         try
-                response := messagingService.CheckSenderNumber(txtCorpNum.Text, senderNumber, txtUserID.Text);
+                response := messagingService.CheckSenderNumber(txtCorpNum.Text, senderNumber);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -2260,7 +2260,7 @@ begin
         NumList[1] := '018061815000000042';
 
         try
-                InfoList := messagingService.GetStates(txtCorpNum.text, NumList, txtUserID.text);
+                InfoList := messagingService.GetStates(txtCorpNum.text, NumList);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
@@ -2304,7 +2304,7 @@ begin
         {**********************************************************************}
         
         try
-                resultURL := messagingService.getPaymentURL(txtCorpNum.Text);
+                resultURL := messagingService.getPaymentURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -2332,7 +2332,7 @@ begin
         {**********************************************************************}
 
         try
-                resultURL := messagingService.getUseHistoryURL(txtCorpNum.Text);
+                resultURL := messagingService.getUseHistoryURL(txtCorpNum.Text, txtUserID.Text);
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
