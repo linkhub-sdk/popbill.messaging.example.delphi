@@ -106,7 +106,6 @@ type
     btnGetSentListURL: TButton;
     btnSearchMessages: TButton;
     btnGetAutoDenyList: TButton;
-    btnGetStates: TButton;
     btnGetPaymentURL: TButton;
     btnGetUseHistoryURL: TButton;
     btnGetContactInfo: TButton;
@@ -155,7 +154,6 @@ type
     procedure btnGetMessageRNClick(Sender: TObject);
     procedure btnCancelReserveRNClick(Sender: TObject);
     procedure btnSendMMS_ThousandClick(Sender: TObject);
-    procedure btnGetStatesClick(Sender: TObject);
     procedure btnGetPaymentURLClick(Sender: TObject);
     procedure btnGetUseHistoryURLClick(Sender: TObject);
     procedure btnGetContactInfoClick(Sender: TObject);
@@ -2248,56 +2246,6 @@ begin
                 txtReceiptNum.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
-end;
-
-procedure TfrmExample.btnGetStatesClick(Sender: TObject);
-var
-        NumList : Array of String;
-        InfoList : TSentMessageSummaryInfoList;
-        tmp : string;
-        i : Integer;
-begin
-        {**********************************************************************}
-        { 다량의 문자 전송내역 요약정보를 확인합니다. (최대 1000건)            
-        {**********************************************************************}
-
-        // 문자 접수번호 배열 (최대 1000건)
-        SetLength(NumList,2);
-        NumList[0] := '018061815000000041';
-        NumList[1] := '018061815000000042';
-
-        try
-                InfoList := messagingService.GetStates(txtCorpNum.text, NumList);
-        except
-                on le : EPopbillException do begin
-                        ShowMessage('응답코드 : '+ IntToStr(le.code) + #10#13 +'응답메시지 : '+  le.Message);
-                        Exit;
-                end;
-        end;
-
-        if messagingService.LastErrCode <> 0 then
-        begin
-                ShowMessage('응답코드 : '+ IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+  messagingService.LastErrMessage);
-        end
-        else
-        begin
-                tmp := 'rNum(접수번호) | sn(일련번호) | stat(전송 상태코드) | rlt(전송 결과코드) | sDT(전송일시) |';
-                tmp := tmp + 'rDT(전송결과 수신일시) | net(전송 이동통신사명) | srt (구 전송 결과코드)' + #13;
-
-                for i := 0 to Length(InfoList) -1 do
-                begin
-                    tmp := tmp + InfoList[i].rNum + ' | '
-                       + InfoList[i].sn   + ' | '
-                       + InfoList[i].stat + ' | '
-                       + InfoList[i].rlt  + ' | '
-                       + InfoList[i].sDT  + ' | '
-                       + InfoList[i].rDT  + ' | '
-                       + InfoList[i].net  + ' | '
-                       + InfoList[i].srt  + #13;
-                end;
-                ShowMessage(tmp);
-        end;
-
 end;
 
 procedure TfrmExample.btnGetPaymentURLClick(Sender: TObject);

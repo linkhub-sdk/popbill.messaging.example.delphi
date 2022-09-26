@@ -365,15 +365,6 @@ object frmExample: TfrmExample
         TabOrder = 2
         OnClick = btnGetAutoDenyListClick
       end
-      object btnGetStates: TButton
-        Left = 8
-        Top = 120
-        Width = 153
-        Height = 25
-        Caption = '전송내역 요약정보 확인'
-        TabOrder = 3
-        OnClick = btnGetStatesClick
-      end
     end
     object GroupBox1: TGroupBox
       Left = 16
