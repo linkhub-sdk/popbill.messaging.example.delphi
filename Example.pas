@@ -1,7 +1,7 @@
 {******************************************************************************}
 { 팝빌 문자 API Delphi SDK Example
 {
-{ - 업데이트 일자 : 2022-09-26
+{ - 업데이트 일자 : 2022-10-31
 { - 연동 기술지원 연락처 : 1600-9854
 { - 연동 기술지원 이메일 : code@linkhubcorp.com
 { - SDK 튜토리얼 : https://docs.popbill.com/message/tutorial/delphi
@@ -112,6 +112,19 @@ type
     Button1: TButton;
     txtURL: TEdit;
     Label6: TLabel;
+    GroupBox18: TGroupBox;
+    Label7: TLabel;
+    txtRequestNumbyRCV: TEdit;
+    GroupBox19: TGroupBox;
+    Label8: TLabel;
+    txtReceiptNumbyRCV: TEdit;
+    btnCancelReservebyRCV: TButton;
+    txtRecieveNumbyRCV: TEdit;
+    Label10: TLabel;
+    Label11: TLabel;
+    txtReceiveNumRNbyRCV: TEdit;
+    Label9: TLabel;
+    btnCancelReserveRNbyRCV: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action:TCloseAction);
     procedure btnGetAccessURLClick(Sender: TObject);
@@ -130,7 +143,8 @@ type
     procedure btnSendXMSClick(Sender: TObject);
     procedure btnSendXMSThousand_SameClick(Sender: TObject);
     procedure btnSendXMSThousandClick(Sender: TObject);
-    procedure btnCancelReserveClick(Sender: TObject);
+    procedure btnCancelReserveClick(Sender: TObject);  
+    procedure btnCancelReservebyRCVClick(Sender: TObject);
     procedure btnGetSentListURLClick(Sender: TObject);
     procedure btnGetUnitCost_MMSClick(Sender: TObject);
     procedure btnSendMMSClick(Sender: TObject);
@@ -152,7 +166,8 @@ type
     procedure btnGetSenderNumberListClick(Sender: TObject);
     procedure btnGetPartnerURL_CHRGClick(Sender: TObject);
     procedure btnGetMessageRNClick(Sender: TObject);
-    procedure btnCancelReserveRNClick(Sender: TObject);
+    procedure btnCancelReserveRNClick(Sender: TObject);   
+    procedure btnCancelReserveRNbyRCVClick(Sender: TObject);
     procedure btnSendMMS_ThousandClick(Sender: TObject);
     procedure btnGetPaymentURLClick(Sender: TObject);
     procedure btnGetUseHistoryURLClick(Sender: TObject);
@@ -519,6 +534,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -585,6 +601,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -653,6 +670,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -720,6 +738,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -876,6 +895,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -945,6 +965,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -1006,6 +1027,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -1080,6 +1102,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -1151,6 +1174,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -1166,6 +1190,33 @@ begin
 
         try
                 response := messagingService.CancelReserve(txtCorpNum.Text, txtReceiptNum.Text)
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
+        end;
+end;
+
+procedure TfrmExample.btnCancelReservebyRCVClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+        {**********************************************************************}
+        { 팝빌에서 반환받은 접수번호와 수신번호를 통해 예약접수된 문자 메시지 전송을 취소합니다. (예약시간 10분 전까지 가능)
+        { - https://docs.popbill.com/message/delphi/api#CancelReservebyRCV
+        {**********************************************************************}
+
+        try
+                response := messagingService.CancelReservebyRCV(txtCorpNum.Text, txtReceiptNumbyRCV.Text, txtRecieveNumbyRCV.Text)
         except
                 on le : EPopbillException do begin
                         ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
@@ -1278,6 +1329,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -1352,6 +1404,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -2174,6 +2227,33 @@ begin
         end;
 end;
 
+procedure TfrmExample.btnCancelReserveRNbyRCVClick(Sender: TObject);
+var
+        response : TResponse;
+begin
+        {**********************************************************************}
+        { 파트너가 할당한 전송요청 번호와 수신번호를 통해 예약접수된 문자 전송을 취소합니다. (예약시간 10분 전까지 가능)
+        { - https://docs.popbill.com/message/delphi/api#CancelReserveRNbyRCV                 
+        {**********************************************************************}
+
+        try
+                response := messagingService.CancelReserveRNbyRCV(txtCorpNum.Text, txtRequestNumbyRCV.Text, txtReceiveNumRNbyRCV.Text)
+        except
+                on le : EPopbillException do begin
+                        ShowMessage('응답코드 : ' + IntToStr(le.code) + #10#13 +'응답메시지 : '+ le.Message);
+                        Exit;
+                end;
+        end;
+        if messagingService.LastErrCode <> 0 then
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(messagingService.LastErrCode) + #10#13 +'응답메시지 : '+ messagingService.LastErrMessage);
+        end
+        else
+        begin
+                ShowMessage('응답코드 : ' + IntToStr(response.code) + #10#13 + '응답메시지 : '+ response.Message);
+        end;
+end;
+
 procedure TfrmExample.btnSendMMS_ThousandClick(Sender: TObject);
 var
         Messages : TSendMessageList;
@@ -2244,6 +2324,7 @@ begin
         else
         begin
                 txtReceiptNum.Text := receiptNum;
+                txtReceiptNumbyRCV.Text := receiptNum;
                 ShowMessage('접수번호 (receiptNum) : '+ receiptNum);
         end;
 end;
@@ -2345,7 +2426,6 @@ begin
                 ShowMessage(tmp);
         end
 end;
-
 end.
 
 

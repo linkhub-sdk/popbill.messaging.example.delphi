@@ -37,6 +37,13 @@ object frmExample: TfrmExample
     Caption = 'URL : '
     ParentBiDiMode = False
   end
+  object Label11: TLabel
+    Left = 13
+    Top = 20
+    Width = 53
+    Height = 13
+    Caption = '접수번호 : '
+  end
   object GroupBox8: TGroupBox
     Left = 16
     Top = 48
@@ -582,7 +589,7 @@ object frmExample: TfrmExample
     object GroupBox16: TGroupBox
       Left = 16
       Top = 224
-      Width = 417
+      Width = 320
       Height = 105
       Caption = '접수번호 관련 기능 (요청번호 미할당)'
       TabOrder = 8
@@ -596,13 +603,13 @@ object frmExample: TfrmExample
       object txtReceiptNum: TEdit
         Left = 80
         Top = 24
-        Width = 297
+        Width = 222
         Height = 21
         ImeName = 'Microsoft IME 2010'
         TabOrder = 0
       end
       object btnGetMessage: TButton
-        Left = 80
+        Left = 8
         Top = 64
         Width = 144
         Height = 25
@@ -611,7 +618,7 @@ object frmExample: TfrmExample
         OnClick = btnGetMessageClick
       end
       object btnCancelReserve: TButton
-        Left = 237
+        Left = 157
         Top = 64
         Width = 144
         Height = 25
@@ -621,9 +628,9 @@ object frmExample: TfrmExample
       end
     end
     object GroupBox17: TGroupBox
-      Left = 441
+      Left = 337
       Top = 224
-      Width = 417
+      Width = 320
       Height = 105
       Caption = '요청번호 할당 전송건 처리'
       TabOrder = 9
@@ -637,13 +644,13 @@ object frmExample: TfrmExample
       object txtRequestNum: TEdit
         Left = 80
         Top = 24
-        Width = 297
+        Width = 222
         Height = 21
         ImeName = '한국어 입력 시스템 (IME 2000)'
         TabOrder = 0
       end
       object btnGetMessageRN: TButton
-        Left = 80
+        Left = 8
         Top = 64
         Width = 144
         Height = 25
@@ -652,13 +659,107 @@ object frmExample: TfrmExample
         OnClick = btnGetMessageRNClick
       end
       object btnCancelReserveRN: TButton
-        Left = 237
+        Left = 157
         Top = 64
         Width = 144
         Height = 25
         Caption = '예약전송 취소'
         TabOrder = 2
         OnClick = btnCancelReserveRNClick
+      end
+    end
+    object GroupBox18: TGroupBox
+      Left = 1017
+      Top = 224
+      Width = 320
+      Height = 105
+      Caption = '요청번호 할당 전송건 처리 (수신번호)'
+      TabOrder = 10
+      object Label7: TLabel
+        Left = 13
+        Top = 20
+        Width = 53
+        Height = 13
+        Caption = '요청번호 : '
+      end
+      object Label9: TLabel
+        Left = 13
+        Top = 44
+        Width = 53
+        Height = 13
+        Caption = '수신번호 : '
+      end
+      object txtRequestNumbyRCV: TEdit
+        Left = 80
+        Top = 16
+        Width = 222
+        Height = 21
+        ImeName = '한국어 입력 시스템 (IME 2000)'
+        TabOrder = 0
+      end
+      object btnCancelReserveRNbyRCV: TButton
+        Left = 165
+        Top = 64
+        Width = 144
+        Height = 25
+        Caption = '예약전송 취소'
+        TabOrder = 1
+        OnClick = btnCancelReserveRNbyRCVClick
+      end
+      object txtReceiveNumRNbyRCV: TEdit
+        Left = 80
+        Top = 40
+        Width = 222
+        Height = 21
+        ImeName = '한국어 입력 시스템 (IME 2000)'
+        TabOrder = 2
+      end
+    end
+    object GroupBox19: TGroupBox
+      Left = 688
+      Top = 224
+      Width = 320
+      Height = 105
+      Caption = '접수번호 관련 기능 (요청번호 미할당, 수신번호)'
+      TabOrder = 11
+      object Label8: TLabel
+        Left = 13
+        Top = 20
+        Width = 53
+        Height = 13
+        Caption = '접수번호 : '
+      end
+      object Label10: TLabel
+        Left = 13
+        Top = 44
+        Width = 53
+        Height = 13
+        Caption = '수신번호 : '
+      end
+      object txtReceiptNumbyRCV: TEdit
+        Left = 80
+        Top = 16
+        Width = 222
+        Height = 21
+        ImeName = 'Microsoft IME 2010'
+        TabOrder = 0
+      end
+      object btnCancelReservebyRCV: TButton
+        Left = 157
+        Top = 64
+        Width = 144
+        Height = 25
+        Caption = '예약전송 취소'
+        TabOrder = 1
+        OnClick = btnCancelReservebyRCVClick
+      end
+      object txtRecieveNumbyRCV: TEdit
+        Left = 80
+        Top = 40
+        Width = 222
+        Height = 21
+        ImeName = 'Microsoft IME 2010'
+        TabOrder = 2
       end
     end
   end
