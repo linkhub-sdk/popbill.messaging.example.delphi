@@ -4,7 +4,7 @@
 { - 업데이트 일자 : 2022-10-31
 { - 연동 기술지원 연락처 : 1600-9854
 { - 연동 기술지원 이메일 : code@linkhubcorp.com
-{ - SDK 튜토리얼 : https://docs.popbill.com/message/tutorial/delphi
+{ - SDK 튜토리얼 : https://developers.popbill.com/guide/sms/delphi/getting-started/tutorial
 {
 { <테스트 연동개발 준비사항>
 { (1)33, 36번 라인에 선언된 링크아이디(LinkID)와 비밀키(SecretKey)를
@@ -247,7 +247,7 @@ begin
         {**********************************************************************}
         { 팝빌 사이트에 로그인 상태로 접근할 수 있는 페이지의 팝업 URL을 반환합니다.           
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetAccessURL
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#GetAccessURL
         {**********************************************************************}
 
         try
@@ -276,7 +276,7 @@ var
 begin      
         {**********************************************************************}
         { 사용자를 연동회원으로 가입처리합니다.
-        { - https://docs.popbill.com/message/delphi/api#JoinMember
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#JoinMember
         {**********************************************************************}
 
         // 링크아이디
@@ -339,7 +339,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원의 잔여포인트를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetBalance
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetBalance
         {**********************************************************************}
 
         try
@@ -367,7 +367,7 @@ var
 begin
         {**********************************************************************}
         { 문자(SMS) 전송시 과금되는 포인트 단가를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetUnitCost
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetUnitCost
         {**********************************************************************}
         
         try
@@ -396,7 +396,7 @@ var
 begin
         {**********************************************************************}
         { 문자(LMS) 전송시 과금되는 포인트 단가를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetUnitCost
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetUnitCost
         {**********************************************************************}
         
         try
@@ -425,7 +425,7 @@ var
 begin
         {**********************************************************************}
         { 문자(MMS) 전송시 과금되는 포인트 단가를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetUnitCost
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetUnitCost
         {**********************************************************************}
 
         try
@@ -453,7 +453,7 @@ var
 begin
         {**********************************************************************}
         { 파트너의 잔여포인트를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetPartnerBalance
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetPartnerBalance
         {**********************************************************************}
         
         try
@@ -488,7 +488,7 @@ var
 begin
         {***************************************************************************}
         { 최대 90byte의 단문(SMS) 메시지 1건 전송을 팝빌에 접수합니다.
-        { - https://docs.popbill.com/message/delphi/api#SendSMS
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendSMSOne
         {***************************************************************************}
 
         try
@@ -550,7 +550,7 @@ begin
         {***************************************************************************}
         { 최대 90byte의 단문(SMS) 메시지 다수건 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 수신자마다 개별 내용을 전송할 수 있습니다(대량전송).
-        { - https://docs.popbill.com/message/delphi/api#SendSMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendSMSAll
         {***************************************************************************}
 
         //수신 정보 배열, 최대 1000건
@@ -621,7 +621,7 @@ begin
         {***************************************************************************}
         { 최대 90byte의 단문(SMS) 메시지 다수건 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 모든 수신자에게 동일한 내용을 전송할 수 있습니다.(동보전송).
-        { - https://docs.popbill.com/message/delphi/api#SendSMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendSMSAll
         {***************************************************************************}
 
         //수신 정보 배열, 최대 1000건
@@ -689,7 +689,7 @@ var
 begin
         {***************************************************************************}
         { 최대 2,000byte의 장문(LMS) 메시지 1건 전송을 팝빌에 접수합니다.
-        { - https://docs.popbill.com/message/delphi/api#SendLMS
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendLMSOne
         {***************************************************************************}
 
         // 발신번호 (팝빌에 등록된 발신번호)
@@ -750,7 +750,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌에서 반환받은 접수번호를 통해 문자 전송상태 및 결과를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetMessages
+        { - https://developers.popbill.com/reference/sms/delphi/api/info#GetMessages
         {**********************************************************************}
 
         try
@@ -842,7 +842,7 @@ begin
         {***************************************************************************}
         { 최대 2,000byte의 장문(LMS) 메시지 다수건 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 모든 수신자에게 동일한 내용을 전송하거나(동보전송).
-        { - https://docs.popbill.com/message/delphi/api#SendLMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendLMSAll
         {***************************************************************************}
 
         //수신 정보 배열, 최대 1000건
@@ -911,7 +911,7 @@ begin
         {***************************************************************************}
         { 최대 2,000byte의 장문(LMS) 메시지 다수건 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 수신자마다 개별 내용을 전송할 수 있습니다(대량전송).
-        { - https://docs.popbill.com/message/delphi/api#SendLMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendLMSAll
         {***************************************************************************}
 
         // 전송정보 배열, 최대 1000건
@@ -977,7 +977,7 @@ var
 begin
         {***************************************************************************}
         { 메시지 길이(90byte)에 따라 단문/장문(SMS/LMS)을 자동으로 인식하여 1건의 메시지를 전송을 팝빌에 접수합니다.
-        { - https://docs.popbill.com/message/delphi/api#SendXMS
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendXMSOne
         {***************************************************************************}
 
         // 발신번호 (팝빌에 등록된 발신번호)
@@ -1044,7 +1044,7 @@ begin
         {***************************************************************************}
         { 메시지 길이(90byte)에 따라 단문/장문(SMS/LMS)을 자동으로 인식하여 1건의 메시지를 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 모든 수신자에게 동일한 내용을 전송하거나(동보전송).
-        { - https://docs.popbill.com/message/delphi/api#SendXMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendXMSAll
         {***************************************************************************}
 
         //수신 정보 배열, 최대 1000건
@@ -1118,7 +1118,7 @@ begin
         {***************************************************************************}
         { 메시지 길이(90byte)에 따라 단문/장문(SMS/LMS)을 자동으로 인식하여 1건의 메시지를 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 수신자마다 개별 내용을 전송할 수 있습니다(대량전송).
-        { - https://docs.popbill.com/message/delphi/api#SendXMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendXMSAll
         {***************************************************************************}
 
         //전송정보 배열 최대 1000건
@@ -1185,7 +1185,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌에서 반환받은 접수번호를 통해 예약접수된 문자 메시지 전송을 취소합니다. (예약시간 10분 전까지 가능)
-        { - https://docs.popbill.com/message/delphi/api#CancelReserve
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#CancelReserve
         {**********************************************************************}
 
         try
@@ -1212,7 +1212,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌에서 반환받은 접수번호와 수신번호를 통해 예약접수된 문자 메시지 전송을 취소합니다. (예약시간 10분 전까지 가능)
-        { - https://docs.popbill.com/message/delphi/api#CancelReservebyRCV
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#CancelReservebyRCV
         {**********************************************************************}
 
         try
@@ -1240,7 +1240,7 @@ begin
         {**********************************************************************}
         { 문자 전송내역 확인 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetSentListURL
+        { - https://developers.popbill.com/reference/sms/delphi/api/info#GetSentListURL
         {**********************************************************************}
 
         try
@@ -1272,7 +1272,7 @@ begin
         {***************************************************************************}
         { 최대 2,000byte의 메시지와 이미지로 구성된 포토문자(MMS) 1건 전송을 팝빌에 접수합니다.
         { - 이미지 파일 포맷/규격 : 최대 300Kbyte(JPEG, JPG), 가로/세로 1,000px 이하 권장
-        { - https://docs.popbill.com/message/delphi/api#SendMMS
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendMMSOne
         {***************************************************************************}
 
         if OpenDialog1.Execute then begin
@@ -1345,7 +1345,7 @@ begin
         { 최대 2,000byte의 메시지와 이미지로 구성된 포토문자(MMS) 다수건 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 모든 수신자에게 동일한 내용을 전송하거나(동보전송).
         { - 이미지 파일 포맷/규격 : 최대 300Kbyte(JPEG), 가로/세로 1,000px 이하 권장
-        { - https://docs.popbill.com/message/delphi/api#SendMMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendMMSAll
         {***************************************************************************}
 
         if OpenDialog1.Execute then begin
@@ -1415,7 +1415,7 @@ var
 begin
         {**********************************************************************}
         { 사용하고자 하는 아이디의 중복여부를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#CheckID
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#CheckID
         {**********************************************************************}
 
         try
@@ -1445,7 +1445,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 담당자(팝빌 로그인 계정)를 추가합니다.
-        { - https://docs.popbill.com/message/delphi/api#RegistContact
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#RegistContact
         {**********************************************************************}
 
         // [필수] 담당자 아이디 (6자 이상 50자 미만)
@@ -1492,7 +1492,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 목록을 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#ListContact
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#ListContact
         {**********************************************************************}
 
         try
@@ -1535,7 +1535,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 수정합니다.
-        { - https://docs.popbill.com/message/delphi/api#UpdateContact
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#UpdateContact
         {**********************************************************************}
 
         contactInfo := TContactInfo.Create;
@@ -1580,7 +1580,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원의 회사정보를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetCorpInfo
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#GetCorpInfo
         {**********************************************************************}
                
         try
@@ -1614,7 +1614,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원의 회사정보를 수정합니다.
-        { - https://docs.popbill.com/message/delphi/api#UpdateCorpInfo
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#UpdateCorpInfo
         {**********************************************************************}
 
         corpInfo := TCorpInfo.Create;
@@ -1665,7 +1665,7 @@ begin
         {**********************************************************************}
         { 검색조건에 해당하는 문자 전송내역을 조회합니다. (조회기간 단위 : 최대 2개월)
         { - 문자 접수일시로부터 6개월 이내 접수건만 조회할 수 있습니다.
-        { - https://docs.popbill.com/message/delphi/api#GetMessages
+        { - https://developers.popbill.com/reference/sms/delphi/api/info#GetMessages
         {**********************************************************************}
 
         // 검색기간 시작일자, 날짜형식 yyyyMMdd
@@ -1794,7 +1794,7 @@ var
 begin
         {**********************************************************************}
         { 사업자번호를 조회하여 연동회원 가입여부를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#CheckIsMember
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#CheckIsMember
         {**********************************************************************}
 
         try
@@ -1822,7 +1822,7 @@ begin
         {**********************************************************************}
         { 연동회원 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetChargeURL
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetChargeURL
         {**********************************************************************}
         
         try
@@ -1852,7 +1852,7 @@ var
 begin
         {**********************************************************************}
         { 전용 080 번호에 등록된 수신거부 목록을 반환합니다.                                    
-        { - https://docs.popbill.com/message/delphi/api#GetAutoDenyList
+        { - https://developers.popbill.com/reference/sms/delphi/api/info#GetAutoDenyList
         {**********************************************************************}
 
         try
@@ -1890,7 +1890,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌 문자(SMS) API 서비스 과금정보를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetChargeInfo
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetChargeInfo
         {**********************************************************************}
         
         try
@@ -1923,7 +1923,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌 문자(LMS) API 서비스 과금정보를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetChargeInfo
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetChargeInfo
         {**********************************************************************}
 
         try
@@ -1956,7 +1956,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌 문자(MMS) API 서비스 과금정보를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetChargeInfo
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetChargeInfo
         {**********************************************************************}
 
         try
@@ -1990,7 +1990,7 @@ begin
         {**********************************************************************}
         { 문자 발신번호 등록여부를 확인합니다.
         { - 발신번호 상태가 '승인'인 경우에만 리턴값 'TResponse'의 변수 'code'가 1로 반환됩니다.
-        { - https://docs.popbill.com/message/delphi/api#CheckSenderNumber
+        { - https://developers.popbill.com/reference/sms/delphi/api/sendnum#CheckSenderNumber
         {**********************************************************************}
 
         //확인할 발신번호
@@ -2023,7 +2023,7 @@ begin
         {**********************************************************************}
         { 발신번호를 등록하고 내역을 확인하는 문자 발신번호 관리 페이지 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetSenderNumberMgtURL   
+        { - https://developers.popbill.com/reference/sms/delphi/api/sendnum#GetSenderNumberMgtURL
         {**********************************************************************}
 
         try
@@ -2054,7 +2054,7 @@ var
 begin
         {**********************************************************************}
         { 팝빌에 등록한 연동회원의 문자 발신번호 목록을 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetSenderNumberList
+        { - https://developers.popbill.com/reference/sms/delphi/api/sendnum#GetSenderNumberList
         {**********************************************************************}
 
         try
@@ -2094,7 +2094,7 @@ begin
         {**********************************************************************}
         { 파트너 포인트 충전을 위한 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetPartnerURL
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetPartnerURL
         {**********************************************************************}
 
         try
@@ -2124,7 +2124,7 @@ var
 begin
         {*******************************************************************************}
         { 파트너가 할당한 전송요청 번호를 통해 문자 전송상태 및 결과를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetMessagesRN
+        { - https://developers.popbill.com/reference/sms/delphi/api/info#GetMessagesRN
         {*******************************************************************************}
 
         try
@@ -2206,7 +2206,7 @@ var
 begin
         {**********************************************************************}
         { 파트너가 할당한 전송요청 번호를 통해 예약접수된 문자 전송을 취소합니다. (예약시간 10분 전까지 가능)
-        { - https://docs.popbill.com/message/delphi/api#CancelReserveRN
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#CancelReserveRN
         {**********************************************************************}
 
         try
@@ -2233,7 +2233,7 @@ var
 begin
         {**********************************************************************}
         { 파트너가 할당한 전송요청 번호와 수신번호를 통해 예약접수된 문자 전송을 취소합니다. (예약시간 10분 전까지 가능)
-        { - https://docs.popbill.com/message/delphi/api#CancelReserveRNbyRCV                 
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#CancelReserveRNbyRCV
         {**********************************************************************}
 
         try
@@ -2265,7 +2265,7 @@ begin
         { 최대 2,000byte의 메시지와 이미지로 구성된 포토문자(MMS) 다수건 전송을 팝빌에 접수합니다. (최대 1,000건)
         { - 수신자마다 개별 내용을 전송할 수 있습니다(대량전송).
         { - 이미지 파일 포맷/규격 : 최대 300Kbyte(JPEG), 가로/세로 1,000px 이하 권장
-        { - https://docs.popbill.com/message/delphi/api#SendMMS_Multi
+        { - https://developers.popbill.com/reference/sms/delphi/api/send#SendMMSAll
         {***************************************************************************}
 
         if OpenDialog1.Execute then begin
@@ -2336,7 +2336,7 @@ begin
         {**********************************************************************}
         { 연동회원 포인트 결제내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetPaymentURL
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetPaymentURL
         {**********************************************************************}
         
         try
@@ -2365,7 +2365,7 @@ begin
         {**********************************************************************}
         { 연동회원 포인트 사용내역 확인을 위한 페이지의 팝업 URL을 반환합니다.
         { - 반환되는 URL은 보안 정책상 30초 동안 유효하며, 시간을 초과한 후에는 해당 URL을 통한 페이지 접근이 불가합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetUseHistoryURL
+        { - https://developers.popbill.com/reference/sms/delphi/api/point#GetUseHistoryURL
         {**********************************************************************}
 
         try
@@ -2396,7 +2396,7 @@ var
 begin
         {**********************************************************************}
         { 연동회원 사업자번호에 등록된 담당자(팝빌 로그인 계정) 정보를 확인합니다.
-        { - https://docs.popbill.com/message/delphi/api#GetContactInfo
+        { - https://developers.popbill.com/reference/sms/delphi/api/member#GetContactInfo
         {**********************************************************************}
 
         contactID := 'testkorea';
