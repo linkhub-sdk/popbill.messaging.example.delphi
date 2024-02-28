@@ -1,9 +1,9 @@
 object frmExample: TfrmExample
   Left = 336
   Top = 142
-  Width = 1403
-  Height = 868
-  Caption = '팝빌 문자 API SDK Delphi Example'
+  Caption = #54045#48716' '#47928#51088' API SDK Delphi Example'
+  ClientHeight = 829
+  ClientWidth = 1387
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,14 +19,14 @@ object frmExample: TfrmExample
     Top = 20
     Width = 111
     Height = 13
-    Caption = '팝빌회원 사업자번호 : '
+    Caption = #54045#48716#54924#50896' '#49324#50629#51088#48264#54840' : '
   end
   object Label4: TLabel
     Left = 312
     Top = 20
     Width = 64
     Height = 13
-    Caption = '팝빌아이디 : '
+    Caption = #54045#48716#50500#51060#46356' : '
   end
   object Label6: TLabel
     Left = 960
@@ -42,28 +42,28 @@ object frmExample: TfrmExample
     Top = 20
     Width = 53
     Height = 13
-    Caption = '접수번호 : '
+    Caption = #51217#49688#48264#54840' : '
   end
   object GroupBox8: TGroupBox
     Left = 16
     Top = 48
     Width = 1361
     Height = 193
-    Caption = '팝빌 기본 API'
+    Caption = #54045#48716' '#44592#48376' API'
     TabOrder = 1
     object GroupBox9: TGroupBox
       Left = 16
       Top = 24
       Width = 161
       Height = 129
-      Caption = '회원 정보'
+      Caption = #54924#50896' '#51221#48372
       TabOrder = 0
       object btnJoin: TButton
         Left = 8
         Top = 88
         Width = 144
         Height = 25
-        Caption = '연동회원 신규가입'
+        Caption = #50672#46041#54924#50896' '#49888#44508#44032#51077
         TabOrder = 0
         OnClick = btnJoinClick
       end
@@ -72,7 +72,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = '아이디 중복 확인'
+        Caption = #50500#51060#46356' '#51473#48373' '#54869#51064
         TabOrder = 1
         OnClick = btnCheckIDClick
       end
@@ -81,7 +81,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 144
         Height = 25
-        Caption = '가입여부 확인'
+        Caption = #44032#51077#50668#48512' '#54869#51064
         TabOrder = 2
         OnClick = btnCheckIsMemberClick
       end
@@ -91,14 +91,14 @@ object frmExample: TfrmExample
       Top = 24
       Width = 312
       Height = 129
-      Caption = '포인트 관련'
+      Caption = #54252#51064#53944' '#44288#47144
       TabOrder = 1
       object btnGetUnitCost_SMS: TButton
         Left = 160
         Top = 24
         Width = 144
         Height = 25
-        Caption = 'SMS 전송단가 확인'
+        Caption = 'SMS '#51204#49569#45800#44032' '#54869#51064
         TabOrder = 0
         OnClick = btnGetUnitCost_SMSClick
       end
@@ -107,7 +107,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = 'LMS 전송단가 확인'
+        Caption = 'LMS '#51204#49569#45800#44032' '#54869#51064
         TabOrder = 1
         OnClick = btnGetUnitCost_LMSClick
       end
@@ -116,7 +116,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 144
         Height = 25
-        Caption = 'MMS 전송단가 확인'
+        Caption = 'MMS '#51204#49569#45800#44032' '#54869#51064
         TabOrder = 2
         OnClick = btnGetUnitCost_MMSClick
       end
@@ -125,7 +125,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 144
         Height = 25
-        Caption = 'SMS 과금정보 확인'
+        Caption = 'SMS '#44284#44552#51221#48372' '#54869#51064
         TabOrder = 3
         OnClick = btnGetChargeInfo_SMSClick
       end
@@ -134,7 +134,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = 'LMS 과금정보 확인'
+        Caption = 'LMS '#44284#44552#51221#48372' '#54869#51064
         TabOrder = 4
         OnClick = btnGetChargeInfo_LMSClick
       end
@@ -143,7 +143,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 144
         Height = 25
-        Caption = 'MMS 과금정보 확인'
+        Caption = 'MMS '#44284#44552#51221#48372' '#54869#51064
         TabOrder = 5
         OnClick = btnGetChargeInfo_MMSClick
       end
@@ -153,14 +153,14 @@ object frmExample: TfrmExample
       Top = 24
       Width = 161
       Height = 129
-      Caption = '팝빌 기본 URL'
+      Caption = #54045#48716' '#44592#48376' URL'
       TabOrder = 2
       object btnGetAccessURL: TButton
         Left = 8
         Top = 24
         Width = 144
         Height = 25
-        Caption = '팝빌 로그인 URL'
+        Caption = #54045#48716' '#47196#44536#51064' URL'
         TabOrder = 0
         OnClick = btnGetAccessURLClick
       end
@@ -170,14 +170,14 @@ object frmExample: TfrmExample
       Top = 24
       Width = 161
       Height = 153
-      Caption = '담당자 관련'
+      Caption = #45812#45817#51088' '#44288#47144
       TabOrder = 3
       object btnRegistContact: TButton
         Left = 8
         Top = 24
         Width = 144
         Height = 25
-        Caption = '담당자 추가'
+        Caption = #45812#45817#51088' '#52628#44032
         TabOrder = 0
         OnClick = btnRegistContactClick
       end
@@ -186,7 +186,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 144
         Height = 25
-        Caption = '담당자 목록 조회'
+        Caption = #45812#45817#51088' '#47785#47197' '#51312#54924
         TabOrder = 1
         OnClick = btnListContactClick
       end
@@ -195,7 +195,7 @@ object frmExample: TfrmExample
         Top = 120
         Width = 144
         Height = 25
-        Caption = '담당자 정보 수정'
+        Caption = #45812#45817#51088' '#51221#48372' '#49688#51221
         TabOrder = 2
         OnClick = btnUpdateContactClick
       end
@@ -204,7 +204,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = '담당자 정보 확인'
+        Caption = #45812#45817#51088' '#51221#48372' '#54869#51064
         TabOrder = 3
         OnClick = btnGetContactInfoClick
       end
@@ -214,14 +214,14 @@ object frmExample: TfrmExample
       Top = 24
       Width = 161
       Height = 129
-      Caption = '회사정보 관련'
+      Caption = #54924#49324#51221#48372' '#44288#47144
       TabOrder = 4
       object btnGetCorpInfo: TButton
         Left = 8
         Top = 24
         Width = 144
         Height = 25
-        Caption = '회사정보 조회'
+        Caption = #54924#49324#51221#48372' '#51312#54924
         TabOrder = 0
         OnClick = btnGetCorpInfoClick
       end
@@ -230,7 +230,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = '회사정보 수정'
+        Caption = #54924#49324#51221#48372' '#49688#51221
         TabOrder = 1
         OnClick = btnUpdateCorpInfoClick
       end
@@ -240,14 +240,14 @@ object frmExample: TfrmExample
       Top = 24
       Width = 161
       Height = 153
-      Caption = '연동과금 포인트'
+      Caption = #50672#46041#44284#44552' '#54252#51064#53944
       TabOrder = 5
       object btnGetBalance: TButton
         Left = 8
         Top = 24
         Width = 144
         Height = 25
-        Caption = '잔여포인트 확인'
+        Caption = #51092#50668#54252#51064#53944' '#54869#51064
         TabOrder = 0
         OnClick = btnGetBalanceClick
       end
@@ -256,7 +256,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = '포인트 충전 URL'
+        Caption = #54252#51064#53944' '#52649#51204' URL'
         TabOrder = 1
         OnClick = btnGetChargeURLClick
       end
@@ -265,7 +265,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 144
         Height = 25
-        Caption = '포인트 결제내역 URL'
+        Caption = #54252#51064#53944' '#44208#51228#45236#50669' URL'
         TabOrder = 2
         OnClick = btnGetPaymentURLClick
       end
@@ -274,7 +274,7 @@ object frmExample: TfrmExample
         Top = 120
         Width = 144
         Height = 25
-        Caption = '포인트 사용내역 URL'
+        Caption = #54252#51064#53944' '#49324#50857#45236#50669' URL'
         TabOrder = 3
         OnClick = btnGetUseHistoryURLClick
       end
@@ -284,14 +284,14 @@ object frmExample: TfrmExample
       Top = 24
       Width = 161
       Height = 130
-      Caption = '파트너과금 포인트'
+      Caption = #54028#53944#45320#44284#44552' '#54252#51064#53944
       TabOrder = 6
       object btnGetPartnerBalance: TButton
         Left = 8
         Top = 24
         Width = 144
         Height = 25
-        Caption = '파트너포인트 확인'
+        Caption = #54028#53944#45320#54252#51064#53944' '#54869#51064
         TabOrder = 0
         OnClick = btnGetPartnerBalanceClick
       end
@@ -300,7 +300,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 144
         Height = 25
-        Caption = '포인트 충전 URL'
+        Caption = #54252#51064#53944' '#52649#51204' URL'
         TabOrder = 1
         OnClick = btnGetPartnerURL_CHRGClick
       end
@@ -329,28 +329,28 @@ object frmExample: TfrmExample
     Top = 240
     Width = 1361
     Height = 577
-    Caption = '팝빌 메시징 관련 기능'
+    Caption = #54045#48716' '#47700#49884#51669' '#44288#47144' '#44592#45733
     TabOrder = 3
     object Label2: TLabel
       Left = 24
       Top = 32
       Width = 151
       Height = 13
-      Caption = '예약시간(yyyyMMddHHmmss) : '
+      Caption = #50696#50557#49884#44036'(yyyyMMddHHmmss) : '
     end
     object GroupBox10: TGroupBox
       Left = 1005
       Top = 24
       Width = 172
       Height = 161
-      Caption = '부가기능'
+      Caption = #48512#44032#44592#45733
       TabOrder = 6
       object btnGetSentListURL: TButton
         Left = 8
         Top = 24
         Width = 153
         Height = 25
-        Caption = '전송내역조회 팝업 URL'
+        Caption = #51204#49569#45236#50669#51312#54924' '#54045#50629' URL'
         TabOrder = 0
         OnClick = btnGetSentListURLClick
       end
@@ -359,7 +359,7 @@ object frmExample: TfrmExample
         Top = 88
         Width = 153
         Height = 25
-        Caption = '전송내역 목록 조회'
+        Caption = #51204#49569#45236#50669' '#47785#47197' '#51312#54924
         TabOrder = 1
         OnClick = btnSearchMessagesClick
       end
@@ -368,7 +368,7 @@ object frmExample: TfrmExample
         Top = 56
         Width = 153
         Height = 25
-        Caption = '080 수신거부목록 조회'
+        Caption = '080 '#49688#49888#44144#48512#47785#47197' '#51312#54924
         TabOrder = 2
         OnClick = btnGetAutoDenyListClick
       end
@@ -378,14 +378,14 @@ object frmExample: TfrmExample
       Top = 64
       Width = 417
       Height = 65
-      Caption = 'SMS 관련기능'
+      Caption = 'SMS '#44288#47144#44592#45733
       TabOrder = 0
       object btnSendSMS_Single: TButton
         Left = 8
         Top = 24
         Width = 128
         Height = 25
-        Caption = '1건 전송'
+        Caption = '1'#44148' '#51204#49569
         TabOrder = 0
         OnClick = btnSendSMS_SingleClick
       end
@@ -394,7 +394,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = #45824#47049' 1000'#44148' '#51204#49569
         TabOrder = 1
         OnClick = btnSendThousandClick
       end
@@ -403,7 +403,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '동보 1000건 전송'
+        Caption = #46041#48372' 1000'#44148' '#51204#49569
         TabOrder = 2
         OnClick = btnSendThousandSameClick
       end
@@ -413,14 +413,14 @@ object frmExample: TfrmExample
       Top = 64
       Width = 417
       Height = 65
-      Caption = 'LMS 관련기능'
+      Caption = 'LMS '#44288#47144#44592#45733
       TabOrder = 1
       object btnSendLMS: TButton
         Left = 8
         Top = 24
         Width = 128
         Height = 25
-        Caption = '1건 전송'
+        Caption = '1'#44148' '#51204#49569
         TabOrder = 0
         OnClick = btnSendLMSClick
       end
@@ -429,7 +429,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = #45824#47049' 1000'#44148' '#51204#49569
         TabOrder = 1
         OnClick = btnSendLMSThousandClick
       end
@@ -438,7 +438,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '동보 1000건 전송'
+        Caption = #46041#48372' 1000'#44148' '#51204#49569
         TabOrder = 2
         OnClick = btnSendLMSThousand_SameClick
       end
@@ -448,14 +448,14 @@ object frmExample: TfrmExample
       Top = 144
       Width = 417
       Height = 65
-      Caption = 'XMS 관련기능'
+      Caption = 'XMS '#44288#47144#44592#45733
       TabOrder = 2
       object btnSendXMS: TButton
         Left = 8
         Top = 24
         Width = 128
         Height = 25
-        Caption = '1건 전송'
+        Caption = '1'#44148' '#51204#49569
         TabOrder = 0
         OnClick = btnSendXMSClick
       end
@@ -464,7 +464,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = #45824#47049' 1000'#44148' '#51204#49569
         TabOrder = 1
         OnClick = btnSendXMSThousandClick
       end
@@ -473,7 +473,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '동보 1000건 전송'
+        Caption = #46041#48372' 1000'#44148' '#51204#49569
         TabOrder = 2
         OnClick = btnSendXMSThousand_SameClick
       end
@@ -521,14 +521,14 @@ object frmExample: TfrmExample
       Top = 144
       Width = 417
       Height = 65
-      Caption = 'MMS 관련기능'
+      Caption = 'MMS '#44288#47144#44592#45733
       TabOrder = 5
       object btnSendMMS: TButton
         Left = 8
         Top = 24
         Width = 128
         Height = 25
-        Caption = '1건 전송'
+        Caption = '1'#44148' '#51204#49569
         TabOrder = 0
         OnClick = btnSendMMSClick
       end
@@ -537,7 +537,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '동보 1000건 전송'
+        Caption = #46041#48372' 1000'#44148' '#51204#49569
         TabOrder = 1
         OnClick = btnSendMMSThousand_SameClick
       end
@@ -546,7 +546,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 128
         Height = 25
-        Caption = '대량 1000건 전송'
+        Caption = #45824#47049' 1000'#44148' '#51204#49569
         TabOrder = 2
         OnClick = btnSendMMS_ThousandClick
       end
@@ -556,14 +556,14 @@ object frmExample: TfrmExample
       Top = 24
       Width = 161
       Height = 161
-      Caption = '발신번호 관리 '
+      Caption = #48156#49888#48264#54840' '#44288#47532' '
       TabOrder = 7
       object btnGetSenderNumberMgtURL: TButton
         Left = 8
         Top = 87
         Width = 144
         Height = 25
-        Caption = '발신번호 관리 팝업'
+        Caption = #48156#49888#48264#54840' '#44288#47532' '#54045#50629
         TabOrder = 0
         OnClick = btnGetSenderNumberMgtURLClick
       end
@@ -572,7 +572,7 @@ object frmExample: TfrmExample
         Top = 55
         Width = 144
         Height = 25
-        Caption = '발신번호 목록 확인'
+        Caption = #48156#49888#48264#54840' '#47785#47197' '#54869#51064
         TabOrder = 1
         OnClick = btnGetSenderNumberListClick
       end
@@ -581,7 +581,7 @@ object frmExample: TfrmExample
         Top = 24
         Width = 145
         Height = 25
-        Caption = '발신번호 등록 여부'
+        Caption = #48156#49888#48264#54840' '#46321#47197' '#50668#48512
         TabOrder = 2
         OnClick = btnCheckSenderNumberClick
       end
@@ -591,14 +591,14 @@ object frmExample: TfrmExample
       Top = 224
       Width = 320
       Height = 105
-      Caption = '접수번호 관련 기능 (요청번호 미할당)'
+      Caption = #51217#49688#48264#54840' '#44288#47144' '#44592#45733' ('#50836#52397#48264#54840' '#48120#54624#45817')'
       TabOrder = 8
       object Label1: TLabel
         Left = 13
         Top = 28
         Width = 53
         Height = 13
-        Caption = '접수번호 : '
+        Caption = #51217#49688#48264#54840' : '
       end
       object txtReceiptNum: TEdit
         Left = 80
@@ -613,7 +613,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '전송내역 확인'
+        Caption = #51204#49569#45236#50669' '#54869#51064
         TabOrder = 1
         OnClick = btnGetMessageClick
       end
@@ -622,7 +622,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '예약전송 취소'
+        Caption = #50696#50557#51204#49569' '#52712#49548
         TabOrder = 2
         OnClick = btnCancelReserveClick
       end
@@ -632,21 +632,21 @@ object frmExample: TfrmExample
       Top = 224
       Width = 320
       Height = 105
-      Caption = '요청번호 할당 전송건 처리'
+      Caption = #50836#52397#48264#54840' '#54624#45817' '#51204#49569#44148' '#52376#47532
       TabOrder = 9
       object Label5: TLabel
         Left = 13
         Top = 28
         Width = 53
         Height = 13
-        Caption = '요청번호 : '
+        Caption = #50836#52397#48264#54840' : '
       end
       object txtRequestNum: TEdit
         Left = 80
         Top = 24
         Width = 222
         Height = 21
-        ImeName = '한국어 입력 시스템 (IME 2000)'
+        ImeName = #54620#44397#50612' '#51077#47141' '#49884#49828#53596' (IME 2000)'
         TabOrder = 0
       end
       object btnGetMessageRN: TButton
@@ -654,7 +654,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '전송내역 확인'
+        Caption = #51204#49569#45236#50669' '#54869#51064
         TabOrder = 1
         OnClick = btnGetMessageRNClick
       end
@@ -663,7 +663,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '예약전송 취소'
+        Caption = #50696#50557#51204#49569' '#52712#49548
         TabOrder = 2
         OnClick = btnCancelReserveRNClick
       end
@@ -673,28 +673,28 @@ object frmExample: TfrmExample
       Top = 224
       Width = 320
       Height = 105
-      Caption = '요청번호 할당 전송건 처리 (수신번호)'
+      Caption = #50836#52397#48264#54840' '#54624#45817' '#51204#49569#44148' '#52376#47532' ('#49688#49888#48264#54840')'
       TabOrder = 10
       object Label7: TLabel
         Left = 13
         Top = 20
         Width = 53
         Height = 13
-        Caption = '요청번호 : '
+        Caption = #50836#52397#48264#54840' : '
       end
       object Label9: TLabel
         Left = 13
         Top = 44
         Width = 53
         Height = 13
-        Caption = '수신번호 : '
+        Caption = #49688#49888#48264#54840' : '
       end
       object txtRequestNumbyRCV: TEdit
         Left = 80
         Top = 16
         Width = 222
         Height = 21
-        ImeName = '한국어 입력 시스템 (IME 2000)'
+        ImeName = #54620#44397#50612' '#51077#47141' '#49884#49828#53596' (IME 2000)'
         TabOrder = 0
       end
       object btnCancelReserveRNbyRCV: TButton
@@ -702,7 +702,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '예약전송 취소'
+        Caption = #50696#50557#51204#49569' '#52712#49548
         TabOrder = 1
         OnClick = btnCancelReserveRNbyRCVClick
       end
@@ -711,7 +711,7 @@ object frmExample: TfrmExample
         Top = 40
         Width = 222
         Height = 21
-        ImeName = '한국어 입력 시스템 (IME 2000)'
+        ImeName = #54620#44397#50612' '#51077#47141' '#49884#49828#53596' (IME 2000)'
         TabOrder = 2
       end
     end
@@ -720,21 +720,21 @@ object frmExample: TfrmExample
       Top = 224
       Width = 320
       Height = 105
-      Caption = '접수번호 관련 기능 (요청번호 미할당, 수신번호)'
+      Caption = #51217#49688#48264#54840' '#44288#47144' '#44592#45733' ('#50836#52397#48264#54840' '#48120#54624#45817', '#49688#49888#48264#54840')'
       TabOrder = 11
       object Label8: TLabel
         Left = 13
         Top = 20
         Width = 53
         Height = 13
-        Caption = '접수번호 : '
+        Caption = #51217#49688#48264#54840' : '
       end
       object Label10: TLabel
         Left = 13
         Top = 44
         Width = 53
         Height = 13
-        Caption = '수신번호 : '
+        Caption = #49688#49888#48264#54840' : '
       end
       object txtReceiptNumbyRCV: TEdit
         Left = 80
@@ -749,7 +749,7 @@ object frmExample: TfrmExample
         Top = 64
         Width = 144
         Height = 25
-        Caption = '예약전송 취소'
+        Caption = #50696#50557#51204#49569' '#52712#49548
         TabOrder = 1
         OnClick = btnCancelReservebyRCVClick
       end
